@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="org.liangxiaokou.module.setlovedate.SetLoveDateActivityFragment">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInput_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+        <!--http://blog.sina.com.cn/s/blog_6faf711d0101kbqz.html-->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入，例如：2015-02-14"
+            android:inputType="date"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_content_size" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="恋爱日代表你们谈恋爱的起始日期"
+        android:textSize="14sp" />
+</LinearLayout>

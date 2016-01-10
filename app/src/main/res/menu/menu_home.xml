@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".HomeActivity">
+    <!--http://blog.csdn.net/bigconvience/article/details/28886241
+    http://blog.csdn.net/jdsjlzx/article/details/17957471-->
+    <item
+        android:id="@+id/action_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@mipmap/ic_search_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/search"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_share"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_menu_home"
+            android:icon="@mipmap/ic_home_white_18dp"
+            android:textSize="@dimen/normal_content_size"
+            android:title="@string/app_name" />
+        <item
+            android:id="@+id/nav_menu_feedback"
+            android:icon="@mipmap/ic_error_white_18dp"
+            android:textSize="@dimen/normal_content_size"
+            android:title="反馈" />
+        <item
+            android:id="@+id/nav_menu_update"
+            android:icon="@mipmap/ic_update_white_18dp"
+            android:textSize="@dimen/normal_content_size"
+            android:title="点我更新" />
+        <item
+            android:id="@+id/nav_menu_money"
+            android:icon="@mipmap/ic_money_white_18dp"
+            android:textSize="@dimen/normal_content_size"
+            android:title="么么哒" />
+        <item
+            android:id="@+id/nav_menu_dev"
+            android:icon="@mipmap/ic_bug_white_18dp"
+            android:textSize="@dimen/normal_content_size"
+            android:title="开发中..." />
+    </group>
+</menu>

@@ -1,0 +1,28 @@
+<resources>
+
+    <!--以上的style和平台不相关，以下的style是v21的-->
+    <style name="AppTheme" parent="@style/BaseAppTheme">
+        <!--android沉浸式状态栏-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:fitsSystemWindows">true</item>-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Activity.Translucent.Style</item>
+    </style>
+
+    <!--主界面-->
+    <style name="AppBaseThemeMain" parent="@style/BaseAppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <!--<item name="android:windowAnimationStyle">@style/Animation.Activity.Translucent.Style</item>-->
+    </style>
+
+    <!--启动页-->
+    <style name="SplashScreenActivityTheme" parent="@style/BaseAppTheme"></style>
+
+    <style name="DrawerLayoutTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!--<dimen name="codelab_fab_margin_right">16dp</dimen>-->
+    <!--<dimen name="codelab_fab_margin_bottom">16dp</dimen>-->
+</resources>

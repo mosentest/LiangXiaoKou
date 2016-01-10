@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.liangxiaokou.module.splashscreen.SplashScreenActivityFragment">
+
+    <!--<org.mo.ui.view.GiftRainView-->
+        <!--android:id="@+id/gift_rain_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:gift_background="@color/system_color"-->
+        <!--app:gift_count="8"-->
+        <!--app:gift_max_size="0.8"-->
+        <!--app:gift_min_size="0.5"-->
+        <!--app:gift_speed="100" />-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_height="match_parent"
+        android:src="@mipmap/bg_splash"/>
+</RelativeLayout>

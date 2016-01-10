@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="system_color">#FFAEB9</color>
+    <color name="system_press">#FFAEB9</color>
+    <color name="system_dark">#FF8C69</color>
+    <color name="gray">#FFF5EE</color>
+    <color name="dark">#80323232</color>
+    <color name="red">#EA5656</color>
+    <color name="red_press">#E57660</color>
+    <color name="green">#99CC99</color>
+    <color name="blue">#0099CC</color>
+    <color name="line">#DCDCDC</color>
+    <color name="black_p50">#7f000000</color>
+
+    <color name="batman">#3c404a</color>
+    <color name="black_widow">#e24c3b</color>
+    <color name="death_stroke">#eeeeee</color>
+    <color name="duke_nukem">#248f51</color>
+    <color name="kika">#d36991</color>
+    <color name="mera">#248f51</color>
+    <color name="ms_marvel">#297eb3</color>
+    <color name="spiderwoman">#b13937</color>
+    <color name="two_face">#ee971f</color>
+    <color name="wolverine">#603a70</color>
+</resources>

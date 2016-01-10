@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <!--http://www.easyicon.net/1134386-I_Love_You_icon.html
+    http://www.25xt.com/allcode/6976.html
+    http://romannurik.github.io/AndroidAssetStudio/nine-patches.html-->
+    <!--左边的时光轴-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:minWidth="75dp">
+        <!--http://www.easyicon.net/1181645-album_icon.html-->
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="5dp"
+            android:layout_height="10dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/system_color" />
+        <!--设置图片和时间-->
+        <LinearLayout
+            android:id="@+id/ll_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+            <!--图片http://www.easyicon.net/iconsearch/iconset:freecons-icons/3/-->
+            <ImageView
+                android:id="@+id/iv_line_ico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/duke_nukem_48px" />
+            <!--时间-->
+            <TextView
+                android:id="@+id/tv_line_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="2015-12"
+                android:textColor="@color/system_color"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_line_bottom"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_album"
+            android:layout_centerHorizontal="true"
+            android:background="@color/system_color" />
+    </RelativeLayout>
+
+    <!--内容-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <!--发的作者-->
+        <TextView
+            android:id="@+id/tv__album_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="哈哈测试"
+            android:textColor="@color/system_color"
+            android:textSize="14sp" />
+
+        <!--发的文字-->
+        <TextView
+            android:id="@+id/tv__album_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="哈哈测试，哈哈测试哈，哈测试哈哈测试哈，哈测试哈哈测试哈，哈测试哈哈测，试哈哈测试，哈哈测试哈哈测试哈哈测试哈哈测试"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_content_size" />
+        <!--发的图片，最多4张-->
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:rowCount="2">
+
+            <ImageView
+                android:id="@+id/iv_album_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/image_view_border"
+                android:src="@mipmap/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/iv_album_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/image_view_border"
+                android:src="@mipmap/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/iv_album_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/image_view_border"
+                android:src="@mipmap/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/iv_album_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/image_view_border"
+                android:src="@mipmap/ic_launcher" />
+        </GridLayout>
+        <!--定位，位置-->
+        <TextView
+            android:id="@+id/tv_album_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="地址：例如xxx镇xxx区"
+            android:textColor="@color/blue"
+            android:textSize="12dp" />
+    </LinearLayout>
+</LinearLayout>

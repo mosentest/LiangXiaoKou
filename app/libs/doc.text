@@ -1,0 +1,33 @@
+参考资源链接如下
+1.android选择图片或拍照图片上传到服务器(包括上传参数)
+--http://blog.csdn.net/springsky_/article/details/8213898
+2.Android关于Task的一些实践之SingleTask,SingleInstance和TaskAffinity
+--http://www.it165.net/pro/html/201404/12605.html
+3.android Adapter优化之终极版
+--http://www.eoeandroid.com/thread-899568-1-1.html?_dsign=96be0d45
+4.Android 编程下设置 Activity 切换动画
+--http://www.cnblogs.com/sunzn/p/3854009.html
+5.apkBus
+--http://www.apkbus.com/
+6.让低版本的 Android 项目显示出 Material 风格的点击效果
+--http://www.cnblogs.com/dyllove98/p/4208203.html
+7.ANDROID L - Material Design详解（UI控件）
+--http://blog.csdn.net/a396901990/article/details/40187203
+8.Android Support Library 22.1 发布
+--http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0422/2774.html
+9.Android Support Library更新到v22.1之AppCompat新特性
+--http://segmentfault.com/a/1190000002702843
+10.Android Design Support Library 的 代码实验——几行代码，让你的 APP 变得花俏
+--http://www.open-open.com/lib/view/open1436152483833.html
+11.(android:windowAnimationStyle)Activity切换动画无效
+http://blog.csdn.net/u012612952/article/details/21596433
+12.activity切换时的overridePendingTransition动画效
+http://blog.csdn.net/daodaowolf/article/details/8290902
+13.--SwipeBack
+https://github.com/liuguangqiang/SwipeBack
+14--Android 4.4 沉浸式透明状态栏与导航栏
+http://www.bkjia.com/Androidjc/913061.html
+15--使用LeakCanary检测安卓中的内存泄漏（实战）
+http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0511/2861.html
+
+http://zhidao.baidu.com/link?url=nIbu7Ss-cuhFkGt9YvE0IxjwJloeFL1kQ9WgcB6c0_kxuPildaM-DHGb43pdNi0Z8WLCjhhZIkz6DCzSCCDBrfCZPv8ggnMkcFnKB_Y1NEq
