@@ -65,7 +65,7 @@ public class HomeActivity extends GeneralActivity implements ViewPager.OnPageCha
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ThirdUtils.bmobInit(getApplicationContext());
-        ThirdUtils.umengInit(getApplicationContext(), true, false, this);
+        ThirdUtils.umengInit(this, true, false, this);
         configViews();
         LogUtils.e(TAG, "onCreate");
     }
@@ -269,6 +269,22 @@ public class HomeActivity extends GeneralActivity implements ViewPager.OnPageCha
                 UmengUpdateAgent.showUpdateDialog(this, updateInfo);
                 break;
         }
+    }
+
+    private long mkeyTime;
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mkeyTime) > 2000) {
+                mkeyTime = System.currentTimeMillis();
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_LONG).show();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

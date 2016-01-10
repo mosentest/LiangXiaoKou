@@ -2,7 +2,9 @@ package org.liangxiaokou.module.home;
 
 
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,8 +53,6 @@ public class OtherFragment extends GeneralFragment {
 
     public final static int REQUEST_CODE_CAPTURE_CAMERA = 0x04;//拍照
 
-    private String capturePath = null;
-
     private TextView tvOtherName;
 
     private TextView tvOtherMood;
@@ -71,6 +71,7 @@ public class OtherFragment extends GeneralFragment {
 
     private LinearLayout llOtherContact;
     private NormalListDialog listDialog;
+    private Uri photoUri;
 
 
     //private ShimmerFrameLayout shimmerContent;
@@ -205,14 +206,25 @@ public class OtherFragment extends GeneralFragment {
                                 String state = Environment.getExternalStorageState();
                                 if (state.equals(Environment.MEDIA_MOUNTED)) {
                                     Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    StringBuilder out_file_path = new StringBuilder();
-                                    out_file_path.append(SDCardUtils.getSDCardPath());
-                                    out_file_path.append(Constants.APP_NAME);
-                                    out_file_path.append(Constants.SAVE_IMAGE_DIR_PATH);
-                                    FileUtils.makeDirs(out_file_path.toString());
-                                    capturePath = System.currentTimeMillis() + ".jpg";
-                                    getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(out_file_path.toString(), capturePath)));
-                                    //getImageByCamera.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                                    String fileName = System.currentTimeMillis() + ".jpg";
+                                    /**
+                                     //自定义路径，设置路径
+                                     StringBuilder out_file_path = new StringBuilder();
+                                     out_file_path.append(SDCardUtils.getSDCardPath());
+                                     out_file_path.append(Constants.APP_NAME);
+                                     out_file_path.append(Constants.SAVE_IMAGE_DIR_PATH);
+                                     FileUtils.makeDirs(out_file_path.toString());
+                                     //文件名称
+                                     getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(out_file_path.toString(), fileName)));
+                                     **/
+                                    //保存到默认相册路径中http://blog.csdn.net/wsq458542323976/article/details/22880881
+                                    ContentValues values = new ContentValues();
+                                    values.put(MediaStore.Images.Media.DISPLAY_NAME, String.valueOf(fileName));
+                                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                                    photoUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                    //照片方向
+                                    getImageByCamera.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+                                    getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                                     startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMERA);
                                 } else {
                                     Toast.makeText(getContext(), "请确认已经插入SD卡", Toast.LENGTH_LONG).show();
@@ -256,34 +268,14 @@ public class OtherFragment extends GeneralFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CODE_PICK_IMAGE:
+                Uri uri = data.getData();
+                LogUtils.e(OtherFragment.class.getSimpleName(), uri.toString());
                 break;
             case REQUEST_CODE_CAPTURE_CAMERA:
                 LogUtils.e(OtherFragment.class.getSimpleName(), "resultCode:" + resultCode + "-" + (data == null ? null : data));
+                Cursor cursor = getActivity().getContentResolver().query(photoUri, Constants.STORE_IMAGES, null, null, null);
                 break;
         }
-        //super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == 0 && null != data) {
-            Uri uri = data.getData();
-            LogUtils.e("uri1", uri + "");
-            //to do find the path of pic
-        } else if (requestCode == REQUEST_CODE_CAPTURE_CAMERA) {
-            Uri uri = data.getData();
-            if (uri == null) {
-                //use bundle to get data
-                Bundle bundle = data.getExtras();
-                if (bundle != null) {
-                    Bitmap photo = (Bitmap) bundle.get("data"); //get bitmap
-                    LogUtils.e("uri2", uri + "jin this???");
-                    //spath :生成图片取个名字和路径包含类型
-                    //saveImage(Bitmap photo, String spath);
-                } else {
-                    //Toast.makeText(getApplicationContext(), "err****", Toast.LENGTH_LONG).show();
-                    return;
-                }
-            } else {
-                //to do find the path of pic by uri
-            }
-            LogUtils.e("uri2", uri + "");
-        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
