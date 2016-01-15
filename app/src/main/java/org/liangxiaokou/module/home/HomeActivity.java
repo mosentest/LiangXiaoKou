@@ -28,6 +28,7 @@ import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.feedback.FeedBackActivity;
 import org.liangxiaokou.util.LogUtils;
+import org.liangxiaokou.util.SDCardUtils;
 import org.liangxiaokou.util.SnackBarUtils;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ViewPagerAdapter;
@@ -79,6 +80,10 @@ public class HomeActivity extends GeneralActivity implements ViewPager.OnPageCha
     protected void PreOnResume() {
         ThirdUtils.statisticsInActivityResume(this);
         LogUtils.e(TAG, "PreOnResume");
+        ArrayList<String> devMountList = SDCardUtils.getDevMountList();
+        for (String path : devMountList) {
+            LogUtils.e(TAG, path);
+        }
     }
 
     @Override
