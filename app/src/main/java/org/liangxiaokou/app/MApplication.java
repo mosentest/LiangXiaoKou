@@ -3,6 +3,7 @@ package org.liangxiaokou.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -14,6 +15,8 @@ public class MApplication extends Application {
     public void onCreate() {
         super.onCreate();
         LeakCanary.install(this);
+        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        SDKInitializer.initialize(this);
     }
 
     //在自己的Application中添加如下代码

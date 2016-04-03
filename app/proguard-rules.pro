@@ -29,12 +29,6 @@ public static final int *;
     public static ** valueOf(java.lang.String);
 }
 
--keep class com.amap.api.location.**{*;}
-
--keep class com.amap.api.fence.**{*;}
-
--keep class com.autonavi.aps.amapapi.model.**{*;}
-
 -keep class su.levenetc.android.textsurface.** { *; }
 
 # LeakCanary

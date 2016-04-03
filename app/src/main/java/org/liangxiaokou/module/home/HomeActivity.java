@@ -13,12 +13,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
@@ -27,6 +37,7 @@ import com.umeng.update.UpdateStatus;
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.feedback.FeedBackActivity;
+import org.liangxiaokou.util.BaiduLBSutils;
 import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.SDCardUtils;
 import org.liangxiaokou.util.SnackBarUtils;
@@ -41,11 +52,14 @@ import java.util.List;
  * http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android#index_获取应用密钥和下载SDK
  * http://www.jianshu.com/p/67ab63723e54
  */
-public class HomeActivity extends GeneralActivity implements ViewPager.OnPageChangeListener,
+public class HomeActivity extends GeneralActivity implements
+        ViewPager.OnPageChangeListener,
         View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener,
         SearchView.OnQueryTextListener,
-        UmengUpdateListener {
+        UmengUpdateListener,
+        BDLocationListener,
+        OnGetGeoCoderResultListener {
 
     private final static String TAG = "HomeActivity";
     private DrawerLayout mDrawerLayout;
@@ -61,14 +75,21 @@ public class HomeActivity extends GeneralActivity implements ViewPager.OnPageCha
     private String[] tabTitle;
     private List<Fragment> fragments;
 
+    /**
+     * 百度lbs相关api
+     */
+    private LocationClient mLocationClient;
+    private GeoCoder mGeoCoder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ThirdUtils.bmobInit(getApplicationContext());
         ThirdUtils.umengInit(this, true, false, this);
-        configViews();
         LogUtils.e(TAG, "onCreate");
+        //百度定位
+        mLocationClient = BaiduLBSutils.locationStart(this, this);
     }
 
     @Override
@@ -80,10 +101,10 @@ public class HomeActivity extends GeneralActivity implements ViewPager.OnPageCha
     protected void PreOnResume() {
         ThirdUtils.statisticsInActivityResume(this);
         LogUtils.e(TAG, "PreOnResume");
-        ArrayList<String> devMountList = SDCardUtils.getDevMountList();
-        for (String path : devMountList) {
-            LogUtils.e(TAG, path);
-        }
+//        ArrayList<String> devMountList = SDCardUtils.getDevMountList();
+//        for (String path : devMountList) {
+//            LogUtils.e(TAG, path);
+//        }
     }
 
     @Override
@@ -99,12 +120,16 @@ public class HomeActivity extends GeneralActivity implements ViewPager.OnPageCha
 
     @Override
     protected void PreOnStop() {
+        BaiduLBSutils.locationStop(mLocationClient);
 
     }
 
     @Override
     protected void PreOnDestroy() {
         LogUtils.e(TAG, "PreOnDestroy");
+        if (mGeoCoder != null) {
+            mGeoCoder.destroy();
+        }
     }
 
     @Override
@@ -136,6 +161,7 @@ public class HomeActivity extends GeneralActivity implements ViewPager.OnPageCha
         fragments.add(meFragment);
         //设置背景颜色
         mNavigationView.setBackgroundColor(getResources().getColor(R.color.gray));
+        configViews();
     }
 
     private void configViews() {
@@ -292,4 +318,41 @@ public class HomeActivity extends GeneralActivity implements ViewPager.OnPageCha
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * baidu
+     *
+     * @param bdLocation
+     */
+    @Override
+    public void onReceiveLocation(BDLocation bdLocation) {
+        if (bdLocation == null) {
+            return;
+        }
+        LogUtils.e("e", bdLocation.getAddrStr() + "");
+        LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
+        mGeoCoder = BaiduLBSutils.getInstance(latLng, this);
+    }
+
+    /**
+     * 地理编码查询结果回调函数
+     *
+     * @param geoCodeResult
+     */
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+    }
+
+    /**
+     * 反地理编码查询结果回调函数
+     *
+     * @param reverseGeoCodeResult
+     */
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+        if (reverseGeoCodeResult == null || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+            // 没有检测到结果
+        }
+        ReverseGeoCodeResult.AddressComponent addressDetail = reverseGeoCodeResult.getAddressDetail();
+        Toast.makeText(this, addressDetail.street, Toast.LENGTH_SHORT).show();
+    }
 }

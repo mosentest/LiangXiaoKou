@@ -26,7 +26,7 @@ public class ThirdUtils {
     public static void bmobInit(Context mContext) {
         // 初始化 Bmob SDK
         // 使用时请将第二个参数Application ID替换成你在Bmob服务器端创建的Application ID
-        Bmob.initialize(mContext, bmobAppKey);
+        Bmob.initialize(mContext.getApplicationContext(), bmobAppKey);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ThirdUtils {
         //http://dev.umeng.com/auto-update/android-doc/quick-start#1,集成检测
         UmengUpdateAgent.setUpdateCheckConfig(checkConfig);
         //友盟更新
-        UmengUpdateAgent.update(mContext);
+        UmengUpdateAgent.update(mContext.getApplicationContext());
 
         /** 设置是否对日志信息进行加密, 默认false(不加密). */
         AnalyticsConfig.enableEncrypt(true);
@@ -61,12 +61,12 @@ public class ThirdUtils {
 
     public static void statisticsInActivityResume(Context mContext) {
         //友盟统计
-        MobclickAgent.onResume(mContext);
+        MobclickAgent.onResume(mContext.getApplicationContext());
     }
 
     public static void statisticsInActivityPause(Context mContext) {
         //友盟统计
-        MobclickAgent.onPause(mContext);
+        MobclickAgent.onPause(mContext.getApplicationContext());
     }
 
     public static void statisticsInFragmentResume(Class cls) {

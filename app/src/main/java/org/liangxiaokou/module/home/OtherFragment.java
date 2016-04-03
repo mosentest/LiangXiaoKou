@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,13 +32,9 @@ import org.liangxiaokou.widget.view.RedTipImageView;
 import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.util.DateUtils;
 import org.liangxiaokou.app.GeneralFragment;
-import org.liangxiaokou.util.FileUtils;
 import org.liangxiaokou.util.LogUtils;
-import org.liangxiaokou.util.SDCardUtils;
 
-import java.io.File;
 
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -236,7 +231,6 @@ public class OtherFragment extends GeneralFragment {
                                 startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
                                 break;
                             case 2:
-                                startActivityForResult(MultiImageSelectorActivity.class, change_phone);
                                 break;
                         }
                         listDialog.dismiss();
