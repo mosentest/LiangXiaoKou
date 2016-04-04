@@ -1,6 +1,7 @@
 package org.liangxiaokou.module.home;
 
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -88,6 +89,10 @@ public class HomeActivity extends GeneralActivity implements
         ThirdUtils.bmobInit(getApplicationContext());
         ThirdUtils.umengInit(this, true, false, this);
         LogUtils.e(TAG, "onCreate");
+        //http://blog.csdn.net/shineflowers/article/details/40426361，http://blog.csdn.net/javensun/article/details/7334230
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
+        sendBroadcast(broadcastIntent);
         //百度定位
         mLocationClient = BaiduLBSutils.locationStart(this, this);
     }

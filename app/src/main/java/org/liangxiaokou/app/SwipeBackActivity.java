@@ -29,6 +29,7 @@ public abstract class SwipeBackActivity extends AppCompatActivity implements Swi
     @Override
     protected void onStart() {
         super.onStart();
+        MApplication.getInstance().getmNewsLifecycleHandler().onActivityStarted(this);
         PreOnStart();
     }
 
@@ -94,12 +95,14 @@ public abstract class SwipeBackActivity extends AppCompatActivity implements Swi
     public void onPause() {
         super.onPause();
         PreOnPause();
+        MApplication.getInstance().getmNewsLifecycleHandler().onActivityPaused(this);
         ThirdUtils.statisticsInActivityPause(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        MApplication.getInstance().getmNewsLifecycleHandler().onActivityStopped(this);
         PreOnStop();
     }
 

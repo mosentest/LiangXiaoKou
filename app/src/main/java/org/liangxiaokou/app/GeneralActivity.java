@@ -17,15 +17,13 @@ public abstract class GeneralActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        MApplication.getInstance().getmNewsLifecycleHandler().onActivityStarted(this);
         PreOnStart();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //在自己的应用初始Activity中加入如下两行代码
-//        RefWatcher refWatcher = MApplication.getRefWatcher(this);
-//        refWatcher.watch(this);
     }
 
     @Override
@@ -53,12 +51,14 @@ public abstract class GeneralActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         PreOnPause();
+        MApplication.getInstance().getmNewsLifecycleHandler().onActivityPaused(this);
         ThirdUtils.statisticsInActivityPause(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        MApplication.getInstance().getmNewsLifecycleHandler().onActivityStopped(this);
         PreOnStop();
     }
 
