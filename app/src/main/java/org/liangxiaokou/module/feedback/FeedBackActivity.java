@@ -41,10 +41,7 @@ public class FeedBackActivity extends SwipeBackActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onCreateCustomToolBar(Toolbar toolbar) {
 
-    }
 
     @Override
     public void initView() {

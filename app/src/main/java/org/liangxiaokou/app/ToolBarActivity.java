@@ -90,7 +90,6 @@ public abstract class ToolBarActivity extends AppCompatActivity implements IActi
         toolbar = mToolBarHelper.getToolBar();
         setContentView(mToolBarHelper.getContentView());
         /*自定义的一些操作*/
-        onCreateCustomToolBar(toolbar);
         /*把 toolbar 设置到Activity 中*/
         setSupportActionBar(toolbar);
         //设置state

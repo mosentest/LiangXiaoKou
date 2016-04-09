@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.liangxiaokou.bean.Album;
 import org.liangxiaokou.module.home.adapter.AlbumViewAdapter;
 import org.liangxiaokou.module.R;
-import org.liangxiaokou.model.entities.Album;
 import org.liangxiaokou.app.GeneralFragment;
 
 import java.util.ArrayList;

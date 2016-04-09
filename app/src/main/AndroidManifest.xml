@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.liangxiaokou.module">
 
-    <!--http://www.cppblog.com/guojingjia2006/archive/2013/02/18/197911.html-->
+    <!-- http://www.cppblog.com/guojingjia2006/archive/2013/02/18/197911.html -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <!-- 用于进行网络定位 -->
@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE"/> -->
-    <!--录音-->
+    <!-- 录音 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -33,9 +33,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 用于读取手机当前的状态 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--摄像头-->
+    <!-- 摄像头 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!--通知震动-->
+    <!-- 通知震动 -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- http://blog.csdn.net/niu_gao/article/details/7658008 -->
@@ -43,15 +43,15 @@
     <!-- android:name="android.hardware.camera" -->
     <!-- android:required="false" /> -->
 
-    <!--自定义权限http://berdy.iteye.com/blog/1782854,http://blog.csdn.net/harvic880925/article/details/38683625-->
+
+    <!-- 自定义权限http://berdy.iteye.com/blog/1782854,http://blog.csdn.net/harvic880925/article/details/38683625 -->
     <permission
         android:name="org.liangxiaokou.RECV.XLKRECEIVE"
         android:protectionLevel="normal" />
-
     <permission
         android:name="cn.bmob.permission.push"
-        android:protectionLevel="normal" >
-    </permission>
+        android:protectionLevel="normal" />
+
     <uses-permission android:name="cn.bmob.permission.push" />
 
     <supports-screens
@@ -66,6 +66,28 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
 
+        <!-- Bmob -->
+        <meta-data
+            android:name="Bmob_APP_KEY"
+            android:value="ab3b4c13dc5dc2ddf06ed9d04041089f" />
+        <!-- Bmob -->
+        <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
+            <intent-filter>
+                <action android:name="cn.bmob.action.RECONNECT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+        <!-- Bmob -->
+        <service
+            android:name="cn.bmob.newim.core.service.BmobImService"
+            android:process=":bmobcore" />
+        <!-- Bmob -->
+        <service android:name="cn.bmob.newim.core.service.ReConnectService" />
+        <!-- Bmob -->
+        <service android:name="cn.bmob.newim.core.service.HeartBeatService" />
+
         <receiver
             android:name="org.liangxiaokou.recevier.XLKReceiver"
             android:enabled="true"
@@ -79,7 +101,7 @@
                 <action android:name="android.intent.action.CLOSE_SYSTEM_DIALOGS" />
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-                <!--车载模式-->
+                <!-- 车载模式 -->
                 <action android:name="android.intent.action.ACTION_DOCK_EVENT" />
             </intent-filter>
         </receiver>
@@ -88,8 +110,7 @@
             android:name="org.liangxiaokou.service.XLKService"
             android:enabled="true"
             android:exported="true"
-            android:process=":XLK">
-        </service>
+            android:process=":XLK" />
 
         <!-- 百度lsb -->
         <service
@@ -97,10 +118,10 @@
             android:enabled="true"
             android:process=":remote" />
         <!-- 百度lsb -->
-        <!--<meta-data-->
-        <!--android:name="com.baidu.lbsapi.API_KEY"-->
-        <!--android:value="y4GtjEBg34k8EI7i7O8CYHaf" />-->
-        <!--百度lbs-测试key-->
+        <!-- <meta-data -->
+        <!-- android:name="com.baidu.lbsapi.API_KEY" -->
+        <!-- android:value="y4GtjEBg34k8EI7i7O8CYHaf" /> -->
+        <!-- 百度lbs-测试key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="6b7CdIgvMYsDdM4QGLe9DKsZSfHRRfgw" />
@@ -201,6 +222,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/SplashScreenActivityTheme"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

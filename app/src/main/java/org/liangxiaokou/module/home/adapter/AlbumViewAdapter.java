@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import org.liangxiaokou.bean.Album;
 import org.liangxiaokou.enum_.ExpressionManEnum;
 import org.liangxiaokou.enum_.ExpressionWomanEnum;
 import org.liangxiaokou.module.R;
-import org.liangxiaokou.model.entities.Album;
 import org.liangxiaokou.config.Constants;
 
 import java.util.List;

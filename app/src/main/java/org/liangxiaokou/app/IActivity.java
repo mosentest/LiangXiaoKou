@@ -7,7 +7,6 @@ import android.view.KeyEvent;
  * Created by moziqi on 2015/12/25.
  */
 public interface IActivity {
-    public abstract void onCreateCustomToolBar(Toolbar toolbar);
 
     public abstract void initView();
 

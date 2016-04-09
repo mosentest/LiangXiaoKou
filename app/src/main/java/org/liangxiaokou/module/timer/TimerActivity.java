@@ -45,11 +45,6 @@ public class TimerActivity extends SwipeBackActivity {
     }
 
     @Override
-    public void onCreateCustomToolBar(Toolbar toolbar) {
-
-    }
-
-    @Override
     public void initView() {
 
     }

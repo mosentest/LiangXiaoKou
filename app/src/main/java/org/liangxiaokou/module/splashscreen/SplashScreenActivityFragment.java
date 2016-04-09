@@ -14,8 +14,11 @@ import com.yalantis.starwars.interfaces.TilesFrameLayoutListener;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.app.GeneralFragment;
+import org.liangxiaokou.module.login.LoginActivity;
 
 import java.lang.ref.WeakReference;
+
+import cn.bmob.v3.BmobUser;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -47,7 +50,7 @@ public class SplashScreenActivityFragment extends GeneralFragment implements Til
         public void run() {
             Activity activity = weakReference.get();
             if (activity != null) {
-                activity.startActivity(new Intent(activity, HomeActivity.class));
+                activity.startActivity(new Intent(activity, LoginActivity.class));
                 activity.finish();
             }
         }

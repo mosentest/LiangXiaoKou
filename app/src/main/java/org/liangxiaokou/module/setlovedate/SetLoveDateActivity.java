@@ -57,10 +57,6 @@ public class SetLoveDateActivity extends SwipeBackActivity implements SetLoveDat
     }
 
 
-    @Override
-    public void onCreateCustomToolBar(Toolbar toolbar) {
-
-    }
 
     @Override
     public void initView() {

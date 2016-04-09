@@ -45,11 +45,6 @@ public class ChatActivity extends SwipeBackActivity {
     }
 
     @Override
-    public void onCreateCustomToolBar(Toolbar toolbar) {
-
-    }
-
-    @Override
     public void initView() {
 
     }

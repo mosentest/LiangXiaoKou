@@ -1,20 +1,20 @@
-package org.liangxiaokou.module.setting;
+package org.liangxiaokou.module.login;
 
 import android.os.Bundle;
+import android.app.Activity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 
+import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.module.R;
 
-public class SettingActivity extends SwipeBackActivity {
+public class LoginActivity extends GeneralActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_login);
     }
 
 

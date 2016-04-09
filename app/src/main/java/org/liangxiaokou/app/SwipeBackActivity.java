@@ -48,7 +48,6 @@ public abstract class SwipeBackActivity extends AppCompatActivity implements Swi
         swipeBackLayout.addView(view);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        onCreateCustomToolBar(toolbar);
         StatusBarCompat.compat(this);
         initView();
         initData();

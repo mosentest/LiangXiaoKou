@@ -1,4 +1,4 @@
-package org.liangxiaokou.model.entities;
+package org.liangxiaokou.bean;
 
 /**
  * Created by Administrator on 2015/12/17.

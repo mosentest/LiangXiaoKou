@@ -44,10 +44,6 @@ public class ContactActivity extends SwipeBackActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onCreateCustomToolBar(Toolbar toolbar) {
-
-    }
 
     @Override
     public void initView() {
