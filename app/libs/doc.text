@@ -31,3 +31,25 @@ http://www.bkjia.com/Androidjc/913061.html
 http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0511/2861.html
 
 http://zhidao.baidu.com/link?url=nIbu7Ss-cuhFkGt9YvE0IxjwJloeFL1kQ9WgcB6c0_kxuPildaM-DHGb43pdNi0Z8WLCjhhZIkz6DCzSCCDBrfCZPv8ggnMkcFnKB_Y1NEq
+
+#umeng
+umeng-update-v2.6.0.1.jar
+umeng-analytics-v5.6.4.jar
+
+#baidu lbs
+baidumapapi_base_v3_7_1.jar
+baidumapapi_cloud_v3_7_1.jar
+baidumapapi_map_v3_7_1.jar
+baidumapapi_radar_v3_7_1.jar
+baidumapapi_search_v3_7_1.jar
+baidumapapi_util_v3_7_1.jar
+locSDK_6.13.jar
+
+#2016-4-9 add jar http://www.bmob.cn/downloads#android_im_sdk_tab
+BmobNewIM_2.0.2_20160310.jar
+BmobSDK_V3.4.6_0304.jar
+androidasync-2.1.6.jar
+
+#okhttp
+okhttp-2.4.0.jar
+okio-1.4.0.jar
