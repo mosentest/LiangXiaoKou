@@ -4,9 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.NewsLifecycleHandler;
-import org.liangxiaokou.util.AppUtils;
 import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.NetWorkUtil;
 
@@ -26,6 +24,8 @@ public class XLKReceiver extends BroadcastReceiver {
         LogUtils.e(TAG, "current is " + NewsLifecycleHandler.isApplicationInBackground());
         if ("org.liangxiaokou.receiver.xlk_action".equals(intent.getAction())) {
             //来自app启动，启动服务中的轮询进程
+//            Intent intent1 = new Intent(context, XLKService.class);
+//            context.startService(intent1);
         } else if ("android.net.conn.CONNECTIVITY_CHANGE".equals(intent.getAction())) {
             boolean networkAvailable = NetWorkUtil.isNetworkAvailable(context);
             boolean wifiConnected = NetWorkUtil.isWifiConnected(context);

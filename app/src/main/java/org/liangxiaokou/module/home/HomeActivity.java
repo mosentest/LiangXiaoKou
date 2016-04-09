@@ -38,6 +38,7 @@ import com.umeng.update.UpdateStatus;
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.feedback.FeedBackActivity;
+import org.liangxiaokou.service.XLKService;
 import org.liangxiaokou.util.BaiduLBSutils;
 import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.SDCardUtils;
@@ -356,8 +357,16 @@ public class HomeActivity extends GeneralActivity implements
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
         if (reverseGeoCodeResult == null || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
             // 没有检测到结果
+            return;
         }
         ReverseGeoCodeResult.AddressComponent addressDetail = reverseGeoCodeResult.getAddressDetail();
-        Toast.makeText(this, addressDetail.street, Toast.LENGTH_SHORT).show();
+        if (addressDetail != null) {
+            StringBuilder address = new StringBuilder()
+                    .append(addressDetail.province)
+                    .append(addressDetail.district)
+                    .append(addressDetail.street)
+                    .append(addressDetail.streetNumber);
+            Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

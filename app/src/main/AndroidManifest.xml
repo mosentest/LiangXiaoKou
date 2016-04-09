@@ -73,7 +73,8 @@
             android:name="org.liangxiaokou.service.XLKService"
             android:enabled="true"
             android:exported="true"
-            android:process=":XLK"></service>
+            android:process=":XLK">
+        </service>
 
         <!-- 百度lsb -->
         <service
@@ -82,8 +83,8 @@
             android:process=":remote" />
         <!-- 百度lsb -->
         <!--<meta-data-->
-            <!--android:name="com.baidu.lbsapi.API_KEY"-->
-            <!--android:value="y4GtjEBg34k8EI7i7O8CYHaf" />-->
+        <!--android:name="com.baidu.lbsapi.API_KEY"-->
+        <!--android:value="y4GtjEBg34k8EI7i7O8CYHaf" />-->
         <!--百度lbs-测试key-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
