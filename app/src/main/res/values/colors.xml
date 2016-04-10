@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="system_color">#FFAEB9</color>
-    <color name="system_press">#FFAEB9</color>
+    <color name="system_press">#FFEA99A4</color>
     <color name="system_dark">#FF8C69</color>
     <color name="gray">#FFF5EE</color>
     <color name="dark">#80323232</color>

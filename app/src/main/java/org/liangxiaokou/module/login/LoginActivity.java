@@ -1,15 +1,12 @@
 package org.liangxiaokou.module.login;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 
-import org.liangxiaokou.app.GeneralActivity;
-import org.liangxiaokou.app.SwipeBackActivity;
+import org.liangxiaokou.app.WithOutSwipeBackActivity;
 import org.liangxiaokou.module.R;
 
-public class LoginActivity extends GeneralActivity {
+public class LoginActivity extends WithOutSwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,4 +59,5 @@ public class LoginActivity extends GeneralActivity {
     public boolean PreOnKeyDown(int keyCode, KeyEvent event) {
         return false;
     }
+
 }

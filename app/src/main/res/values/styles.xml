@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="BaseAppTheme" parent="@style/Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <!--toolbar颜色-->
         <item name="colorPrimary">@color/system_color</item>

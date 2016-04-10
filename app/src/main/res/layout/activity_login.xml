@@ -6,40 +6,98 @@
     android:background="@color/gray"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="org.liangxiaokou.module.login.LoginActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInput_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
-        <!--http://blog.sina.com.cn/s/blog_6faf711d0101kbqz.html-->
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入，例如：2015-02-14"
-            android:inputType="date"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/normal_content_size" />
-    </android.support.design.widget.TextInputLayout>
+    <include layout="@layout/view_top_bar" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInput_password"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
-        <!--http://blog.sina.com.cn/s/blog_6faf711d0101kbqz.html-->
-        <EditText
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInput_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入，例如：2015-02-14"
-            android:inputType="date"
-            android:textColor="@android:color/black"
+            android:layout_marginTop="8dp"
+            android:textColorHint="@color/dark">
+            <!--http://blog.sina.com.cn/s/blog_6faf711d0101kbqz.html-->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入您的账号/手机号"
+                android:inputType="phone"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/normal_content_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInput_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColorHint="@color/dark">
+            <!--http://blog.sina.com.cn/s/blog_6faf711d0101kbqz.html-->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入您的密码"
+                android:inputType="textPassword"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/normal_content_size" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_button_with_corner"
+            android:text="登  录"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/normal_content_size" />
-    </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码?"
+                android:textColor="@color/system_press"
+                android:textSize="@dimen/normal_content_size_18" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="还没账号?"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/normal_content_size_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="立刻注册>"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/normal_content_size_18" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

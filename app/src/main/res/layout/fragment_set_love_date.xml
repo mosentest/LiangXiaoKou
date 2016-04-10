@@ -14,6 +14,7 @@
         android:id="@+id/textInput_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/dark"
         android:layout_marginTop="8dp">
         <!--http://blog.sina.com.cn/s/blog_6faf711d0101kbqz.html-->
         <EditText
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:hint="请输入，例如：2015-02-14"
             android:inputType="date"
+            android:textColorHint="@color/dark"
             android:textColor="@android:color/black"
             android:textSize="@dimen/normal_content_size" />
     </android.support.design.widget.TextInputLayout>
@@ -29,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
+        android:textColor="@color/dark"
         android:text="恋爱日代表你们谈恋爱的起始日期"
         android:textSize="14sp" />
 </LinearLayout>

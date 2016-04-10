@@ -225,7 +225,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/SplashScreenActivityTheme"
+            android:theme="@style/AppBaseThemeMain"
             android:screenOrientation="portrait"/>
     </application>
 

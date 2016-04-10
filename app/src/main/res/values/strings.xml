@@ -26,5 +26,5 @@
     <string name="title_activity_sleep">我睡了</string>
     <string name="title_activity_timer">小姨妈</string>
     <string name="title_activity_contact">通话记录</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">@string/plusone</string>
 </resources>

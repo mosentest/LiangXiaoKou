@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="normal_content_size">16sp</dimen>
+    <dimen name="normal_content_size_18">18sp</dimen>
 
     <dimen name="image_size">120dp</dimen>
     <dimen name="space_size">3dp</dimen>
