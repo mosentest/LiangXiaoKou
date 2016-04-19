@@ -81,7 +81,7 @@
                 android:id="@+id/rl_other_exist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_btn"
+                android:background="@drawable/selector_button"
                 android:padding="10dp">
 
                 <org.liangxiaokou.widget.view.CircleImageView
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:background="@drawable/selector_btn"
+                    android:background="@drawable/selector_button"
                     android:layout_weight="1"
                     android:orientation="vertical">
                     <!--http://www.easyicon.net/1164801-whatsapp_icon.html,
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/selector_btn"
+                    android:background="@drawable/selector_button"
                     android:orientation="vertical">
 
                     <org.liangxiaokou.widget.view.RedTipImageView
@@ -196,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/selector_btn"
+                    android:background="@drawable/selector_button"
                     android:orientation="vertical">
 
                     <org.liangxiaokou.widget.view.RedTipImageView

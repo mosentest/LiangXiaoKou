@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.yalantis.starwars.interfaces.ShaderType;
 
-import timber.log.Timber;
 
 public class ShaderHelper {
 	private static final String TAG = "ShaderHelper";
@@ -29,7 +28,6 @@ public class ShaderHelper {
 			GLES20.glGetShaderiv(shaderHandle, GLES20.GL_COMPILE_STATUS, compilationStatus, 0);
 
 			if (compilationStatus[0] == 0) {
-				Timber.e("Error compiling shader %s", GLES20.glGetShaderInfoLog(shaderHandle));
 				GLES20.glDeleteShader(shaderHandle);
 				shaderHandle = 0;
 			}

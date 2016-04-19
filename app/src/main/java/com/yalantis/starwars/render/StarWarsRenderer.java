@@ -24,7 +24,6 @@ import java.util.concurrent.Executors;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import timber.log.Timber;
 
 
 /**
@@ -234,7 +233,6 @@ public class StarWarsRenderer implements GLSurfaceView.Renderer {
         frames++;
         timePassed = (System.nanoTime() - startTime) / 1_000_000;
         if(timePassed >= 1000) {
-            Timber.d("%d tiles @ %d fps", getTilesCount(), frames);
             frames = 0;
             startTime = System.nanoTime();
         }
