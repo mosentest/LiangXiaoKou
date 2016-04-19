@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.app.SwipeBackLayout;
@@ -88,5 +89,10 @@ public class SleepActivity extends SwipeBackActivity {
     @Override
     public boolean PreOnKeyDown(int keyCode, KeyEvent event) {
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

@@ -46,6 +46,11 @@ public abstract class WithOutSwipeBackActivity extends AppCompatActivity impleme
         initData();
     }
 
+
+    public void showBack(boolean isShow) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(isShow);
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();

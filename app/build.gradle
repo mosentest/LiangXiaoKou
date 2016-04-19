@@ -51,7 +51,7 @@ dependencies {
     compile 'com.facebook.shimmer:shimmer:0.1.0'
     compile 'com.google.code.gson:gson:2.3.+'
     //https://github.com/JakeWharton/butterknife
-    compile 'com.jakewharton:butterknife:7.0.1'
+    //compile 'com.jakewharton:butterknife:7.0.1'
     //https://guides.codepath.com/android/Design-Support-Library
     //http://www.open-open.com/lib/view/open1433385856119.html
     //http://www.open-open.com/lib/view/open1436519077255.html
