@@ -84,12 +84,12 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
         switch (v.getId()) {
             case R.id.tv_register: {
                 startActivity(RegisterActivity.class);
-                break;
             }
+            break;
             case R.id.btn_login: {
                 loginPresenter.toLogin(this);
-                break;
             }
+            break;
         }
     }
 

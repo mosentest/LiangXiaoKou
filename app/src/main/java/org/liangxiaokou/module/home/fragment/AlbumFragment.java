@@ -1,4 +1,4 @@
-package org.liangxiaokou.module.home;
+package org.liangxiaokou.module.home.fragment;
 
 
 import android.os.Bundle;

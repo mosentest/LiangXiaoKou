@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
+    tools:context="org.liangxiaokou.module.person.PersonActivity">
+
+    <include layout="@layout/view_top_bar" />
+
+    <include layout="@layout/view_line_16" />
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="头像"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_content_size" />
+
+        <org.liangxiaokou.widget.view.CircleImageView
+            android:id="@+id/iv_header"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/gril"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_1" />
+
+    <RelativeLayout
+        android:id="@+id/rl_nick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button"
+        android:padding="10dp">
+
+        <!--http://www.easyicon.net/1180534-gear_icon.html-->
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="昵称"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_nick_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="请设置"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/normal_content_size" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_1" />
+</LinearLayout>

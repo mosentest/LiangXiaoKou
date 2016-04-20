@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.yalantis.starwars.interfaces.TilesFrameLayoutListener;
 
+import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.app.GeneralFragment;
@@ -50,7 +51,14 @@ public class SplashScreenActivityFragment extends GeneralFragment implements Til
         public void run() {
             Activity activity = weakReference.get();
             if (activity != null) {
-                activity.startActivity(new Intent(activity, LoginActivity.class));
+                User user = BmobUser.getCurrentUser(activity, User.class);
+                if (user != null) {
+                    //用户信息不为空
+                    activity.startActivity(new Intent(activity, HomeActivity.class));
+                } else {
+                    //缓存用户对象为空时， 可打开用户注册界面…
+                    activity.startActivity(new Intent(activity, LoginActivity.class));
+                }
                 activity.finish();
             }
         }

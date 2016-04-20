@@ -1,10 +1,9 @@
-package org.liangxiaokou.module.home;
+package org.liangxiaokou.module.home.fragment;
 
 
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,7 +28,6 @@ import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
 import org.liangxiaokou.widget.view.CircleImageView;
 import org.liangxiaokou.widget.view.RedTipImageView;
-import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.util.DateUtils;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.util.LogUtils;

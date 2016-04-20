@@ -19,7 +19,7 @@
             android:id="@+id/rl_other_exist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray"
+            android:background="@drawable/selector_button"
             android:padding="10dp">
 
             <org.liangxiaokou.widget.view.CircleImageView
@@ -65,9 +65,10 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/rl_doc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:background="@drawable/selector_button"
                 android:padding="10dp">
 
                 <!--http://www.easyicon.net/1180534-gear_icon.html-->
@@ -95,9 +96,10 @@
                 android:layout_height="0.1dp" />
 
             <RelativeLayout
+                android:id="@+id/rl_calc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:background="@drawable/selector_button"
                 android:padding="10dp">
 
                 <!--http://www.easyicon.net/1180534-gear_icon.html-->
@@ -132,9 +134,10 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/rl_shopping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:background="@drawable/selector_button"
                 android:padding="10dp">
 
                 <!--http://www.easyicon.net/1180534-gear_icon.html-->
@@ -162,9 +165,10 @@
                 android:layout_height="0.1dp" />
 
             <RelativeLayout
+                android:id="@+id/rl_music"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:background="@drawable/selector_button"
                 android:padding="10dp">
 
                 <!--http://www.easyicon.net/1180534-gear_icon.html-->
@@ -193,9 +197,10 @@
             android:layout_height="16dp" />
 
         <RelativeLayout
+            android:id="@+id/rl_game"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray"
+            android:background="@drawable/selector_button"
             android:padding="10dp">
 
             <!--http://www.easyicon.net/1180534-gear_icon.html-->
@@ -223,9 +228,10 @@
             android:layout_height="16dp" />
 
         <RelativeLayout
+            android:id="@+id/rl_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray"
+            android:background="@drawable/selector_button"
             android:padding="10dp">
 
             <!--http://www.easyicon.net/1180534-gear_icon.html-->

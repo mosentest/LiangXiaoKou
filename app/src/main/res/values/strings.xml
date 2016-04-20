@@ -28,4 +28,5 @@
     <string name="title_activity_contact">通话记录</string>
     <string name="title_activity_login">@string/plusone</string>
     <string name="title_activity_register">注册</string>
+    <string name="title_activity_person">个人信息</string>
 </resources>

@@ -1,5 +1,6 @@
 package org.liangxiaokou.app;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,9 @@ import android.widget.Toast;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.StatusBarCompat;
 import org.liangxiaokou.util.ThirdUtils;
+import org.liangxiaokou.widget.dialog.widget.MaterialDialog;
+
+import dmax.dialog.SpotsDialog;
 
 /**
  * Created by Eric on 15/3/3.
@@ -25,6 +29,8 @@ public abstract class SwipeBackActivity extends AppCompatActivity implements Swi
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;
     protected Toolbar toolbar;
+    protected MaterialDialog materialDialog;//对话框
+    protected AlertDialog alertDialog;
 
     @Override
     protected void onStart() {
@@ -36,7 +42,15 @@ public abstract class SwipeBackActivity extends AppCompatActivity implements Swi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        materialDialog = new MaterialDialog(this);
+        alertDialog = new SpotsDialog(this, R.style.CustomDialog);
     }
+
+
+    public void showBack(boolean isShow) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(isShow);
+    }
+
 
     @Override
     public void setContentView(int layoutResID) {
