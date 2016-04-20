@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 android:fitsSystemWindows="true"
-                android:translationZ="3dp"
+                android:translationZ="2dp"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.ActionBar"

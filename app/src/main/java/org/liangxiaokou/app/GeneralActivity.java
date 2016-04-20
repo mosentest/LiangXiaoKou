@@ -30,7 +30,7 @@ public abstract class GeneralActivity extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         initView();
-        StatusBarCompat.compat(this);
+        //StatusBarCompat.compat(this);
         initData();
     }
 

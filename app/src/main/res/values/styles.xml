@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="@style/Theme.AppCompat.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <!--toolbar颜色-->
         <item name="colorPrimary">@color/system_color</item>
@@ -10,29 +10,22 @@
         <!--控件获得焦点后颜色-->
         <item name="colorAccent">@color/system_color</item>
         <item name="colorControlNormal">@color/dark</item>
-        <!--窗口的背景颜色-->
-        <!--<item name="android:windowBackground">@color/gray</item>-->
         <item name="android:editTextColor">@android:color/black</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <!--设置draw的图片颜色-->
         <item name="android:textColorSecondary">@color/dark</item>
         <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
-        <item name="actionBarStyle">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="android:actionBarStyle">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-
-        <!--<item name="android:windowAnimationStyle">@style/WindowAnimTheme</item>-->
-
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:divider">@color/dark</item>
-
         <!--对话框-->
         <item name="android:alertDialogTheme">@style/AppTheme.Dialog.Alert</item>
+        <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
     </style>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/BaseAppTheme">
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/Animation.Activity.Translucent.Style</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimTheme</item>
     </style>
 
     <!--主界面-->
@@ -41,7 +34,9 @@
     </style>
 
     <!--启动页-->
-    <style name="SplashScreenActivityTheme" parent="@style/BaseAppTheme" />
+    <style name="SplashScreenActivityTheme" parent="@style/BaseAppTheme">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
 
     <style name="MenuTextStyle">
         <item name="android:textColor">@android:color/black</item>

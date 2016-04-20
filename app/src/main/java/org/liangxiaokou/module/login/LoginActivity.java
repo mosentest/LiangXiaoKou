@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.liangxiaokou.app.WithOutSwipeBackActivity;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.register.RegisterActivity;
 
 
-public class LoginActivity extends WithOutSwipeBackActivity {
+public class LoginActivity extends ToolBarActivity {
 
     private TextInputLayout mTextInputUsername;
     private TextInputLayout mTextInputPassword;
