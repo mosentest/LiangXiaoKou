@@ -18,28 +18,30 @@ public class BmobNetUtils {
      * 注册用户
      *
      * @param context
-     * @param phone
-     * @param password
-     * @param rePassword
      * @param email
+     * @param password
      * @param saveListener
      */
-    public static void signUp(Context context, String phone, String password, String rePassword, String email, SaveListener saveListener) {
+    public static void signUp(Context context, String email, String password, SaveListener saveListener) {
         User user = new User();
-        user.setUsername(phone);
-        //user.setMobilePhoneNumber(phone);
-        //手机验证
-        //user.setMobilePhoneNumberVerified(true);
+        user.setUsername(email);
         user.setPassword(password);
         user.setEmail(email);
         //邮箱验证
-        //user.setEmailVerified(true);
-//        user.setSex(sex);
-//        user.setBitch(bitch);
-        if (!password.equals(rePassword)) {
-            ToastUtils.toast(context.getApplicationContext(), "两次输入的密码不相同");
-            return;
-        }
+        user.setEmailVerified(true);
         user.signUp(context.getApplicationContext(), saveListener);
+    }
+
+    /**
+     * @param context
+     * @param phone
+     * @param password
+     * @param saveListener
+     */
+    public static void login(Context context, String phone, String password, SaveListener saveListener) {
+        User user = new User();
+        user.setUsername(phone);
+        user.setPassword(password);
+        user.login(context.getApplicationContext(), saveListener);
     }
 }

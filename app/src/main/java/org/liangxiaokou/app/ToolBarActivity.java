@@ -1,5 +1,6 @@
 package org.liangxiaokou.app;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -19,6 +20,10 @@ import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.DensityUtils;
 import org.liangxiaokou.util.StatusBarCompat;
 import org.liangxiaokou.util.ThirdUtils;
+import org.liangxiaokou.util.ToastUtils;
+import org.liangxiaokou.widget.dialog.widget.MaterialDialog;
+
+import dmax.dialog.SpotsDialog;
 
 
 /**
@@ -29,7 +34,8 @@ import org.liangxiaokou.util.ThirdUtils;
 public abstract class ToolBarActivity extends AppCompatActivity implements IActivity {
     private ToolBarHelper mToolBarHelper;
     protected Toolbar toolbar;
-    private SlidrConfig mConfig;
+    protected MaterialDialog materialDialog;//对话框
+    protected AlertDialog alertDialog;
 
     @Override
     protected void onStart() {
@@ -40,6 +46,8 @@ public abstract class ToolBarActivity extends AppCompatActivity implements IActi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        materialDialog = new MaterialDialog(this);
+        alertDialog = new SpotsDialog(this, R.style.CustomDialog);
     }
 
     @Override
@@ -99,7 +107,7 @@ public abstract class ToolBarActivity extends AppCompatActivity implements IActi
     }
 
     public void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        ToastUtils.toast(getApplicationContext(), msg);
     }
 
     public void startActivity(Class<?> cls) {

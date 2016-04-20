@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/line"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <!--<RelativeLayout-->
     <!--android:layout_width="match_parent"-->
@@ -25,8 +25,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -112,7 +112,8 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="4dp"
                     android:layout_toRightOf="@+id/iv_other_header"
-                    android:text="天天好心情，爱女朋友" />
+                    android:text="天天好心情，爱女朋友"
+                    android:textColor="@color/dark" />
 
             </RelativeLayout>
 
@@ -130,10 +131,10 @@
                     android:id="@+id/ll_other_sleep"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:background="@drawable/selector_button"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:background="@drawable/selector_button"
+                    android:orientation="vertical"
+                    android:padding="8dp">
                     <!--http://www.easyicon.net/1164801-whatsapp_icon.html,
                     http://www.easyicon.net/1164647-sleep_mode_icon.html,
                     http://www.easyicon.net/1164654-timer_icon.html-->
@@ -163,10 +164,10 @@
                     android:id="@+id/ll_other_timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/selector_button"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <org.liangxiaokou.widget.view.RedTipImageView
                         android:id="@+id/iv_other_timer"
@@ -194,10 +195,10 @@
                     android:id="@+id/ll_other_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/selector_button"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <org.liangxiaokou.widget.view.RedTipImageView
                         android:id="@+id/iv_other_contact"

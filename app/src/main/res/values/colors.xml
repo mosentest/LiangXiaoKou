@@ -22,4 +22,7 @@
     <color name="spiderwoman">#b13937</color>
     <color name="two_face">#ee971f</color>
     <color name="wolverine">#603a70</color>
+
+    <!--https://github.com/d-max/spots-dialog-->
+    <color name="spots_dialog_color">@color/system_color</color>
 </resources>

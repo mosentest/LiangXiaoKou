@@ -2,8 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/line">
+    android:background="@color/line"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +50,8 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_toRightOf="@+id/iv_other_header"
-                android:text="帐号：137*****180" />
+                android:text="帐号：137*****180"
+                android:textColor="@color/dark" />
 
         </RelativeLayout>
 

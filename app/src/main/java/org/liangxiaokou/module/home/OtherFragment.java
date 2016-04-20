@@ -267,7 +267,7 @@ public class OtherFragment extends GeneralFragment {
                 break;
             case REQUEST_CODE_CAPTURE_CAMERA:
                 LogUtils.e(OtherFragment.class.getSimpleName(), "resultCode:" + resultCode + "-" + (data == null ? null : data));
-                Cursor cursor = getActivity().getContentResolver().query(photoUri, Constants.STORE_IMAGES, null, null, null);
+//                Cursor cursor = getActivity().getContentResolver().query(photoUri, Constants.STORE_IMAGES, null, null, null);
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);

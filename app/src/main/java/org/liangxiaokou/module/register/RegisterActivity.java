@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,14 +16,13 @@ import org.liangxiaokou.module.R;
 
 import java.lang.ref.WeakReference;
 
-public class RegisterActivity extends ToolBarActivity {
+public class RegisterActivity extends ToolBarActivity implements IRegisterView {
 
     private LinearLayout mLlRoot;
     private ScrollView mSvRoot;
     private TextInputLayout mTextInputUsername;
     private TextInputLayout mTextInputPassword;
     private TextInputLayout mTextInputRepassword;
-    private TextInputLayout mTextInputEmail;
     private Button mBtnRegister;
 
     private StaticHandler handler;
@@ -42,6 +40,45 @@ public class RegisterActivity extends ToolBarActivity {
         }
     }
 
+
+    private RegisterPresenter registerPresenter = new RegisterPresenter(this);
+
+    @Override
+    public String getUsername() {
+        return mTextInputUsername.getEditText().getText().toString().trim();
+    }
+
+    @Override
+    public String getPassword() {
+        return mTextInputPassword.getEditText().getText().toString().trim();
+    }
+
+    @Override
+    public String getRePassword() {
+        return mTextInputRepassword.getEditText().getText().toString().trim();
+    }
+
+    @Override
+    public void showLoading() {
+        alertDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        alertDialog.dismiss();
+    }
+
+    @Override
+    public void onSuccess() {
+        showToast("注册成功");
+        finish();
+    }
+
+    @Override
+    public void onFailure(int code, String msg) {
+        showToast("current code is " + code + " and msg is " + msg);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +94,6 @@ public class RegisterActivity extends ToolBarActivity {
         mTextInputUsername = (TextInputLayout) findViewById(R.id.textInput_username);
         mTextInputPassword = (TextInputLayout) findViewById(R.id.textInput_password);
         mTextInputRepassword = (TextInputLayout) findViewById(R.id.textInput_repassword);
-        mTextInputEmail = (TextInputLayout) findViewById(R.id.textInput_email);
         mBtnRegister = (Button) findViewById(R.id.btn_register);
         mBtnRegister.setOnClickListener(this);
     }
@@ -106,9 +142,11 @@ public class RegisterActivity extends ToolBarActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_register: {
-
+                registerPresenter.toRegister(this);
             }
             break;
         }
     }
+
+
 }
