@@ -34,13 +34,13 @@ public class BmobNetUtils {
 
     /**
      * @param context
-     * @param phone
+     * @param email
      * @param password
      * @param saveListener
      */
-    public static void login(Context context, String phone, String password, SaveListener saveListener) {
+    public static void login(Context context, String email, String password, SaveListener saveListener) {
         User user = new User();
-        user.setUsername(phone);
+        user.setUsername(email);
         user.setPassword(password);
         user.login(context.getApplicationContext(), saveListener);
     }

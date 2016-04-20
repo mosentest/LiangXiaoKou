@@ -9,10 +9,11 @@ import android.widget.TextView;
 
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.register.RegisterActivity;
 
 
-public class LoginActivity extends ToolBarActivity {
+public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     private TextInputLayout mTextInputUsername;
     private TextInputLayout mTextInputPassword;
@@ -20,8 +21,7 @@ public class LoginActivity extends ToolBarActivity {
     private TextView mTvRegister;
     private Button mBtnLogin;
 
-
-
+    private LoginPresenter loginPresenter = new LoginPresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +84,42 @@ public class LoginActivity extends ToolBarActivity {
         switch (v.getId()) {
             case R.id.tv_register: {
                 startActivity(RegisterActivity.class);
+                break;
             }
-            break;
+            case R.id.btn_login: {
+                loginPresenter.toLogin(this);
+                break;
+            }
         }
+    }
+
+    @Override
+    public String getUsername() {
+        return mTextInputUsername.getEditText().getText().toString().trim();
+    }
+
+    @Override
+    public String getPassword() {
+        return mTextInputPassword.getEditText().getText().toString().trim();
+    }
+
+    @Override
+    public void showLoading() {
+        alertDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        alertDialog.dismiss();
+    }
+
+    @Override
+    public void onSuccess() {
+        startActivity(HomeActivity.class);
+    }
+
+    @Override
+    public void onFailure(int code, String msg) {
+        showToast("current code is " + code + " and msg is " + msg);
     }
 }
