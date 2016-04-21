@@ -13,6 +13,7 @@ import android.widget.ScrollView;
 
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.util.KeyBoardUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -142,6 +143,7 @@ public class RegisterActivity extends ToolBarActivity implements IRegisterView {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_register: {
+                KeyBoardUtils.closeKeybord(mTextInputRepassword.getEditText(), getApplicationContext());
                 registerPresenter.toRegister(this);
             }
             break;

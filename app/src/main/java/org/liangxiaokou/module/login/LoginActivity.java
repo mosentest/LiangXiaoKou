@@ -13,6 +13,7 @@ import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.register.RegisterActivity;
+import org.liangxiaokou.util.KeyBoardUtils;
 
 
 public class LoginActivity extends ToolBarActivity implements ILoginView {
@@ -89,6 +90,7 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
             }
             break;
             case R.id.btn_login: {
+                KeyBoardUtils.closeKeybord(mTextInputPassword.getEditText(), getApplicationContext());
                 loginPresenter.toLoginByAccount(this);
             }
             break;
