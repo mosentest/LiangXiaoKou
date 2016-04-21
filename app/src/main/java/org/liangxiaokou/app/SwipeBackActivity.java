@@ -24,33 +24,11 @@ import dmax.dialog.SpotsDialog;
 /**
  * Created by Eric on 15/3/3.
  */
-public abstract class SwipeBackActivity extends AppCompatActivity implements SwipeBackLayout.SwipeBackListener, IActivity {
+public abstract class SwipeBackActivity extends GeneralActivity implements SwipeBackLayout.SwipeBackListener, IActivity {
 
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;
     protected Toolbar toolbar;
-    protected MaterialDialog materialDialog;//对话框
-    protected AlertDialog alertDialog;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        MApplication.getInstance().getmNewsLifecycleHandler().onActivityStarted(this);
-        PreOnStart();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        materialDialog = new MaterialDialog(this);
-        alertDialog = new SpotsDialog(this, R.style.CustomDialog);
-    }
-
-
-    public void showBack(boolean isShow) {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(isShow);
-    }
-
 
     @Override
     public void setContentView(int layoutResID) {
@@ -89,73 +67,4 @@ public abstract class SwipeBackActivity extends AppCompatActivity implements Swi
         ivShadow.setAlpha(1 - fractionScreen);
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        PreOnRestart();
-    }
-
-
-    public void onResume() {
-        super.onResume();
-        PreOnResume();
-        ThirdUtils.statisticsInActivityResume(this);
-    }
-
-    public void onPause() {
-        super.onPause();
-        PreOnPause();
-        MApplication.getInstance().getmNewsLifecycleHandler().onActivityPaused(this);
-        ThirdUtils.statisticsInActivityPause(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        MApplication.getInstance().getmNewsLifecycleHandler().onActivityStopped(this);
-        PreOnStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        PreOnDestroy();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (PreOnKeyDown(keyCode, event)) {
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    public void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    public void startActivity(Class<?> cls) {
-        Intent intent = new Intent(this, cls);
-        startActivity(intent);
-    }
-
-    public void startActivityForResult(Class<?> cls, int requestCode) {
-        Intent intent = new Intent(this, cls);
-        startActivityForResult(intent, requestCode);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void overridePendingTransition(int enterAnim, int exitAnim) {
-        super.overridePendingTransition(enterAnim, exitAnim);
-
-    }
 }

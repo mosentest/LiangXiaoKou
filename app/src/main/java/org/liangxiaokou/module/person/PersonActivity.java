@@ -1,6 +1,9 @@
 package org.liangxiaokou.module.person;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -8,11 +11,14 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.widget.view.CircleImageView;
+
+import java.lang.ref.WeakReference;
 
 import cn.bmob.v3.BmobUser;
 
@@ -27,6 +33,20 @@ public class PersonActivity extends SwipeBackActivity {
     private Button mBtnLogout;
     private TextView mTvUpdatePassword;
 
+    private static class StaticHandler extends Handler {
+        private final WeakReference<Activity> reference;
+
+        public StaticHandler(Activity activity) {
+            this.reference = new WeakReference<Activity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    }
+
+    private StaticHandler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +69,7 @@ public class PersonActivity extends SwipeBackActivity {
 
     @Override
     public void initData() {
+        mHandler = new StaticHandler(this);
         mBtnLogout.setOnClickListener(this);
         User currentUser = BmobUser.getCurrentUser(getApplicationContext(), User.class);
         if (currentUser != null) {
@@ -86,6 +107,7 @@ public class PersonActivity extends SwipeBackActivity {
     public void PreOnDestroy() {
         alertDialog.dismiss();
         alertDialog = null;
+        mHandler.removeCallbacks(null);
     }
 
     @Override
@@ -98,7 +120,13 @@ public class PersonActivity extends SwipeBackActivity {
         switch (v.getId()) {
             case R.id.btn_logout: {
                 alertDialog.show();
-                BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
+                    }
+                });
+                MApplication.getInstance().AppExit();
                 startActivity(LoginActivity.class);
             }
             break;

@@ -6,6 +6,7 @@ import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.util.ToastUtils;
 
+import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -35,15 +36,29 @@ public class BmobNetUtils {
     }
 
     /**
+     * 登录
+     *
      * @param context
-     * @param email
+     * @param username
      * @param password
      * @param saveListener
      */
-    public static void login(Context context, String email, String password, SaveListener saveListener) {
+    public static void login(Context context, String username, String password, SaveListener saveListener) {
         User user = new User();
-        user.setUsername(email);
+        user.setUsername(username);
         user.setPassword(password);
         user.login(context.getApplicationContext(), saveListener);
+    }
+
+    /**
+     * 登录
+     *
+     * @param context
+     * @param username
+     * @param password
+     * @param saveListener
+     */
+    public static void loginByAccount(Context context, String username, String password, LogInListener saveListener) {
+        User.loginByAccount(context, username, password, saveListener);
     }
 }

@@ -1,5 +1,6 @@
 package org.liangxiaokou.module.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.view.KeyEvent;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
@@ -87,7 +89,7 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
             }
             break;
             case R.id.btn_login: {
-                loginPresenter.toLogin(this);
+                loginPresenter.toLoginByAccount(this);
             }
             break;
         }
@@ -115,7 +117,11 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public void onSuccess() {
-        startActivity(HomeActivity.class);
+        //清除所有activity
+        MApplication.getInstance().AppExit();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("LoginActivity_code", 0);
+        startActivity(intent);
     }
 
     @Override

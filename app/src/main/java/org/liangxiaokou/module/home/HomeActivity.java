@@ -368,4 +368,11 @@ public class HomeActivity extends GeneralActivity implements
             Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //设置页面
+        mViewPager.setCurrentItem(intent.getIntExtra("LoginActivity_code", 2));
+    }
 }

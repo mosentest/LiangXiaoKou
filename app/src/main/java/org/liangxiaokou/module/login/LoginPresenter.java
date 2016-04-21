@@ -3,9 +3,13 @@ package org.liangxiaokou.module.login;
 import android.content.Context;
 import android.text.TextUtils;
 
+import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
 import org.liangxiaokou.util.ToastUtils;
+import org.liangxiaokou.util.VolleyLog;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -40,6 +44,30 @@ public class LoginPresenter {
             @Override
             public void onFailure(int i, String s) {
                 loginView.onFailure(i, s);
+                loginView.hideLoading();
+            }
+        });
+    }
+
+    public void toLoginByAccount(Context context) {
+        if (TextUtils.isEmpty(loginView.getUsername())) {
+            ToastUtils.toast(context.getApplicationContext(), "请输入您的邮箱地址");
+            return;
+        }
+        if (TextUtils.isEmpty(loginView.getPassword())) {
+            ToastUtils.toast(context.getApplicationContext(), "请输入您的密码");
+            return;
+        }
+        loginView.showLoading();
+        BmobNetUtils.loginByAccount(context, loginView.getUsername(), loginView.getPassword(), new LogInListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                if (user != null) {
+                    loginView.onSuccess();
+                    VolleyLog.e("%s", user.toString());
+                } else {
+                    loginView.onFailure(0, e.getMessage());
+                }
                 loginView.hideLoading();
             }
         });
