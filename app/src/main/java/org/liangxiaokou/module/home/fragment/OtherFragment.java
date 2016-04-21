@@ -18,12 +18,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.liangxiaokou.bean.User;
+import org.liangxiaokou.bmob.BmobIMNetUtils;
 import org.liangxiaokou.module.chat.ChatActivity;
 import org.liangxiaokou.module.contact.ContactActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.setlovedate.SetLoveDateActivity;
 import org.liangxiaokou.module.sleep.SleepActivity;
 import org.liangxiaokou.module.timer.TimerActivity;
+import org.liangxiaokou.util.AppUtils;
+import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
 import org.liangxiaokou.widget.view.CircleImageView;
@@ -32,6 +36,10 @@ import org.liangxiaokou.util.DateUtils;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.util.LogUtils;
 
+import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMUserInfo;
+import cn.bmob.newim.listener.ConversationListener;
+import cn.bmob.v3.exception.BmobException;
 
 
 /**
@@ -237,7 +245,26 @@ public class OtherFragment extends GeneralFragment {
                 listDialog.show();
                 break;
             case R.id.rl_other_exist:
-                startActivity(ChatActivity.class);
+                BmobIMUserInfo bmobIMUserInfo = new BmobIMUserInfo();
+                User currentUser = User.getCurrentUser(getActivity().getApplicationContext(), User.class);
+                bmobIMUserInfo.setId(new Long(0));
+                bmobIMUserInfo.setUserId(currentUser.getObjectId());
+                bmobIMUserInfo.setName(currentUser.getUsername());
+                BmobIMNetUtils.createConversation(bmobIMUserInfo, new ConversationListener() {
+                    @Override
+                    public void done(BmobIMConversation bmobIMConversation, BmobException e) {
+
+                        startActivity(ChatActivity.class);
+                        if (e == null) {
+                            //在此跳转到聊天页面
+                            Intent intent2 = new Intent(getActivity(), ChatActivity.class);
+                            intent2.putExtra("OtherFragment_bmobIMConversation", bmobIMConversation);
+                            startActivity(intent2);
+                        } else {
+                            ToastUtils.toast(getContext(), e.getMessage() + "(" + e.getErrorCode() + ")");
+                        }
+                    }
+                });
                 ivOtherHeader.setTipVisibility(RedTipImageView.TipType.RED_TIP_GONE);
                 break;
             case R.id.ll_other_sleep:

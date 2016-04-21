@@ -34,6 +34,7 @@ import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
 import org.liangxiaokou.app.GeneralActivity;
+import org.liangxiaokou.bmob.BmobIMNetUtils;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.feedback.FeedBackActivity;
 import org.liangxiaokou.module.home.fragment.AlbumFragment;
@@ -44,9 +45,13 @@ import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.SnackBarUtils;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ViewPagerAdapter;
+import org.liangxiaokou.util.VolleyLog;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.v3.exception.BmobException;
 
 /**
  * http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android
@@ -88,13 +93,23 @@ public class HomeActivity extends GeneralActivity implements
         setContentView(R.layout.activity_home);
         ThirdUtils.bmobInit(getApplicationContext());
         ThirdUtils.umengInit(this, true, false, this);
-        LogUtils.e(TAG, "onCreate");
         //http://blog.csdn.net/shineflowers/article/details/40426361，http://blog.csdn.net/javensun/article/details/7334230
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
         sendBroadcast(broadcastIntent);
         //百度定位
         mLocationClient = BaiduLBSutils.locationStart(this, this);
+        //连接Bmob服务器
+        BmobIMNetUtils.connect(this, new ConnectListener() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+                    VolleyLog.e("%s", "connect success");
+                } else {
+                    VolleyLog.e("%s", e.getErrorCode() + "/" + e.getMessage());
+                }
+            }
+        });
     }
 
     @Override
@@ -105,11 +120,6 @@ public class HomeActivity extends GeneralActivity implements
     @Override
     protected void PreOnResume() {
         ThirdUtils.statisticsInActivityResume(this);
-        LogUtils.e(TAG, "PreOnResume");
-//        ArrayList<String> devMountList = SDCardUtils.getDevMountList();
-//        for (String path : devMountList) {
-//            LogUtils.e(TAG, path);
-//        }
     }
 
     @Override
@@ -120,7 +130,6 @@ public class HomeActivity extends GeneralActivity implements
     @Override
     protected void PreOnPause() {
         ThirdUtils.statisticsInActivityPause(this);
-        LogUtils.e(TAG, "PreOnPause");
     }
 
     @Override
@@ -131,7 +140,6 @@ public class HomeActivity extends GeneralActivity implements
 
     @Override
     protected void PreOnDestroy() {
-        LogUtils.e(TAG, "PreOnDestroy");
         if (mGeoCoder != null) {
             mGeoCoder.destroy();
         }
@@ -373,6 +381,6 @@ public class HomeActivity extends GeneralActivity implements
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         //设置页面
-        mViewPager.setCurrentItem(intent.getIntExtra("LoginActivity_code", 2));
+        mViewPager.setCurrentItem(intent.getIntExtra("LoginActivity_code", 0));
     }
 }

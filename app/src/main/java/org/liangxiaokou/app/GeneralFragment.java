@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.liangxiaokou.util.ThirdUtils;
+import org.liangxiaokou.util.ToastUtils;
 
 /**
  * Created by moziqi on 2015/9/13 0013.
@@ -46,8 +47,6 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     @Override
     public void onStop() {
         super.onStop();
-//        RefWatcher refWatcher = MApplication.getRefWatcher(getActivity());
-//        refWatcher.watch(this);
         PreOnStop();
     }
 
@@ -68,7 +67,7 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     }
 
     public void showToast(String msg) {
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        ToastUtils.toast(getActivity().getApplicationContext(),msg);
     }
 
     public <T extends View> T findViewById(int resId) {

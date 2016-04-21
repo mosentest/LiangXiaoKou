@@ -8,6 +8,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 跟App相关的辅助类
@@ -77,6 +78,16 @@ public class AppUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * 获取App唯一标识
+     *
+     * @return
+     */
+    public static String getAppId() {
+        String uniqueID = UUID.randomUUID().toString();
+        return uniqueID.replace("-", "");
     }
 
 }

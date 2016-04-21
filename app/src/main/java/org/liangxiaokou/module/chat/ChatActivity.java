@@ -17,9 +17,7 @@ public class ChatActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
+        showBack(true);
     }
 
 

@@ -64,7 +64,6 @@ public class LoginPresenter {
             public void done(User user, BmobException e) {
                 if (user != null) {
                     loginView.onSuccess();
-                    VolleyLog.e("%s", user.toString());
                 } else {
                     loginView.onFailure(0, e.getMessage());
                 }
