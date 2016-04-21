@@ -10,15 +10,8 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.Toast;
-
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
-import com.r0adkll.slidr.model.SlidrPosition;
 
 import org.liangxiaokou.module.R;
-import org.liangxiaokou.util.DensityUtils;
-import org.liangxiaokou.util.StatusBarCompat;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.widget.dialog.widget.MaterialDialog;

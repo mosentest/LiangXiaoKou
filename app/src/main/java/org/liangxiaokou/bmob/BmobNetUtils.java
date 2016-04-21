@@ -27,6 +27,8 @@ public class BmobNetUtils {
         user.setUsername(email);
         user.setPassword(password);
         user.setEmail(email);
+        user.setNick("");//默认为空
+        user.setSex(1);//默认设置为女
         //邮箱验证
         user.setEmailVerified(true);
         user.signUp(context.getApplicationContext(), saveListener);

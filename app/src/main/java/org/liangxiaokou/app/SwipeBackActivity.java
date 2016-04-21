@@ -61,6 +61,7 @@ public abstract class SwipeBackActivity extends AppCompatActivity implements Swi
         setSupportActionBar(toolbar);
         initView();
         initData();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
     }
 
     private View getContainer() {

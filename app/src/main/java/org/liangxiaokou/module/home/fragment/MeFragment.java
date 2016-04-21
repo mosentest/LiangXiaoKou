@@ -1,16 +1,20 @@
 package org.liangxiaokou.module.home.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.module.person.PersonActivity;
 import org.liangxiaokou.widget.view.CircleImageView;
+
+import cn.bmob.v3.BmobUser;
 
 
 public class MeFragment extends GeneralFragment {
@@ -65,6 +69,11 @@ public class MeFragment extends GeneralFragment {
     @Override
     protected void initData() {
         mRlOtherExist.setOnClickListener(this);
+        User currentUser = BmobUser.getCurrentUser(getActivity().getApplicationContext(), User.class);
+        if (currentUser != null) {
+            mTvOtherName.setText(TextUtils.isEmpty(currentUser.getNick()) ? getString(R.string.app_name) : currentUser.getNick() + "");
+            mTvOtherMood.setText("账号:" + currentUser.getUsername());
+        }
     }
 
     @Override

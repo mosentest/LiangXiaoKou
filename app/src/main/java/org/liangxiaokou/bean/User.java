@@ -6,15 +6,14 @@ import cn.bmob.v3.BmobUser;
  * Created by moziqi on 16-4-9.
  */
 public class User extends BmobUser {
-    private Boolean sex;//性别(0男，1女)
+    private int sex;//性别(0男，1女)
     private String nick;//别名
-    private String bitch;//出生日期
 
-    public Boolean getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -26,11 +25,4 @@ public class User extends BmobUser {
         this.nick = nick;
     }
 
-    public String getBitch() {
-        return bitch;
-    }
-
-    public void setBitch(String bitch) {
-        this.bitch = bitch;
-    }
 }

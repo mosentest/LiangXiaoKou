@@ -48,12 +48,12 @@
 
         <!--http://www.easyicon.net/1180534-gear_icon.html-->
         <TextView
-            android:id="@+id/tv_nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="昵称"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_content_size" />
 
         <TextView
             android:id="@+id/tv_nick_right"
@@ -67,4 +67,56 @@
     </RelativeLayout>
 
     <include layout="@layout/view_line_1" />
+
+    <RelativeLayout
+        android:id="@+id/rl_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button"
+        android:padding="10dp">
+
+        <!--http://www.easyicon.net/1180534-gear_icon.html-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="性别"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_content_size" />
+
+        <TextView
+            android:id="@+id/tv_sex_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="女"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/normal_content_size" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_16" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/selector_button_with_corner"
+        android:text="退出登陆"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/normal_content_size" />
+
+    <TextView
+        android:id="@+id/tv_update_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="修改密码?"
+        android:textColor="@color/selector_textview"
+        android:textSize="@dimen/normal_content_size" />
 </LinearLayout>
