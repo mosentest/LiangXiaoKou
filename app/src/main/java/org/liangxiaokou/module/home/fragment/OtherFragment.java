@@ -245,16 +245,13 @@ public class OtherFragment extends GeneralFragment {
                 listDialog.show();
                 break;
             case R.id.rl_other_exist:
-                BmobIMUserInfo bmobIMUserInfo = new BmobIMUserInfo();
-                User currentUser = User.getCurrentUser(getActivity().getApplicationContext(), User.class);
-                bmobIMUserInfo.setId(new Long(0));
-                bmobIMUserInfo.setUserId(currentUser.getObjectId());
-                bmobIMUserInfo.setName(currentUser.getUsername());
+                //发送给华为
+                //BmobIMUserInfo bmobIMUserInfo = new BmobIMUserInfo(new Long(0), "d84d4f1c3e", "572508836@qq.com", "");
+                //发送给oppo
+                BmobIMUserInfo bmobIMUserInfo = new BmobIMUserInfo(new Long(0), "021514db73", "709847739@qq.com", "");
                 BmobIMNetUtils.createConversation(bmobIMUserInfo, new ConversationListener() {
                     @Override
                     public void done(BmobIMConversation bmobIMConversation, BmobException e) {
-
-                        startActivity(ChatActivity.class);
                         if (e == null) {
                             //在此跳转到聊天页面
                             Intent intent2 = new Intent(getActivity(), ChatActivity.class);

@@ -29,7 +29,7 @@ public class MApplication extends Application {
         return instance;
     }
 
-    private Stack<Activity> activityStack;
+    private static Stack<Activity> activityStack;
 
     @Override
     public void onCreate() {

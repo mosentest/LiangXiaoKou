@@ -44,6 +44,7 @@ import org.liangxiaokou.util.BaiduLBSutils;
 import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.SnackBarUtils;
 import org.liangxiaokou.util.ThirdUtils;
+import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.ViewPagerAdapter;
 import org.liangxiaokou.util.VolleyLog;
 
@@ -272,18 +273,18 @@ public class HomeActivity extends GeneralActivity implements
                         //0表示有更新，1表示无更新，2表示非wifi状态，3表示请求超时
                         switch (updateStatus) {
                             case UpdateStatus.Yes: // has update
-                                UmengUpdateAgent.showUpdateDialog(HomeActivity.this, updateInfo);
+                                UmengUpdateAgent.showUpdateDialog(getApplicationContext(), updateInfo);
                                 break;
                             case UpdateStatus.No: // has no update
-                                Toast.makeText(HomeActivity.this, "亲，没有新版本哦！", Toast.LENGTH_SHORT).show();
+                                ToastUtils.toast(getApplicationContext(), "亲，没有新版本哦！");
                                 break;
                             case UpdateStatus.Timeout: // time out
-                                Toast.makeText(HomeActivity.this, "你这个笨蛋，快打开数据！", Toast.LENGTH_SHORT).show();
+                                ToastUtils.toast(getApplicationContext(), "你这个笨蛋，快打开数据！");
                                 break;
                         }
                     }
                 });
-                UmengUpdateAgent.forceUpdate(this);
+                UmengUpdateAgent.forceUpdate(getApplicationContext());
                 break;
         }
         return false;
@@ -321,7 +322,7 @@ public class HomeActivity extends GeneralActivity implements
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mkeyTime) > 2000) {
                 mkeyTime = System.currentTimeMillis();
-                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_LONG).show();
+                ToastUtils.toast(getApplicationContext(), "再按一次退出程序");
             } else {
                 finish();
                 System.exit(0);

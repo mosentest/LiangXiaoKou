@@ -119,6 +119,7 @@
     <orderEntry type="library" exported="" name="cardview-v7-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_cloud_v3_7_1" level="project" />
     <orderEntry type="library" exported="" name="design-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-3.0.0" level="project" />
     <orderEntry type="library" exported="" name="umeng-update-v2.6.0.1" level="project" />
     <orderEntry type="library" exported="" name="androidasync-2.1.6" level="project" />
     <orderEntry type="library" exported="" name="shimmer-0.1.0" level="project" />

@@ -59,4 +59,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.6.0'
     //https://github.com/d-max/spots-dialog
     compile 'com.github.d-max:spots-dialog:0.4@aar'
+    //https://github.com/greenrobot/EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

@@ -59,6 +59,6 @@ public class BmobNetUtils {
      * @param saveListener
      */
     public static void loginByAccount(Context context, String username, String password, LogInListener saveListener) {
-        User.loginByAccount(context, username, password, saveListener);
+        User.loginByAccount(context.getApplicationContext(), username, password, saveListener);
     }
 }

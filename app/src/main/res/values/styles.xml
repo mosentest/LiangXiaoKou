@@ -30,12 +30,12 @@
 
     <!--主界面-->
     <style name="AppBaseThemeMain" parent="@style/BaseAppTheme">
-        <item name="android:windowIsTranslucent">false</item>
+        <!--<item name="android:windowIsTranslucent">false</item>-->
     </style>
 
     <!--启动页-->
     <style name="SplashScreenActivityTheme" parent="@style/BaseAppTheme">
-        <item name="android:windowIsTranslucent">false</item>
+        <!--<item name="android:windowIsTranslucent">false</item>-->
     </style>
 
     <style name="MenuTextStyle">
