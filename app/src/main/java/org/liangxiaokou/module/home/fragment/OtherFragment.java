@@ -174,7 +174,6 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         ivOtherTimer.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
         ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
 
-
         otherPresenter.checkHasFriend(getContext());
     }
 

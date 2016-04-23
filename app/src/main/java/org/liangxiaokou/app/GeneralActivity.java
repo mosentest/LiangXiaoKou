@@ -82,6 +82,7 @@ public abstract class GeneralActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        MApplication.getInstance().finishActivity(this);
         PreOnDestroy();
     }
 

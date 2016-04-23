@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
@@ -16,7 +17,6 @@ import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.register.RegisterActivity;
 import org.liangxiaokou.module.welcome.WelcomeActivity;
 import org.liangxiaokou.util.KeyBoardUtils;
-
 
 public class LoginActivity extends ToolBarActivity implements ILoginView {
 
@@ -41,6 +41,7 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
         mTvForgetPassword = (TextView) findViewById(R.id.tv_forget_password);
         mTvRegister = (TextView) findViewById(R.id.tv_register);
         mBtnLogin = (Button) findViewById(R.id.btn_login);
+
     }
 
     @Override
@@ -56,7 +57,6 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public void PreOnResume() {
-
     }
 
     @Override
@@ -66,17 +66,16 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public void PreOnPause() {
-
     }
 
     @Override
     public void PreOnStop() {
-
+        //KeyBoardUtils.closeKeybord(mTextInputUsername.getEditText(), getApplicationContext());
     }
 
     @Override
     public void PreOnDestroy() {
-
+        //KeyBoardUtils.closeKeybord(mTextInputUsername.getEditText(), getApplicationContext());
     }
 
     @Override
@@ -142,4 +141,5 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
     public void onFailure(int code, String msg) {
         showToast("current code is " + code + " and msg is " + msg);
     }
+
 }

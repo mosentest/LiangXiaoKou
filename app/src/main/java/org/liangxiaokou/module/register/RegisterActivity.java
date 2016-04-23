@@ -126,12 +126,12 @@ public class RegisterActivity extends ToolBarActivity implements IRegisterView {
 
     @Override
     public void PreOnStop() {
-
+        KeyBoardUtils.closeKeybord(mTextInputUsername.getEditText(), getApplicationContext());
     }
 
     @Override
     public void PreOnDestroy() {
-
+        KeyBoardUtils.closeKeybord(mTextInputUsername.getEditText(), getApplicationContext());
     }
 
     @Override

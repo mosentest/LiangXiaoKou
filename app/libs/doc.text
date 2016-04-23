@@ -53,3 +53,6 @@ androidasync-2.1.6.jar
 #okhttp
 okhttp-2.4.0.jar
 okio-1.4.0.jar
+
+#zxing
+zxing.jar
