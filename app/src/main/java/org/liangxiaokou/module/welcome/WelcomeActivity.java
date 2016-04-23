@@ -6,14 +6,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.util.KeyBoardUtils;
 import org.liangxiaokou.widget.view.KeyboardListenRelativeLayout;
 
 import java.lang.ref.WeakReference;
@@ -76,8 +79,6 @@ public class WelcomeActivity extends ToolBarActivity {
     @Override
     public void initData() {
         mHandler = new StaticHandler(this);
-        //隐藏键盘
-        //KeyBoardUtils.closeKeybord(mTextInputNick.getEditText(), getApplicationContext());
         mKlrl.setOnKeyboardStateChangedListener(new KeyboardListenRelativeLayout.IOnKeyboardStateChangedListener() {
             @Override
             public void onKeyboardStateChanged(int state) {
@@ -99,6 +100,17 @@ public class WelcomeActivity extends ToolBarActivity {
             }
         });
         mBtnLogin.setOnClickListener(this);
+        //滚动监听
+        mSv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    //隐藏键盘
+                    KeyBoardUtils.closeKeybord(mTextInputNick.getEditText(), getApplicationContext());
+                }
+                return false;
+            }
+        });
     }
 
     @Override
