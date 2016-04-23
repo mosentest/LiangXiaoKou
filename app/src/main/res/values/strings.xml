@@ -30,4 +30,10 @@
     <string name="title_activity_register">注册</string>
     <string name="title_activity_person">个人信息</string>
     <string name="title_activity_welcome">@string/plusone</string>
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string name="other_msg_before">快邀请您的</string>
+    <string name="other_msg_after">朋友加入吧</string>
 </resources>

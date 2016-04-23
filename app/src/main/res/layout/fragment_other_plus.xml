@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rl_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:visibility="gone">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="快邀请您的男朋友加入吧"
+            android:textColor="@color/system_press"
+            android:textSize="@dimen/normal_content_size_18" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ico_heart_plus" />
+    </RelativeLayout>
+</merge>

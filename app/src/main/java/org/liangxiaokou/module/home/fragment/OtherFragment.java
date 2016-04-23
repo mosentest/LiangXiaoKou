@@ -46,7 +46,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OtherFragment extends GeneralFragment {
+public class OtherFragment extends GeneralFragment implements IOtherView {
 
     public final static int update_Love_Date = 0x01;//更新恋爱日
     public final static int change_phone = 0x02;//更换纪念照
@@ -72,10 +72,16 @@ public class OtherFragment extends GeneralFragment {
     private LinearLayout llOtherSleep;
     private LinearLayout llOtherTimer;
 
+    private RelativeLayout mRlAdd;
+    private TextView mTvTitle;
+    private LinearLayout mLlNormal;
+
+
     private LinearLayout llOtherContact;
     private NormalListDialog listDialog;
     private Uri photoUri;
 
+    private OtherPresenter otherPresenter = new OtherPresenter(this);
 
     //private ShimmerFrameLayout shimmerContent;
 
@@ -131,6 +137,10 @@ public class OtherFragment extends GeneralFragment {
         ivOtherSleep = findViewById(R.id.iv_other_sleep);
         ivOtherTimer = findViewById(R.id.iv_other_timer);
         ivOtherContact = findViewById(R.id.iv_other_contact);
+
+        mRlAdd = (RelativeLayout) findViewById(R.id.rl_add);
+        mTvTitle = (TextView) findViewById(R.id.tv_title);
+        mLlNormal = (LinearLayout) findViewById(R.id.ll_normal);
     }
 
     @Override
@@ -156,6 +166,7 @@ public class OtherFragment extends GeneralFragment {
         llOtherSleep.setOnClickListener(this);
         llOtherTimer.setOnClickListener(this);
         llOtherContact.setOnClickListener(this);
+        mRlAdd.setOnClickListener(this);
 
         //设置红点
         ivOtherHeader.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
@@ -163,6 +174,8 @@ public class OtherFragment extends GeneralFragment {
         ivOtherTimer.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
         ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
 
+
+        otherPresenter.checkHasFriend(getContext());
     }
 
     @Override
@@ -297,5 +310,45 @@ public class OtherFragment extends GeneralFragment {
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void noFriend() {
+        User currentUser = User.getCurrentUser(getContext(), User.class);
+        String msg = "";
+        if (currentUser.getSex() == 0) {
+            msg = getString(R.string.other_msg_before) + getResources().getStringArray(R.array.sex)[0] + getString(R.string.other_msg_after);
+        } else if (currentUser.getSex() == 1) {
+            msg = getString(R.string.other_msg_before) + getResources().getStringArray(R.array.sex)[1] + getString(R.string.other_msg_after);
+        }
+        mTvTitle.setText(msg);
+        mRlAdd.setVisibility(View.VISIBLE);
+        mLlNormal.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hasFriend() {
+        mLlNormal.setVisibility(View.VISIBLE);
+        mRlAdd.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onFailure(int code, String msg) {
+        showToast("current code is " + code + " and msg is " + msg);
     }
 }

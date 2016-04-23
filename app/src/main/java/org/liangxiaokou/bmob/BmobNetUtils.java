@@ -3,6 +3,7 @@ package org.liangxiaokou.bmob;
 import android.content.Context;
 
 import org.liangxiaokou.app.MApplication;
+import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.util.ToastUtils;
 
@@ -93,5 +94,23 @@ public class BmobNetUtils {
      */
     public static void updateUserInfo(Context context, User user, String userId, UpdateListener updateListener) {
         user.update(context, userId, updateListener);
+    }
+
+    /**
+     * 查询是否已经有关联的好友
+     *
+     * @param context
+     * @param findListener
+     */
+    public static void queryHasFriend(Context context, FindListener<Friend> findListener) {
+        BmobQuery<Friend> friendBmobQuery = new BmobQuery<>();
+        String currentUserId = "";
+        User currentUser = User.getCurrentUser(context.getApplicationContext(), User.class);
+        if (currentUser != null) {
+            currentUserId = currentUser.getObjectId();
+        }
+        friendBmobQuery.addWhereEqualTo("currentUserId", currentUserId);
+        friendBmobQuery.addWhereEqualTo("isLove", 1);
+        friendBmobQuery.findObjects(context, findListener);
     }
 }

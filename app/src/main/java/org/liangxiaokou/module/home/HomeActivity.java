@@ -342,7 +342,6 @@ public class HomeActivity extends GeneralActivity implements
         if (bdLocation == null) {
             return;
         }
-        LogUtils.e("e", bdLocation.getAddrStr() + "");
         LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
         mGeoCoder = BaiduLBSutils.getInstance(latLng, this);
     }
@@ -374,7 +373,7 @@ public class HomeActivity extends GeneralActivity implements
                     .append(addressDetail.district)
                     .append(addressDetail.street)
                     .append(addressDetail.streetNumber);
-            Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 

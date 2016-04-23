@@ -30,7 +30,7 @@ public class BaiduLBSutils {
         }
         mLocClient.registerLocationListener(bdLocationListener);
         LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
+        //option.setOpenGps(true); // 打开gps
         option.setCoorType("bd09ll"); // 设置坐标类型
         option.setScanSpan(1000 * 0);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
