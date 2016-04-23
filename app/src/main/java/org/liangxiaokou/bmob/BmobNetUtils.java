@@ -10,6 +10,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by moziqi on 16-4-9.
@@ -80,5 +81,17 @@ public class BmobNetUtils {
         BmobQuery<User> query = new BmobQuery<User>();
         query.addWhereEqualTo("username", username);
         query.findObjects(context.getApplicationContext(), findListener);
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param context
+     * @param user
+     * @param userId
+     * @param updateListener
+     */
+    public static void updateUserInfo(Context context, User user, String userId, UpdateListener updateListener) {
+        user.update(context, userId, updateListener);
     }
 }

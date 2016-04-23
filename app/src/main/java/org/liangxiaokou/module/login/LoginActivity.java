@@ -14,6 +14,7 @@ import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.register.RegisterActivity;
+import org.liangxiaokou.module.welcome.WelcomeActivity;
 import org.liangxiaokou.util.KeyBoardUtils;
 
 
@@ -113,7 +114,7 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
         //判断是否完善个人信息(性别，昵称)
         if (!user.getIsOk()) {
             //需要完善个人资料
-
+            startActivity(WelcomeActivity.class);
         } else {
             //清除所有activity
             MApplication.getInstance().AppExit();

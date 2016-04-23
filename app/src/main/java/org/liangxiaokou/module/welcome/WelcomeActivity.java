@@ -16,12 +16,13 @@ import android.widget.Toast;
 
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.util.KeyBoardUtils;
 import org.liangxiaokou.widget.view.KeyboardListenRelativeLayout;
 
 import java.lang.ref.WeakReference;
 
-public class WelcomeActivity extends ToolBarActivity {
+public class WelcomeActivity extends ToolBarActivity implements IWelcomeView {
 
     private ScrollView mSv;
     private RadioGroup mRgSex;
@@ -30,7 +31,6 @@ public class WelcomeActivity extends ToolBarActivity {
     private TextInputLayout mTextInputNick;
     private Button mBtnLogin;
     private KeyboardListenRelativeLayout mKlrl;
-
 
     private StaticHandler mHandler;
 
@@ -57,6 +57,8 @@ public class WelcomeActivity extends ToolBarActivity {
             super.handleMessage(msg);
         }
     }
+
+    private WelcomePresenter welcomePresenter = new WelcomePresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,17 @@ public class WelcomeActivity extends ToolBarActivity {
                 return false;
             }
         });
+        //性别
+        mRgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rb_man) {
+                    welcomePresenter.setSex(0);
+                } else if (checkedId == R.id.rb_woman) {
+                    welcomePresenter.setSex(1);
+                }
+            }
+        });
     }
 
     @Override
@@ -153,7 +166,33 @@ public class WelcomeActivity extends ToolBarActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
+                welcomePresenter.toMain(this);
                 break;
         }
+    }
+
+    @Override
+    public String getNick() {
+        return mTextInputNick.getEditText().getText().toString().trim();
+    }
+
+    @Override
+    public void showLoading() {
+        alertDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        alertDialog.hide();
+    }
+
+    @Override
+    public void onSuccess() {
+        startActivity(HomeActivity.class);
+    }
+
+    @Override
+    public void onFailure(int code, String msg) {
+        showToast("current code is " + code + " and msg is " + msg);
     }
 }
