@@ -21,13 +21,14 @@ import android.widget.Toast;
 
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobIMNetUtils;
+import org.liangxiaokou.module.QRcode.QRcodeActivity;
+import org.liangxiaokou.module.QRcode.ScannerActivity;
 import org.liangxiaokou.module.chat.ChatActivity;
 import org.liangxiaokou.module.contact.ContactActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.setlovedate.SetLoveDateActivity;
 import org.liangxiaokou.module.sleep.SleepActivity;
 import org.liangxiaokou.module.timer.TimerActivity;
-import org.liangxiaokou.util.AppUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
@@ -72,13 +73,13 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     private LinearLayout llOtherSleep;
     private LinearLayout llOtherTimer;
 
-    private RelativeLayout mRlAdd;
-    private TextView mTvTitle;
-    private LinearLayout mLlNormal;
-
+    private RelativeLayout mRlAdd;//添加好友界面
+    private TextView mTvTitle;//显示男女朋友的问题
+    private LinearLayout mLlNormal;//如果有好友的，就显示这个
+    private NormalListDialog friendDialog;//扫一扫，还是显示二维码
 
     private LinearLayout llOtherContact;
-    private NormalListDialog listDialog;
+    private NormalListDialog photoDialog;//拍照类型
     private Uri photoUri;
 
     private OtherPresenter otherPresenter = new OtherPresenter(this);
@@ -109,8 +110,7 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_other, container, false);
     }
@@ -175,6 +175,30 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
 
         otherPresenter.checkHasFriend(getContext());
+
+        //设置添加好友的对话框
+        friendDialog = new NormalListDialog(getContext(), new String[]{"扫一扫", "我的二维码"});
+        friendDialog.titleBgColor(getContext().getResources().getColor(R.color.system_color));
+        friendDialog.itemPressColor(getContext().getResources().getColor(R.color.line));
+        friendDialog.title("请选择");
+        friendDialog.itemTextSize(16);
+        friendDialog.setOnOperItemClickL(new OnOperItemClickL() {
+            @Override
+            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        //跳转扫一扫界面
+                        startActivity(ScannerActivity.class);
+                        friendDialog.dismiss();
+                        break;
+                    case 1:
+                        startActivity(QRcodeActivity.class);
+                        friendDialog.dismiss();
+                        //我的二维码
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -210,12 +234,12 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
                 startActivityForResult(SetLoveDateActivity.class, update_Love_Date);
                 break;
             case R.id.iv_other_camera:
-                listDialog = new NormalListDialog(getContext(), new String[]{"拍照", "相册", "仿微信方式"});
-                listDialog.titleBgColor(getContext().getResources().getColor(R.color.system_color));
-                listDialog.title("请选择");
-                listDialog.itemTextSize(16);
-                listDialog.itemPressColor(getContext().getResources().getColor(R.color.line));
-                listDialog.setOnOperItemClickL(new OnOperItemClickL() {
+                photoDialog = new NormalListDialog(getContext(), new String[]{"拍照", "相册", "仿微信方式"});
+                photoDialog.titleBgColor(getContext().getResources().getColor(R.color.system_color));
+                photoDialog.title("请选择");
+                photoDialog.itemTextSize(16);
+                photoDialog.itemPressColor(getContext().getResources().getColor(R.color.line));
+                photoDialog.setOnOperItemClickL(new OnOperItemClickL() {
                     @Override
                     public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
                         switch (position) {
@@ -255,10 +279,10 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
                             case 2:
                                 break;
                         }
-                        listDialog.dismiss();
+                        photoDialog.dismiss();
                     }
                 });
-                listDialog.show();
+                photoDialog.show();
                 break;
             case R.id.rl_other_exist:
                 //发送给华为
@@ -291,6 +315,9 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
             case R.id.ll_other_contact:
                 startActivity(ContactActivity.class);
                 ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_GONE);
+                break;
+            case R.id.rl_add:
+                friendDialog.show();
                 break;
 
         }

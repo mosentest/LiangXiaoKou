@@ -9,7 +9,10 @@ public class Constants {
     public final static int man = 1;
     public final static int woman = 0;
 
+    public static final String author = "moziqi";
+
     public static final String APP_NAME = "liangxiaokou";
+
     public static final String SAVE_IMAGE_DIR_PATH = "/image";
 
     public static final String[] STORE_IMAGES = {

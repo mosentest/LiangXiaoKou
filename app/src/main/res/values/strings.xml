@@ -36,4 +36,6 @@
     </string-array>
     <string name="other_msg_before">快邀请您的</string>
     <string name="other_msg_after">朋友加入吧</string>
+    <string name="title_activity_scanner">扫一扫</string>
+    <string name="title_activity_qrcode">我的二维码</string>
 </resources>

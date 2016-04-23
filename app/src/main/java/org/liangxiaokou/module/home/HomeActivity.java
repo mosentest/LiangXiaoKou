@@ -160,6 +160,7 @@ public class HomeActivity extends GeneralActivity implements
         mTabLayout = (TabLayout) findViewById(R.id.id_tablayout);
         mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
         mFloatingActionButton = (FloatingActionButton) findViewById(R.id.id_floatingactionbutton);
+        mFloatingActionButton.setVisibility(View.GONE);
         mNavigationView = (NavigationView) findViewById(R.id.id_navigationview);
     }
 
@@ -203,7 +204,6 @@ public class HomeActivity extends GeneralActivity implements
         mTabLayout.setTabsFromPagerAdapter(mViewPagerAdapter);//给Tabs设置适配器
 
         // 设置FloatingActionButton的点击事件
-        mFloatingActionButton.setVisibility(View.GONE);
         mFloatingActionButton.setOnClickListener(this);
     }
 

@@ -251,7 +251,19 @@
             android:label="@string/title_activity_welcome"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseThemeMain"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".QRcode.ScannerActivity"
+            android:label="@string/title_activity_scanner"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseThemeMain"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".QRcode.QRcodeActivity"
+            android:label="@string/title_activity_qrcode"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
 
 </manifest>
