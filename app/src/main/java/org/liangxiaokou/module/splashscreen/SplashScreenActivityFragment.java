@@ -16,6 +16,7 @@ import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.module.login.LoginActivity;
+import org.liangxiaokou.module.welcome.WelcomeActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -54,7 +55,11 @@ public class SplashScreenActivityFragment extends GeneralFragment implements Til
                 User user = BmobUser.getCurrentUser(activity, User.class);
                 if (user != null) {
                     //用户信息不为空
-                    activity.startActivity(new Intent(activity, HomeActivity.class));
+                    if (user.getIsOk()) {
+                        activity.startActivity(new Intent(activity, HomeActivity.class));
+                    } else {
+                        activity.startActivity(new Intent(activity, WelcomeActivity.class));
+                    }
                 } else {
                     //缓存用户对象为空时， 可打开用户注册界面…
                     activity.startActivity(new Intent(activity, LoginActivity.class));
@@ -74,36 +79,36 @@ public class SplashScreenActivityFragment extends GeneralFragment implements Til
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
 
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         handler = new StaticHandler(getActivity());
         handler.postDelayed(new SplashHandler(getActivity()), 3000);
     }
 
     @Override
-    protected void PreOnStart() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnResume() {
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnPause() {
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnStop() {
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnDestroy() {
 
     }
 

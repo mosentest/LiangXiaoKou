@@ -53,7 +53,7 @@ public class MeFragment extends GeneralFragment {
 
 
     @Override
-    protected void initView() {
+    public void initView() {
         mRlOtherExist = (RelativeLayout) findViewById(R.id.rl_other_exist);
         mIvOtherHeader = (CircleImageView) findViewById(R.id.iv_other_header);
         mTvOtherName = (TextView) findViewById(R.id.tv_other_name);
@@ -67,7 +67,7 @@ public class MeFragment extends GeneralFragment {
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         mRlOtherExist.setOnClickListener(this);
         User currentUser = BmobUser.getCurrentUser(getActivity().getApplicationContext(), User.class);
         if (currentUser != null) {
@@ -77,27 +77,27 @@ public class MeFragment extends GeneralFragment {
     }
 
     @Override
-    protected void PreOnStart() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnResume() {
 
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnPause() {
 
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnStop() {
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnDestroy() {
 
     }
 

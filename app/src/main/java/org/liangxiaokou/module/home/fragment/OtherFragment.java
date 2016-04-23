@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class OtherFragment extends GeneralFragment {
 
     public final static int REQUEST_CODE_CAPTURE_CAMERA = 0x04;//拍照
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView tvOtherName;
 
     private TextView tvOtherMood;
@@ -109,8 +111,9 @@ public class OtherFragment extends GeneralFragment {
 
 
     @Override
-    protected void initView() {
+    public void initView() {
         //shimmerContent = (ShimmerFrameLayout) findViewById(R.id.shimmerContent);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         tvOtherLoveDate = findViewById(R.id.tv_other_love_date);
         tvOtherName = findViewById(R.id.tv_other_name);
         tvOtherMood = findViewById(R.id.tv_other_mood);
@@ -131,7 +134,7 @@ public class OtherFragment extends GeneralFragment {
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         //设置shimmer动画的时间间隔
         //shimmerContent.setDuration(5000);
         //设置shimmer动画重复类型
@@ -144,6 +147,7 @@ public class OtherFragment extends GeneralFragment {
         //shimmerContent.setMaskShape(ShimmerFrameLayout.MaskShape.LINEAR);
 
         //animTextView.setText("162", true);
+        swipeRefreshLayout.setRefreshing(false);
         String sDate = "2015-07-14";
         tvOtherLoveDate.setText("已恋爱" + DateUtils.getDaySub(sDate) + "天");
         tvOtherLoveDate.setOnClickListener(this);
@@ -162,27 +166,27 @@ public class OtherFragment extends GeneralFragment {
     }
 
     @Override
-    protected void PreOnStart() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnResume() {
 
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnPause() {
 
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnStop() {
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnDestroy() {
 
     }
 

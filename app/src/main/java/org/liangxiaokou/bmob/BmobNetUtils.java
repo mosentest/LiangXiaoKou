@@ -6,6 +6,8 @@ import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.util.ToastUtils;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -30,6 +32,7 @@ public class BmobNetUtils {
         user.setEmail(email);
         user.setNick("");//默认为空
         user.setSex(1);//默认设置为女
+        user.setIsOk(false);//默认没完善信息
         //邮箱验证
         user.setEmailVerified(true);
         user.signUp(context.getApplicationContext(), saveListener);
@@ -60,5 +63,22 @@ public class BmobNetUtils {
      */
     public static void loginByAccount(Context context, String username, String password, LogInListener saveListener) {
         User.loginByAccount(context.getApplicationContext(), username, password, saveListener);
+    }
+
+    /**
+     * 通过账号查询用户信息
+     *
+     * @param context
+     * @param findListener
+     */
+    public static void findUserInfo(Context context, FindListener<User> findListener) {
+        String username = "";
+        User currentUser = User.getCurrentUser(context.getApplicationContext(), User.class);
+        if (currentUser != null) {
+            username = currentUser.getUsername();
+        }
+        BmobQuery<User> query = new BmobQuery<User>();
+        query.addWhereEqualTo("username", username);
+        query.findObjects(context.getApplicationContext(), findListener);
     }
 }

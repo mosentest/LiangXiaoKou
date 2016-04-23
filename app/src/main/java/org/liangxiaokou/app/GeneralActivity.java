@@ -118,22 +118,22 @@ public abstract class GeneralActivity extends AppCompatActivity {
     }
 
 
-    protected abstract void initView();
+    public abstract void initView();
 
-    protected abstract void initData();
+    public abstract void initData();
 
-    protected abstract void PreOnStart();
+    public abstract void PreOnStart();
 
-    protected abstract void PreOnResume();
+    public abstract void PreOnResume();
 
-    protected abstract void PreOnRestart();
+    public abstract void PreOnRestart();
 
-    protected abstract void PreOnPause();
+    public abstract void PreOnPause();
 
-    protected abstract void PreOnStop();
+    public abstract void PreOnStop();
 
-    protected abstract void PreOnDestroy();
+    public abstract void PreOnDestroy();
 
-    protected abstract boolean PreOnKeyDown(int keyCode, KeyEvent event);
+    public abstract boolean PreOnKeyDown(int keyCode, KeyEvent event);
 
 }

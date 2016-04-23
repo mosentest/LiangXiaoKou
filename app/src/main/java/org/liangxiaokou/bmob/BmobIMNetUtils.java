@@ -37,7 +37,7 @@ public class BmobIMNetUtils {
     /**
      * 创建会话
      *
-     * @param bmobIMUserInfo
+     * @param bmobIMUserInfo       针对 对方（和xx聊天）
      * @param conversationListener
      */
     public static void createConversation(BmobIMUserInfo bmobIMUserInfo, ConversationListener conversationListener) {

@@ -27,7 +27,7 @@ public class FeedBackActivityFragment extends GeneralFragment {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         btn_fb = (Button) findViewById(R.id.btn_fb);
         btn_fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,32 +38,32 @@ public class FeedBackActivityFragment extends GeneralFragment {
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
 
     }
 
     @Override
-    protected void PreOnStart() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnResume() {
 
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnPause() {
 
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnStop() {
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnDestroy() {
 
     }
 

@@ -15,46 +15,46 @@ public class SplashScreenActivity extends GeneralActivity {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
     }
 
     @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected void PreOnStart() {
+    public void initData() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnRestart() {
+    public void PreOnResume() {
 
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnRestart() {
 
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnPause() {
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnStop() {
 
     }
 
     @Override
-    protected boolean PreOnKeyDown(int keyCode, KeyEvent event) {
+    public void PreOnDestroy() {
+
+    }
+
+    @Override
+    public boolean PreOnKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK){
             return true;
         }

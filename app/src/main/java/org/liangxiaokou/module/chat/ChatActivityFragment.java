@@ -34,12 +34,12 @@ public class ChatActivityFragment extends GeneralFragment {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
 
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         Intent intent = getActivity().getIntent();
         BmobIMConversation bmobIMConversation = (BmobIMConversation) intent.getSerializableExtra("OtherFragment_bmobIMConversation");
         //在聊天页面的onCreate方法中，通过如下方法创建新的会话实例
@@ -67,27 +67,27 @@ public class ChatActivityFragment extends GeneralFragment {
     }
 
     @Override
-    protected void PreOnStart() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnResume() {
 
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnPause() {
 
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnStop() {
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnDestroy() {
 
     }
 

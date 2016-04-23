@@ -9,8 +9,6 @@ import android.content.Intent;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 
-import java.util.Random;
-
 import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.event.OfflineMessageEvent;
 import cn.bmob.newim.listener.BmobIMMessageHandler;
@@ -44,7 +42,7 @@ public class BmobMessageHandler extends BmobIMMessageHandler {
                 .setContentTitle("您有新的消息")//设置下拉列表里的标题
                 .setContentText(event.getMessage().getContent() + "");//设置上下文内容
         Notification notification = builder.getNotification();
-        mNotificationManager.notify(new Random(0).nextInt(), notification);
+        mNotificationManager.notify(1, notification);
     }
 
     @Override

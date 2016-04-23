@@ -61,7 +61,7 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
 
 
     @Override
-    protected void initView() {
+    public void initView() {
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.album_swiperefreshlayout);
         mRecyclerView = (RecyclerView) findViewById(R.id.album_recyclerview);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -69,7 +69,7 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         // 刷新时，指示器旋转后变化的颜色
         mSwipeRefreshLayout.setColorSchemeResources(R.color.system_color, R.color.system_press);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -89,27 +89,27 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
     }
 
     @Override
-    protected void PreOnStart() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnResume() {
 
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnPause() {
 
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnStop() {
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnDestroy() {
 
     }
 

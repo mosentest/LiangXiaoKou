@@ -32,39 +32,39 @@ public class SetLoveDateActivityFragment extends GeneralFragment implements Text
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         textInputDate = (TextInputLayout) findViewById(R.id.textInput_date);
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
 //        textInputDate.setHint("请输入，例如：2015-02-14");
         EditText editTextDate = textInputDate.getEditText();
         editTextDate.addTextChangedListener(this);
     }
 
     @Override
-    protected void PreOnStart() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnResume() {
 
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnPause() {
 
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnStop() {
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnDestroy() {
 
     }
 

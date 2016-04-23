@@ -82,19 +82,19 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     }
 
 
-    protected abstract void initView();
+    public abstract void initView();
 
-    protected abstract void initData();
+    public abstract void initData();
 
-    protected abstract void PreOnStart();
+    public abstract void PreOnStart();
 
-    protected abstract void PreOnResume();
+    public abstract void PreOnResume();
 
-    protected abstract void PreOnPause();
+    public abstract void PreOnPause();
 
-    protected abstract void PreOnStop();
+    public abstract void PreOnStop();
 
-    protected abstract void PreOnDestroy();
+    public abstract void PreOnDestroy();
 
 
     public void startActivity(Class<?> cls) {

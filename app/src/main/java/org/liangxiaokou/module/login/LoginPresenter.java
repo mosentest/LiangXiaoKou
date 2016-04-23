@@ -8,7 +8,10 @@ import org.liangxiaokou.bmob.BmobNetUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.VolleyLog;
 
+import java.util.List;
+
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -63,7 +66,7 @@ public class LoginPresenter {
             @Override
             public void done(User user, BmobException e) {
                 if (user != null) {
-                    loginView.onSuccess();
+                    loginView.onSuccess(user);
                 } else {
                     loginView.onFailure(0, e.getMessage());
                 }
@@ -71,4 +74,5 @@ public class LoginPresenter {
             }
         });
     }
+
 }

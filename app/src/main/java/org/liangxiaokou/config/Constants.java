@@ -21,4 +21,6 @@ public class Constants {
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME,//dir name 目录名字
             MediaStore.Images.Media.ORIENTATION
     };
+
+    public static final int _TIME = 100;
 }

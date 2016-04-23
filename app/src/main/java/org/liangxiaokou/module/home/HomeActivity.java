@@ -89,7 +89,7 @@ public class HomeActivity extends GeneralActivity implements
     private GeoCoder mGeoCoder;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ThirdUtils.bmobInit(getApplicationContext());
@@ -114,40 +114,40 @@ public class HomeActivity extends GeneralActivity implements
     }
 
     @Override
-    protected void PreOnStart() {
+    public void PreOnStart() {
 
     }
 
     @Override
-    protected void PreOnResume() {
+    public void PreOnResume() {
         ThirdUtils.statisticsInActivityResume(this);
     }
 
     @Override
-    protected void PreOnRestart() {
+    public void PreOnRestart() {
 
     }
 
     @Override
-    protected void PreOnPause() {
+    public void PreOnPause() {
         ThirdUtils.statisticsInActivityPause(this);
     }
 
     @Override
-    protected void PreOnStop() {
+    public void PreOnStop() {
         BaiduLBSutils.locationStop(mLocationClient);
 
     }
 
     @Override
-    protected void PreOnDestroy() {
+    public void PreOnDestroy() {
         if (mGeoCoder != null) {
             mGeoCoder.destroy();
         }
     }
 
     @Override
-    protected boolean PreOnKeyDown(int keyCode, KeyEvent event) {
+    public boolean PreOnKeyDown(int keyCode, KeyEvent event) {
         return false;
     }
 
@@ -379,7 +379,7 @@ public class HomeActivity extends GeneralActivity implements
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
+    public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         //设置页面
         mViewPager.setCurrentItem(intent.getIntExtra("LoginActivity_code", 0));

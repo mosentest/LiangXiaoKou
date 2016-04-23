@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
+import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.register.RegisterActivity;
@@ -108,6 +109,21 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
     }
 
     @Override
+    public void onSuccess(User user) {
+        //判断是否完善个人信息(性别，昵称)
+        if (!user.getIsOk()) {
+            //需要完善个人资料
+
+        } else {
+            //清除所有activity
+            MApplication.getInstance().AppExit();
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("LoginActivity_code", 0);
+            startActivity(intent);
+        }
+    }
+
+    @Override
     public void showLoading() {
         alertDialog.show();
     }
@@ -119,11 +135,6 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public void onSuccess() {
-        //清除所有activity
-        MApplication.getInstance().AppExit();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("LoginActivity_code", 0);
-        startActivity(intent);
     }
 
     @Override
