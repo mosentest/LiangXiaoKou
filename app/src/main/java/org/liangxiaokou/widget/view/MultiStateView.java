@@ -54,22 +54,22 @@ public class MultiStateView extends FrameLayout {
     private int mViewState = VIEW_STATE_CONTENT;
 
     public MultiStateView(Context context) {
-        this(context, null);
+        this(context.getApplicationContext(), null);
     }
 
     public MultiStateView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        super(context.getApplicationContext(), attrs);
         init(attrs);
     }
 
     public MultiStateView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+        super(context.getApplicationContext(), attrs, defStyle);
         init(attrs);
     }
 
     private void init(AttributeSet attrs) {
-        mInflater = LayoutInflater.from(getContext());
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.MultiStateView);
+        mInflater = LayoutInflater.from(getContext().getApplicationContext());
+        TypedArray a = getContext().getApplicationContext().obtainStyledAttributes(attrs, R.styleable.MultiStateView);
 
         int loadingViewResId = a.getResourceId(R.styleable.MultiStateView_msv_loadingView, -1);
         if (loadingViewResId > -1) {
@@ -334,7 +334,7 @@ public class MultiStateView extends FrameLayout {
      * @param switchToState If the {@link com.mo.widget.MultiStateView.ViewState} should be switched to
      */
     public void setViewForState(@LayoutRes int layoutRes, @ViewState int state, boolean switchToState) {
-        if (mInflater == null) mInflater = LayoutInflater.from(getContext());
+        if (mInflater == null) mInflater = LayoutInflater.from(getContext().getApplicationContext());
         View view = mInflater.inflate(layoutRes, this, false);
         setViewForState(view, state, switchToState);
     }

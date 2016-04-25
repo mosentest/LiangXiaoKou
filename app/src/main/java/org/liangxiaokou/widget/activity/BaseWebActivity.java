@@ -18,7 +18,6 @@ import org.liangxiaokou.widget.view.MultiStateView;
  * TODO 自己修改父类
  */
 public class BaseWebActivity extends ToolBarActivity implements ProgressWebView.ChangeTitle {
-    public final static String BANNER = "banner";
     protected ProgressWebView mWebView;
     private MultiStateView multiStateView;
     //private Button bnt_refresh_net;
@@ -44,6 +43,8 @@ public class BaseWebActivity extends ToolBarActivity implements ProgressWebView.
     @Override
     public void initData() {
         Intent intent = getIntent();
+        String baseWebActivity_url = intent.getStringExtra("BaseWebActivity_url");
+        mWebView.loadUrl(baseWebActivity_url);
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.StatusBarCompat;
 import org.liangxiaokou.util.ThirdUtils;
+import org.liangxiaokou.widget.dialog.listener.OnBtnClickL;
 import org.liangxiaokou.widget.dialog.widget.MaterialDialog;
 
 import dmax.dialog.SpotsDialog;
@@ -35,6 +36,22 @@ public abstract class GeneralActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         materialDialog = new MaterialDialog(this);
+//        materialDialog.setOnBtnClickL(new OnBtnClickL() {
+//            @Override
+//            public void onBtnClick() {
+//
+//            }
+//        }, new OnBtnClickL() {
+//            @Override
+//            public void onBtnClick() {
+//
+//            }
+//        }, new OnBtnClickL() {
+//            @Override
+//            public void onBtnClick() {
+//
+//            }
+//        });
         alertDialog = new SpotsDialog(this, R.style.CustomDialog);
         MApplication.getInstance().addActivity(this);
     }

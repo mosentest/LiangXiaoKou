@@ -123,4 +123,6 @@ public class BmobNetUtils {
         friendBmobQuery.addWhereEqualTo("isLove", 1);
         friendBmobQuery.findObjects(context, findListener);
     }
+
+
 }

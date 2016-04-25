@@ -12,7 +12,7 @@
         app:msv_errorView="@layout/view_error"
         app:msv_viewState="content">
 
-        <com.mo.widget.webview.ProgressWebView
+        <org.liangxiaokou.widget.activity.ProgressWebView
             android:id="@+id/baseweb_webview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
