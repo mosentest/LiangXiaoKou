@@ -21,17 +21,18 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="160dp">
 
                 <ImageView
                     android:id="@+id/iv_other_photo"
@@ -76,9 +77,13 @@
 
             <include layout="@layout/view_line_16" />
 
-            <include layout="@layout/fragment_other_plus" />
-
             <include layout="@layout/fragment_other_normal" />
+
+            <include
+                layout="@layout/fragment_other_plus"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
         </LinearLayout>
     </ScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

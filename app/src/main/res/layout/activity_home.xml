@@ -83,9 +83,10 @@
                 android:id="@+id/id_tablayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:tabBackground="@android:color/white"
                 app:tabGravity="fill"
-                app:tabIndicatorColor="@android:color/white"
-                app:tabSelectedTextColor="@android:color/white"
+                app:tabIndicatorColor="@color/system_color"
+                app:tabSelectedTextColor="@color/system_color"
                 app:tabTextColor="@color/dark" />
         </android.support.design.widget.AppBarLayout>
         <!--

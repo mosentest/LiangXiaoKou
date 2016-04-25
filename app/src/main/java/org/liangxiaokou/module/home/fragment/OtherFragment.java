@@ -120,6 +120,8 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     public void initView() {
         //shimmerContent = (ShimmerFrameLayout) findViewById(R.id.shimmerContent);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setEnabled(false);
         tvOtherLoveDate = findViewById(R.id.tv_other_love_date);
         tvOtherName = findViewById(R.id.tv_other_name);
         tvOtherMood = findViewById(R.id.tv_other_mood);
@@ -340,14 +342,14 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     @Override
     public void noFriend() {
-        User currentUser = User.getCurrentUser(getContext(), User.class);
-        String msg = "";
-        if (currentUser.getSex() == 0) {
-            msg = getString(R.string.other_msg_before) + getResources().getStringArray(R.array.sex)[0] + getString(R.string.other_msg_after);
-        } else if (currentUser.getSex() == 1) {
-            msg = getString(R.string.other_msg_before) + getResources().getStringArray(R.array.sex)[1] + getString(R.string.other_msg_after);
-        }
-        mTvTitle.setText(msg);
+//        User currentUser = User.getCurrentUser(getContext(), User.class);
+//        String msg = "";
+//        if (currentUser.getSex() == 0) {
+//            msg = getString(R.string.other_msg_before) + getResources().getStringArray(R.array.sex)[0] + getString(R.string.other_msg_after);
+//        } else if (currentUser.getSex() == 1) {
+//            msg = getString(R.string.other_msg_before) + getResources().getStringArray(R.array.sex)[1] + getString(R.string.other_msg_after);
+//        }
+//        mTvTitle.setText(msg);
         mRlAdd.setVisibility(View.VISIBLE);
         mLlNormal.setVisibility(View.GONE);
     }

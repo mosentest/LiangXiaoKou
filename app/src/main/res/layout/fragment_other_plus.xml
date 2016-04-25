@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge>
+<merge  xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:id="@+id/rl_add"
-        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_button"
+        android:layout_gravity="center"
+        android:background="@drawable/selector_button_with_corner2"
         android:padding="@dimen/activity_horizontal_margin"
         android:visibility="visible">
 
@@ -15,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="快邀请您的男朋友加入吧"
+            android:text="快邀请您的另一半"
             android:textColor="@color/system_press"
             android:textSize="@dimen/normal_content_size_18" />
 
