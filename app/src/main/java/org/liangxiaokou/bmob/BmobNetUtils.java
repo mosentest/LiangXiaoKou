@@ -7,6 +7,8 @@ import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.util.ToastUtils;
 
+import java.util.concurrent.TimeUnit;
+
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
@@ -104,6 +106,14 @@ public class BmobNetUtils {
      */
     public static void queryHasFriend(Context context, FindListener<Friend> findListener) {
         BmobQuery<Friend> friendBmobQuery = new BmobQuery<>();
+        //判断是否有缓存，该方法必须放在查询条件（如果有的话）都设置完之后再来调用才有效，就像这里一样。
+        boolean isCache = friendBmobQuery.hasCachedResult(context,Friend.class);
+        if(isCache){//--此为举个例子，并不一定按这种方式来设置缓存策略
+            friendBmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);    // 如果有缓存的话，则设置策略为CACHE_ELSE_NETWORK
+        }else{
+            friendBmobQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);    // 如果没有缓存的话，则设置策略为NETWORK_ELSE_CACHE
+        }
+        friendBmobQuery.setMaxCacheAge(TimeUnit.DAYS.toMillis(1));//此表示缓存一天
         String currentUserId = "";
         User currentUser = User.getCurrentUser(context.getApplicationContext(), User.class);
         if (currentUser != null) {

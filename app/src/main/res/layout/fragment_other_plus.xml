@@ -9,7 +9,7 @@
         android:layout_gravity="center"
         android:background="@drawable/selector_button_with_corner2"
         android:padding="@dimen/activity_horizontal_margin"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <TextView

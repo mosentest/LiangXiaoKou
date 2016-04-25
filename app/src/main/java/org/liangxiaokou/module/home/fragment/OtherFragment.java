@@ -377,6 +377,6 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     @Override
     public void onFailure(int code, String msg) {
-        showToast("current code is " + code + " and msg is " + msg);
+        showToast(getClass().getName() + " current code is " + code + " and msg is " + msg);
     }
 }

@@ -77,6 +77,9 @@ public class ScannerActivity extends ToolBarActivity implements ZXingScannerView
     @Override
     public void handleResult(Result result) {
         showToast(result.getText());
+        //检查result.getText是否app所设定的数据
+        //如果是其他的，做对应的处理
+
         //If you would like to resume scanning, call this method below:
         mZXingScannerView.resumeCameraPreview(this);
     }
