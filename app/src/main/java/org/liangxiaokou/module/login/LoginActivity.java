@@ -14,6 +14,7 @@ import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
+import org.liangxiaokou.module.invite.InviteActivity;
 import org.liangxiaokou.module.register.RegisterActivity;
 import org.liangxiaokou.module.welcome.WelcomeActivity;
 import org.liangxiaokou.util.KeyBoardUtils;
@@ -114,6 +115,9 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
         if (!user.getIsOk()) {
             //需要完善个人资料
             startActivity(WelcomeActivity.class);
+        } else if (!user.getHaveLove()) {
+            //需要添加好友
+            startActivity(InviteActivity.class);
         } else {
             //清除所有activity
             MApplication.getInstance().AppExit();

@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobIMNetUtils;
 import org.liangxiaokou.module.QRcode.QRcodeActivity;
 import org.liangxiaokou.module.QRcode.ScannerActivity;
@@ -47,7 +46,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OtherFragment extends GeneralFragment implements IOtherView {
+public class OtherFragment extends GeneralFragment {
 
     public final static int update_Love_Date = 0x01;//更新恋爱日
     public final static int change_phone = 0x02;//更换纪念照
@@ -73,16 +72,9 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     private LinearLayout llOtherSleep;
     private LinearLayout llOtherTimer;
 
-    private RelativeLayout mRlAdd;//添加好友界面
-    private TextView mTvTitle;//显示男女朋友的问题
-    private LinearLayout mLlNormal;//如果有好友的，就显示这个
-    private NormalListDialog friendDialog;//扫一扫，还是显示二维码
-
     private LinearLayout llOtherContact;
     private NormalListDialog photoDialog;//拍照类型
     private Uri photoUri;
-
-    private OtherPresenter otherPresenter = new OtherPresenter(this);
 
     //private ShimmerFrameLayout shimmerContent;
 
@@ -140,9 +132,6 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         ivOtherTimer = findViewById(R.id.iv_other_timer);
         ivOtherContact = findViewById(R.id.iv_other_contact);
 
-        mRlAdd = (RelativeLayout) findViewById(R.id.rl_add);
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
-        mLlNormal = (LinearLayout) findViewById(R.id.ll_normal);
     }
 
     @Override
@@ -168,39 +157,12 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         llOtherSleep.setOnClickListener(this);
         llOtherTimer.setOnClickListener(this);
         llOtherContact.setOnClickListener(this);
-        mRlAdd.setOnClickListener(this);
 
         //设置红点
         ivOtherHeader.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
         ivOtherSleep.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
         ivOtherTimer.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
         ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
-
-        otherPresenter.checkHasFriend(getContext());
-
-        //设置添加好友的对话框
-        friendDialog = new NormalListDialog(getContext(), new String[]{"扫一扫", "我的二维码"});
-        friendDialog.titleBgColor(getContext().getResources().getColor(R.color.system_color));
-        friendDialog.itemPressColor(getContext().getResources().getColor(R.color.line));
-        friendDialog.title("请选择");
-        friendDialog.itemTextSize(16);
-        friendDialog.setOnOperItemClickL(new OnOperItemClickL() {
-            @Override
-            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        //跳转扫一扫界面
-                        startActivity(ScannerActivity.class);
-                        friendDialog.dismiss();
-                        break;
-                    case 1:
-                        startActivity(QRcodeActivity.class);
-                        friendDialog.dismiss();
-                        //我的二维码
-                        break;
-                }
-            }
-        });
     }
 
     @Override
@@ -318,10 +280,6 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
                 startActivity(ContactActivity.class);
                 ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_GONE);
                 break;
-            case R.id.rl_add:
-                friendDialog.show();
-                break;
-
         }
     }
 
@@ -340,43 +298,4 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void noFriend() {
-//        User currentUser = User.getCurrentUser(getContext(), User.class);
-//        String msg = "";
-//        if (currentUser.getSex() == 0) {
-//            msg = getString(R.string.other_msg_before) + getResources().getStringArray(R.array.sex)[0] + getString(R.string.other_msg_after);
-//        } else if (currentUser.getSex() == 1) {
-//            msg = getString(R.string.other_msg_before) + getResources().getStringArray(R.array.sex)[1] + getString(R.string.other_msg_after);
-//        }
-//        mTvTitle.setText(msg);
-        mRlAdd.setVisibility(View.VISIBLE);
-        mLlNormal.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void hasFriend() {
-        mLlNormal.setVisibility(View.VISIBLE);
-        mRlAdd.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void onSuccess() {
-
-    }
-
-    @Override
-    public void onFailure(int code, String msg) {
-        showToast(getClass().getName() + " current code is " + code + " and msg is " + msg);
-    }
 }

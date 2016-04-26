@@ -37,6 +37,7 @@ public class BmobNetUtils {
         user.setNick("");//默认为空
         user.setSex(1);//默认设置为女
         user.setIsOk(false);//默认没完善信息
+        user.setHaveLove(false);
         //邮箱验证
         user.setEmailVerified(true);
         user.signUp(context.getApplicationContext(), saveListener);
@@ -107,10 +108,10 @@ public class BmobNetUtils {
     public static void queryHasFriend(Context context, FindListener<Friend> findListener) {
         BmobQuery<Friend> friendBmobQuery = new BmobQuery<>();
         //判断是否有缓存，该方法必须放在查询条件（如果有的话）都设置完之后再来调用才有效，就像这里一样。
-        boolean isCache = friendBmobQuery.hasCachedResult(context,Friend.class);
-        if(isCache){//--此为举个例子，并不一定按这种方式来设置缓存策略
+        boolean isCache = friendBmobQuery.hasCachedResult(context, Friend.class);
+        if (isCache) {//--此为举个例子，并不一定按这种方式来设置缓存策略
             friendBmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);    // 如果有缓存的话，则设置策略为CACHE_ELSE_NETWORK
-        }else{
+        } else {
             friendBmobQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);    // 如果没有缓存的话，则设置策略为NETWORK_ELSE_CACHE
         }
         friendBmobQuery.setMaxCacheAge(TimeUnit.DAYS.toMillis(1));//此表示缓存一天
@@ -124,5 +125,24 @@ public class BmobNetUtils {
         friendBmobQuery.findObjects(context, findListener);
     }
 
+    /**
+     * 保存好友
+     *
+     * @param context
+     * @param friendUserId
+     * @param saveListener
+     */
+    public static void saveFriend(Context context, String friendUserId, SaveListener saveListener) {
+        String currentUserId = "";
+        User currentUser = User.getCurrentUser(context.getApplicationContext(), User.class);
+        if (currentUser != null) {
+            currentUserId = currentUser.getObjectId();
+        }
+        Friend friend = new Friend();
+        friend.setIsLove(1);//设置为有爱人
+        friend.setCurrentUserId(currentUserId);
+        friend.setFriendUserId(friendUserId);
+        friend.save(context.getApplicationContext(), saveListener);
+    }
 
 }

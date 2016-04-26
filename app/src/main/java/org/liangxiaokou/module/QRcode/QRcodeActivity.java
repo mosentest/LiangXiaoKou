@@ -28,7 +28,7 @@ public class QRcodeActivity extends SwipeBackActivity {
         mIv = (ImageView) findViewById(R.id.iv);
         User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
         //设置二维码的参数
-        String url = Constants.author + "." + Constants.APP_NAME + "." + currentUser.getObjectId();
+        String url = Constants.author + "&" + Constants.APP_NAME + "&" + currentUser.getObjectId();
         CreateQRImageUtils.createQRImage(url, mIv);
     }
 

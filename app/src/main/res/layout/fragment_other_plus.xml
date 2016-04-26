@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge  xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
         android:id="@+id/rl_add"
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/selector_button_with_corner2"
+        android:gravity="center"
         android:padding="@dimen/activity_horizontal_margin"
-        android:visibility="gone">
+        android:visibility="visible">
 
 
         <TextView

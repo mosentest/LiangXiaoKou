@@ -9,6 +9,7 @@ public class User extends BmobUser {
     private Integer sex;//性别(0男，1女)
     private String nick;//别名
     private Boolean isOk = false;//是否完善个人信息
+    private Boolean haveLove = false;//是否含有另一半
 
     public Integer getSex() {
         return sex;
@@ -32,5 +33,13 @@ public class User extends BmobUser {
 
     public void setIsOk(Boolean isOk) {
         this.isOk = isOk;
+    }
+
+    public Boolean getHaveLove() {
+        return haveLove;
+    }
+
+    public void setHaveLove(Boolean haveLove) {
+        this.haveLove = haveLove;
     }
 }

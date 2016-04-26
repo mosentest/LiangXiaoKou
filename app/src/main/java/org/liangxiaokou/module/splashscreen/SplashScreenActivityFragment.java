@@ -15,6 +15,7 @@ import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.app.GeneralFragment;
+import org.liangxiaokou.module.invite.InviteActivity;
 import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.module.welcome.WelcomeActivity;
 
@@ -55,8 +56,10 @@ public class SplashScreenActivityFragment extends GeneralFragment implements Til
                 User user = BmobUser.getCurrentUser(activity, User.class);
                 if (user != null) {
                     //用户信息不为空
-                    if (user.getIsOk()) {
+                    if (user.getIsOk() && user.getHaveLove()) {
                         activity.startActivity(new Intent(activity, HomeActivity.class));
+                    } else if (user.getIsOk() && !user.getHaveLove()) {
+                        activity.startActivity(new Intent(activity, InviteActivity.class));
                     } else {
                         activity.startActivity(new Intent(activity, WelcomeActivity.class));
                     }

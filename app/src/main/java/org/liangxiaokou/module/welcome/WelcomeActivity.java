@@ -17,6 +17,7 @@ import android.widget.Toast;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
+import org.liangxiaokou.module.invite.InviteActivity;
 import org.liangxiaokou.util.KeyBoardUtils;
 import org.liangxiaokou.widget.view.KeyboardListenRelativeLayout;
 
@@ -188,7 +189,7 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView {
 
     @Override
     public void onSuccess() {
-        startActivity(HomeActivity.class);
+        startActivity(InviteActivity.class);
     }
 
     @Override

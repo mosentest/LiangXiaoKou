@@ -97,7 +97,7 @@
             android:exported="true"
             android:permission="org.liangxiaokou.RECV.XLKRECEIVE"
             android:process=":XLK">
-            <intent-filter android:priority="99999">
+            <intent-filter>
                 <action android:name="org.liangxiaokou.receiver.xlk_action" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -256,17 +256,23 @@
             android:name=".QRcode.ScannerActivity"
             android:label="@string/title_activity_scanner"
             android:screenOrientation="portrait"
-            android:theme="@style/AppBaseThemeMain"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".QRcode.QRcodeActivity"
             android:label="@string/title_activity_qrcode"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="org.liangxiaokou.widget.activity.BaseWebActivity"
             android:label="@string/plusone"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".invite.InviteActivity"
+            android:label="@string/title_activity_invite"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>

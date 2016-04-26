@@ -79,11 +79,6 @@
 
             <include layout="@layout/fragment_other_normal" />
 
-            <include
-                layout="@layout/fragment_other_plus"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
         </LinearLayout>
     </ScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>
