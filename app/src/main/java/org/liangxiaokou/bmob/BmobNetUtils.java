@@ -76,7 +76,7 @@ public class BmobNetUtils {
      * @param context
      * @param findListener
      */
-    public static void findUserInfo(Context context, FindListener<User> findListener) {
+    public static void findCurrentUserInfo(Context context, FindListener<User> findListener) {
         String username = "";
         User currentUser = User.getCurrentUser(context.getApplicationContext(), User.class);
         if (currentUser != null) {

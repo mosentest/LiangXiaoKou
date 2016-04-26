@@ -7,6 +7,9 @@ import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
 import org.liangxiaokou.util.ToastUtils;
 
+import java.util.List;
+
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
