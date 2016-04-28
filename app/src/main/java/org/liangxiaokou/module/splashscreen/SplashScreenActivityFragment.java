@@ -16,6 +16,7 @@ import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.module.invite.InviteActivity;
+import org.liangxiaokou.module.login.ILoginView;
 import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.module.welcome.WelcomeActivity;
 

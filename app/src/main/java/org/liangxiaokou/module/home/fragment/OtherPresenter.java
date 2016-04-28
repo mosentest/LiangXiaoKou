@@ -25,20 +25,20 @@ public class OtherPresenter {
      * @param context
      */
     public void checkHasFriend(Context context) {
-        BmobNetUtils.queryHasFriend(context.getApplicationContext(), new FindListener<Friend>() {
-            @Override
-            public void onSuccess(List<Friend> list) {
-                if (list.size() == 0) {
-                    iHomeView.noFriend();
-                } else {
-                    iHomeView.hasFriend();
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                iHomeView.onFailure(i, s);
-            }
-        });
+//        BmobNetUtils.queryHasFriend(context.getApplicationContext(), new FindListener<Friend>() {
+//            @Override
+//            public void onSuccess(List<Friend> list) {
+//                if (list.size() == 0) {
+//                    iHomeView.noFriend();
+//                } else {
+//                    iHomeView.hasFriend();
+//                }
+//            }
+//
+//            @Override
+//            public void onError(int i, String s) {
+//                iHomeView.onFailure(i, s);
+//            }
+//        });
     }
 }

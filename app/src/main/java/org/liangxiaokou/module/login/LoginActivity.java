@@ -119,12 +119,12 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
             //需要添加好友
             startActivity(InviteActivity.class);
         } else {
-            //清除所有activity
-            MApplication.getInstance().AppExit();
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra("LoginActivity_code", 0);
             startActivity(intent);
         }
+        //清除所有activity
+        MApplication.getInstance().AppExit();
     }
 
     @Override

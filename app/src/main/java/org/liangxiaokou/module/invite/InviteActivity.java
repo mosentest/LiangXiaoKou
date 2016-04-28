@@ -5,19 +5,31 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import org.liangxiaokou.app.SwipeBackActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.liangxiaokou.app.ToolBarActivity;
+import org.liangxiaokou.bean.User;
+import org.liangxiaokou.bmob.BmobNetUtils;
+import org.liangxiaokou.module.QRcode.QRcodePresenter;
+import org.liangxiaokou.module.QRcode.IQRcodeView;
 import org.liangxiaokou.module.QRcode.QRcodeActivity;
 import org.liangxiaokou.module.QRcode.ScannerActivity;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.module.home.HomeActivity;
+import org.liangxiaokou.util.VolleyLog;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
+
+import cn.bmob.v3.listener.UpdateListener;
 
 public class InviteActivity extends ToolBarActivity {
 
 
     private RelativeLayout mRlAdd;
+    private TextView mTvCurrentUserName;
+
 
     private NormalListDialog friendDialog;//扫一扫，还是显示二维码
 
@@ -55,12 +67,15 @@ public class InviteActivity extends ToolBarActivity {
 
     @Override
     public void initView() {
+        mTvCurrentUserName = (TextView) findViewById(R.id.tv_currentUserName);
         mRlAdd = (RelativeLayout) findViewById(R.id.rl_add);
     }
 
     @Override
     public void initData() {
         initFriendDialog();
+        User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
+        mTvCurrentUserName.setText(currentUser.getNick());
         mRlAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +93,6 @@ public class InviteActivity extends ToolBarActivity {
 
     @Override
     public void PreOnResume() {
-
     }
 
     @Override
@@ -88,7 +102,6 @@ public class InviteActivity extends ToolBarActivity {
 
     @Override
     public void PreOnPause() {
-
     }
 
     @Override
@@ -98,7 +111,6 @@ public class InviteActivity extends ToolBarActivity {
 
     @Override
     public void PreOnDestroy() {
-
     }
 
     @Override
@@ -110,4 +122,6 @@ public class InviteActivity extends ToolBarActivity {
     public void onClick(View v) {
 
     }
+
+
 }

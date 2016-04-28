@@ -7,13 +7,21 @@ import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.util.ToastUtils;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobRealTimeData;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
+import cn.bmob.v3.listener.SQLQueryListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.StatisticQueryListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.ValueEventListener;
 
 /**
  * Created by moziqi on 16-4-9.
@@ -103,9 +111,9 @@ public class BmobNetUtils {
      * 查询是否已经有关联的好友
      *
      * @param context
-     * @param findListener
+     * @param friendSQLQueryListener
      */
-    public static void queryHasFriend(Context context, FindListener<Friend> findListener) {
+    public static void queryHasFriend(Context context, SQLQueryListener<Friend> friendSQLQueryListener) {
         BmobQuery<Friend> friendBmobQuery = new BmobQuery<>();
         //判断是否有缓存，该方法必须放在查询条件（如果有的话）都设置完之后再来调用才有效，就像这里一样。
         boolean isCache = friendBmobQuery.hasCachedResult(context, Friend.class);
@@ -120,9 +128,8 @@ public class BmobNetUtils {
         if (currentUser != null) {
             currentUserId = currentUser.getObjectId();
         }
-        friendBmobQuery.addWhereEqualTo("currentUserId", currentUserId);
-        friendBmobQuery.addWhereEqualTo("isLove", 1);
-        friendBmobQuery.findObjects(context, findListener);
+        String bql = "select * from Friend where (currentUserId = ? or friendUserId= ?) and isLove = ?";
+        friendBmobQuery.doSQLQuery(context.getApplicationContext(), bql, friendSQLQueryListener, currentUserId, currentUserId, 0);
     }
 
     /**
@@ -132,17 +139,51 @@ public class BmobNetUtils {
      * @param friendUserId
      * @param saveListener
      */
-    public static void saveFriend(Context context, String friendUserId, SaveListener saveListener) {
+    public static void saveFriendBatch(Context context, String friendUserId, String friendName, SaveListener saveListener) {
+        //获取当前用户id
         String currentUserId = "";
         User currentUser = User.getCurrentUser(context.getApplicationContext(), User.class);
         if (currentUser != null) {
             currentUserId = currentUser.getObjectId();
         }
-        Friend friend = new Friend();
-        friend.setIsLove(1);//设置为有爱人
-        friend.setCurrentUserId(currentUserId);
-        friend.setFriendUserId(friendUserId);
-        friend.save(context.getApplicationContext(), saveListener);
+        List<BmobObject> friends = new ArrayList<>();
+        //添加好友
+        Friend currentFriend = new Friend();
+        currentFriend.setIsLove(0);//设置为有爱人
+        currentFriend.setCurrentUserId(currentUserId);
+        currentFriend.setCurrentName(currentUser.getNick());
+        currentFriend.setFriendUserId(friendUserId);
+        currentFriend.setFriendName(friendName);
+        friends.add(currentFriend);
+        //添加好友
+        Friend otherFriend = new Friend();
+        otherFriend.setIsLove(0);//设置为有爱人
+        otherFriend.setCurrentUserId(friendUserId);
+        otherFriend.setCurrentName(friendName);
+        otherFriend.setFriendUserId(currentUserId);
+        otherFriend.setFriendName(currentUser.getNick());
+        friends.add(otherFriend);
+        //实现批处理
+        new BmobObject().insertBatch(context.getApplicationContext(), friends, saveListener);
+    }
+
+    /**
+     * 保存好友
+     *
+     * @param context
+     * @param currentUserId
+     * @param friendUserId
+     * @param friendName
+     * @param saveListener
+     */
+    public static void saveOneFriend(Context context, String currentUserId, String friendUserId, String friendName, SaveListener saveListener) {
+        //添加好友
+        Friend currentFriend = new Friend();
+        currentFriend.setIsLove(0);//设置为有爱人
+        currentFriend.setCurrentUserId(currentUserId);
+        currentFriend.setFriendUserId(friendUserId);
+        currentFriend.setFriendName(friendName);
+        currentFriend.save(context.getApplicationContext(), saveListener);
     }
 
 }

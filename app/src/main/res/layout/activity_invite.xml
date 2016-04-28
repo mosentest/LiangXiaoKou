@@ -7,11 +7,17 @@
     android:orientation="vertical"
     tools:context="org.liangxiaokou.module.invite.InviteActivity">
 
-    <include
-        layout="@layout/fragment_other_plus"
+
+    <TextView
+        android:id="@+id/tv_currentUserName"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/x16"
+        android:text=""
+        android:textColor="@color/black_p50" />
+
+    <include layout="@layout/fragment_other_plus" />
 
 
 </LinearLayout>

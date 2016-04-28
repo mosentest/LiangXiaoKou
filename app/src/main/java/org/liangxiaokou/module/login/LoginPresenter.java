@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
+import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.VolleyLog;
 
@@ -68,7 +69,7 @@ public class LoginPresenter {
                 if (user != null) {
                     loginView.onSuccess(user);
                 } else {
-                    loginView.onFailure(0, e.getMessage());
+                    loginView.onFailure(Constants.login_code, e.getMessage());
                 }
                 loginView.hideLoading();
             }

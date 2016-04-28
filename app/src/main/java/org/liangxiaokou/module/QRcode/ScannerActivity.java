@@ -10,6 +10,7 @@ import com.google.zxing.Result;
 
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.Friend;
+import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
 import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
@@ -93,9 +94,18 @@ public class ScannerActivity extends ToolBarActivity implements ZXingScannerView
         String key = Constants.author + "&" + Constants.APP_NAME + "&";
         if (result.getText().contains(key)) {
             //判断是否含有 小俩口签名
-            String[] id = result.getText().split("&");
+            String[] content = result.getText().split("&");
+            User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
+            if (currentUser.getObjectId().equals(content[2])) {
+                showToast("不能添加自己做为好友...");
+                return;
+            }
+            if (currentUser.getSex() == Integer.parseInt(content[4])) {
+                showToast("对方的性别和你一致哦...");
+                return;
+            }
             //实现添加好友
-            scannerPresenter.toSaveFriend(ScannerActivity.this, id[2]);
+            scannerPresenter.toSaveFriend(ScannerActivity.this, content[2], content[3]);
             //mZXingScannerView.resumeCameraPreview(ScannerActivity.this);
         } else if (result.getText().startsWith("http://") || result.getText().startsWith("https://")) {
             //如果是网站，就跳转到对应的网页中去
@@ -135,13 +145,12 @@ public class ScannerActivity extends ToolBarActivity implements ZXingScannerView
     @Override
     public void onSuccess() {
         startActivity(HomeActivity.class);
+        finish();
     }
 
     @Override
     public void onFailure(int code, String msg) {
-        if (code == -1) {
-            //-1表示 已经存在好友
-            startActivity(HomeActivity.class);
-        }
+        showToast("current code is " + code + " and msg is " + msg);
     }
+
 }

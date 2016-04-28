@@ -26,4 +26,7 @@ public class Constants {
     };
 
     public static final int _TIME = 100;
+
+    public static final int login_code = 0;
+    public static final int scanner_code = -1;
 }

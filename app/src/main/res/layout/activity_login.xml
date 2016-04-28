@@ -31,6 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入您的邮箱地址"
+                    android:text="709847739@qq.com"
                     android:inputType="textEmailAddress"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/normal_content_size" />
@@ -47,6 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入您的密码"
+                    android:text="mzq83456386"
                     android:inputType="textPassword"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/normal_content_size" />
