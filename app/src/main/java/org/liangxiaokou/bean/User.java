@@ -11,6 +11,16 @@ public class User extends BmobUser {
     private Boolean isOk;//是否完善个人信息
     private Boolean haveLove;//是否含有另一半
 
+    public User() {
+    }
+
+    public User(Integer sex, String nick, Boolean isOk, Boolean haveLove) {
+        this.sex = sex;
+        this.nick = nick;
+        this.isOk = isOk;
+        this.haveLove = haveLove;
+    }
+
     public Integer getSex() {
         return sex;
     }

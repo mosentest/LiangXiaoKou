@@ -1,5 +1,6 @@
 package org.liangxiaokou.module.invite;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -7,22 +8,15 @@ import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
-import org.liangxiaokou.bmob.BmobNetUtils;
-import org.liangxiaokou.module.QRcode.QRcodePresenter;
-import org.liangxiaokou.module.QRcode.IQRcodeView;
 import org.liangxiaokou.module.QRcode.QRcodeActivity;
 import org.liangxiaokou.module.QRcode.ScannerActivity;
 import org.liangxiaokou.module.R;
-import org.liangxiaokou.module.home.HomeActivity;
-import org.liangxiaokou.util.VolleyLog;
+import org.liangxiaokou.module.databinding.ActivityInviteBinding;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
 
-import cn.bmob.v3.listener.UpdateListener;
 
 public class InviteActivity extends ToolBarActivity {
 
@@ -33,10 +27,18 @@ public class InviteActivity extends ToolBarActivity {
 
     private NormalListDialog friendDialog;//扫一扫，还是显示二维码
 
+    ActivityInviteBinding dataBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invite);
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_invite);
+        setContentView(dataBinding.getRoot());
+    }
+
+    public void showMyName(View view) {
+        User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
+        dataBinding.setUser(currentUser);
     }
 
     public void initFriendDialog() {
@@ -67,7 +69,7 @@ public class InviteActivity extends ToolBarActivity {
 
     @Override
     public void initView() {
-        mTvCurrentUserName = (TextView) findViewById(R.id.tv_currentUserName);
+        //mTvCurrentUserName = (TextView) findViewById(R.id.tv_currentUserName);
         mRlAdd = (RelativeLayout) findViewById(R.id.rl_add);
     }
 
@@ -75,7 +77,7 @@ public class InviteActivity extends ToolBarActivity {
     public void initData() {
         initFriendDialog();
         User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
-        mTvCurrentUserName.setText(currentUser.getNick());
+        //mTvCurrentUserName.setText(currentUser.getNick());
         mRlAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
