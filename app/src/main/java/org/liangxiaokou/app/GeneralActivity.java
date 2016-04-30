@@ -85,6 +85,12 @@ public abstract class GeneralActivity extends AppCompatActivity {
     protected void onPause() {
         MApplication.getInstance().getmNewsLifecycleHandler().onActivityPaused(this);
         ThirdUtils.statisticsInActivityPause(this);
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.hide();
+        }
+        if (materialDialog != null && materialDialog.isShowing()) {
+            materialDialog.hide();
+        }
         PreOnPause();
         super.onPause();
     }
@@ -98,6 +104,8 @@ public abstract class GeneralActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        alertDialog = null;
+        materialDialog = null;
         PreOnDestroy();
         MApplication.getInstance().finishActivity(this);
         super.onDestroy();

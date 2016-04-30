@@ -1,7 +1,10 @@
 package org.liangxiaokou.module.invite;
 
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
@@ -12,11 +15,12 @@ import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.QRcode.QRcodeActivity;
 import org.liangxiaokou.module.QRcode.ScannerActivity;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
 
 
-public class InviteActivity extends ToolBarActivity {
+public class InviteActivity extends ToolBarActivity implements InviteView {
 
 
     private RelativeLayout mRlAdd;
@@ -25,6 +29,7 @@ public class InviteActivity extends ToolBarActivity {
 
     private NormalListDialog friendDialog;//扫一扫，还是显示二维码
 
+    private InvitePresenter invitePresenter = new InvitePresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,4 +121,43 @@ public class InviteActivity extends ToolBarActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_invite, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                invitePresenter.toLogout(getApplicationContext());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showLoading() {
+        alertDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        alertDialog.hide();
+    }
+
+    @Override
+    public void onSuccess() {
+    }
+
+    @Override
+    public void onSuccess(String logoutName) {
+        startActivity(LoginActivity.class);
+    }
+
+    @Override
+    public void onFailure(int code, String msg) {
+
+    }
 }

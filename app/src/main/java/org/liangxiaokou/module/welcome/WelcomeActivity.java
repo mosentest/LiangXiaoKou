@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,12 +20,15 @@ import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.invite.InviteActivity;
+import org.liangxiaokou.module.invite.InvitePresenter;
+import org.liangxiaokou.module.invite.InviteView;
+import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.util.KeyBoardUtils;
 import org.liangxiaokou.widget.view.KeyboardListenRelativeLayout;
 
 import java.lang.ref.WeakReference;
 
-public class WelcomeActivity extends ToolBarActivity implements IWelcomeView {
+public class WelcomeActivity extends ToolBarActivity implements IWelcomeView, InviteView {
 
     private ScrollView mSv;
     private RadioGroup mRgSex;
@@ -34,6 +39,7 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView {
     private KeyboardListenRelativeLayout mKlrl;
 
     private StaticHandler mHandler;
+
 
     private static class StaticHandler extends Handler {
         private WeakReference<Activity> reference;
@@ -60,6 +66,8 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView {
     }
 
     private WelcomePresenter welcomePresenter = new WelcomePresenter(this);
+
+    private InvitePresenter invitePresenter = new InvitePresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +181,22 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_welcome, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                invitePresenter.toLogout(getApplicationContext());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public String getNick() {
         return mTextInputNick.getEditText().getText().toString().trim();
     }
@@ -190,6 +214,11 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView {
     @Override
     public void onSuccess() {
         startActivity(InviteActivity.class);
+    }
+
+    @Override
+    public void onSuccess(String logoutName) {
+        startActivity(LoginActivity.class);
     }
 
     @Override
