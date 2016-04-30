@@ -25,7 +25,9 @@ public class QRcodePresenter implements ValueEventListener {
 
     public void unsubTableDelete() {
         // 取消监听表删除
-        rtd.unsubTableDelete(inviteView.getTableName());
+        if (rtd!=null && rtd.isConnected()) {
+            rtd.unsubTableDelete(inviteView.getTableName());
+        }
     }
 
     @Override

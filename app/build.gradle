@@ -27,9 +27,9 @@ android {
             jniLibs.srcDir 'libs'
         }
     }
-    dataBinding {
-        enabled = true
-    }
+//    dataBinding {
+//        enabled = true
+//    }
 }
 
 //task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {

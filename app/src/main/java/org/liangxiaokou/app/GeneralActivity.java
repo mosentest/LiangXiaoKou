@@ -27,9 +27,9 @@ public abstract class GeneralActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        super.onStart();
         MApplication.getInstance().getmNewsLifecycleHandler().onActivityStarted(this);
         PreOnStart();
+        super.onStart();
     }
 
     @Override
@@ -70,37 +70,37 @@ public abstract class GeneralActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
-        PreOnResume();
         ThirdUtils.statisticsInActivityResume(this);
+        PreOnResume();
+        super.onResume();
     }
 
     @Override
     protected void onRestart() {
-        super.onRestart();
         PreOnRestart();
+        super.onRestart();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
-        PreOnPause();
         MApplication.getInstance().getmNewsLifecycleHandler().onActivityPaused(this);
         ThirdUtils.statisticsInActivityPause(this);
+        PreOnPause();
+        super.onPause();
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
         MApplication.getInstance().getmNewsLifecycleHandler().onActivityStopped(this);
         PreOnStop();
+        super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        MApplication.getInstance().finishActivity(this);
         PreOnDestroy();
+        MApplication.getInstance().finishActivity(this);
+        super.onDestroy();
     }
 
     @Override
