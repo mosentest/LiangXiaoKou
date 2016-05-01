@@ -4,10 +4,14 @@ import android.content.Context;
 
 import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bmob.BmobNetUtils;
+import org.liangxiaokou.config.Constants;
 
 import java.util.List;
 
+import cn.bmob.v3.datatype.BmobQueryResult;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SQLQueryListener;
 
 /**
  * Created by Administrator on 2016/4/23.
@@ -25,20 +29,19 @@ public class OtherPresenter {
      * @param context
      */
     public void checkHasFriend(Context context) {
-//        BmobNetUtils.queryHasFriend(context.getApplicationContext(), new FindListener<Friend>() {
-//            @Override
-//            public void onSuccess(List<Friend> list) {
-//                if (list.size() == 0) {
-//                    iHomeView.noFriend();
-//                } else {
-//                    iHomeView.hasFriend();
-//                }
-//            }
-//
-//            @Override
-//            public void onError(int i, String s) {
-//                iHomeView.onFailure(i, s);
-//            }
-//        });
+        BmobNetUtils.queryHasFriend(context.getApplicationContext(), new SQLQueryListener<Friend>() {
+            @Override
+            public void done(BmobQueryResult<Friend> bmobQueryResult, BmobException e) {
+                if (e != null) {
+                    iHomeView.onFailure(Constants.other_code, e.getMessage());
+                    return;
+                }
+                if (bmobQueryResult != null) {
+                    iHomeView.hasFriend(bmobQueryResult.getResults().get(0));
+                } else {
+                    iHomeView.noFriend();
+                }
+            }
+        });
     }
 }

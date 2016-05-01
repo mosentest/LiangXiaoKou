@@ -105,9 +105,6 @@ public class PersonActivity extends SwipeBackActivity {
 
     @Override
     public void PreOnDestroy() {
-        alertDialog.dismiss();
-        alertDialog = null;
-        mHandler.removeCallbacks(null);
     }
 
     @Override
@@ -120,12 +117,7 @@ public class PersonActivity extends SwipeBackActivity {
         switch (v.getId()) {
             case R.id.btn_logout: {
                 alertDialog.show();
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
-                    }
-                });
+                BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
                 MApplication.getInstance().AppExit();
                 startActivity(LoginActivity.class);
             }

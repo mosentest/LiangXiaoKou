@@ -19,23 +19,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.liangxiaokou.app.GeneralFragment;
+import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bmob.BmobIMNetUtils;
-import org.liangxiaokou.module.QRcode.QRcodeActivity;
-import org.liangxiaokou.module.QRcode.ScannerActivity;
+import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.chat.ChatActivity;
 import org.liangxiaokou.module.contact.ContactActivity;
-import org.liangxiaokou.module.R;
+import org.liangxiaokou.module.invite.InviteActivity;
 import org.liangxiaokou.module.setlovedate.SetLoveDateActivity;
 import org.liangxiaokou.module.sleep.SleepActivity;
 import org.liangxiaokou.module.timer.TimerActivity;
+import org.liangxiaokou.util.DateUtils;
+import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
 import org.liangxiaokou.widget.view.CircleImageView;
 import org.liangxiaokou.widget.view.RedTipImageView;
-import org.liangxiaokou.util.DateUtils;
-import org.liangxiaokou.app.GeneralFragment;
-import org.liangxiaokou.util.LogUtils;
 
 import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMUserInfo;
@@ -46,7 +46,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OtherFragment extends GeneralFragment {
+public class OtherFragment extends GeneralFragment implements IOtherView {
 
     public final static int update_Love_Date = 0x01;//更新恋爱日
     public final static int change_phone = 0x02;//更换纪念照
@@ -75,6 +75,7 @@ public class OtherFragment extends GeneralFragment {
     private LinearLayout llOtherContact;
     private NormalListDialog photoDialog;//拍照类型
     private Uri photoUri;
+    private BmobIMUserInfo bmobIMFriendUserInfo;
 
     //private ShimmerFrameLayout shimmerContent;
 
@@ -249,11 +250,7 @@ public class OtherFragment extends GeneralFragment {
                 photoDialog.show();
                 break;
             case R.id.rl_other_exist:
-                //发送给华为
-                //BmobIMUserInfo bmobIMUserInfo = new BmobIMUserInfo(new Long(0), "d84d4f1c3e", "572508836@qq.com", "");
-                //发送给oppo
-                BmobIMUserInfo bmobIMUserInfo = new BmobIMUserInfo(new Long(0), "021514db73", "709847739@qq.com", "");
-                BmobIMNetUtils.createConversation(bmobIMUserInfo, new ConversationListener() {
+                BmobIMNetUtils.createConversation(bmobIMFriendUserInfo, new ConversationListener() {
                     @Override
                     public void done(BmobIMConversation bmobIMConversation, BmobException e) {
                         if (e == null) {
@@ -298,4 +295,33 @@ public class OtherFragment extends GeneralFragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void noFriend() {
+        startActivity(InviteActivity.class);
+    }
+
+    @Override
+    public void hasFriend(Friend friend) {
+        bmobIMFriendUserInfo = new BmobIMUserInfo(new Long(0), friend.getFriendUserId(), friend.getFriendName(), "");
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onFailure(int code, String msg) {
+        showToast(OtherFragment.class.getName() + " code is " + code + " and msg is " + msg);
+    }
 }

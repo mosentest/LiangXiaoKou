@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-
 import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
@@ -143,7 +142,7 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public void onFailure(int code, String msg) {
-        showToast("current code is " + code + " and msg is " + msg);
+        showToast(LoginActivity.class.getName() + " code is " + code + " and msg is " + msg);
     }
 
 }

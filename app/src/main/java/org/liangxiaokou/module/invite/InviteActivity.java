@@ -1,7 +1,6 @@
 package org.liangxiaokou.module.invite;
 
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -158,6 +157,6 @@ public class InviteActivity extends ToolBarActivity implements InviteView {
 
     @Override
     public void onFailure(int code, String msg) {
-
+        showToast(InviteActivity.class.getName() + " code is " + code + " and msg is " + msg);
     }
 }

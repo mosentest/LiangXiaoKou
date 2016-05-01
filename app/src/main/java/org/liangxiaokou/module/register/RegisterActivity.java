@@ -77,7 +77,7 @@ public class RegisterActivity extends ToolBarActivity implements IRegisterView {
 
     @Override
     public void onFailure(int code, String msg) {
-        showToast("current code is " + code + " and msg is " + msg);
+        showToast(RegisterActivity.class.getName() + " code is " + code + " and msg is " + msg);
     }
 
     @Override

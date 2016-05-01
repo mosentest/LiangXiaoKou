@@ -14,11 +14,9 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
-import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.module.invite.InviteActivity;
 import org.liangxiaokou.module.invite.InvitePresenter;
 import org.liangxiaokou.module.invite.InviteView;
@@ -223,6 +221,6 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView, In
 
     @Override
     public void onFailure(int code, String msg) {
-        showToast("current code is " + code + " and msg is " + msg);
+        showToast(WelcomeActivity.class.getName() + " code is " + code + " and msg is " + msg);
     }
 }
