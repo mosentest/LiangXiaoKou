@@ -2,6 +2,8 @@ package org.liangxiaokou.app;
 
 import android.support.v7.widget.Toolbar;
 
+import org.liangxiaokou.module.R;
+
 
 /**
  * 由于使用了ToolBar一些属性，暂时不是用这个,目前由SwipeBackActivity来处理
@@ -9,18 +11,13 @@ import android.support.v7.widget.Toolbar;
  */
 @Deprecated
 public abstract class ToolBarActivity extends GeneralActivity implements IActivity {
-    private ToolBarHelper mToolBarHelper;
     protected Toolbar toolbar;
 
 
     @Override
     public void setContentView(int layoutResID) {
-        //super.setContentView(layoutResID);
-        mToolBarHelper = new ToolBarHelper(this, layoutResID);
-        toolbar = mToolBarHelper.getToolBar();
-        setContentView(mToolBarHelper.getContentView());
-        /*自定义的一些操作*/
-        /*把 toolbar 设置到Activity 中*/
+        super.setContentView(layoutResID);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initView();
         initData();

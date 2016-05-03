@@ -5,7 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/gray"
     android:orientation="vertical"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     tools:context="org.liangxiaokou.module.register.RegisterActivity">
+
+    <include layout="@layout/view_top_bar" />
 
     <ScrollView
         android:id="@+id/sv_root"

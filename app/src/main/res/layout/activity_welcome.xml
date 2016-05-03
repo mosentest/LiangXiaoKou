@@ -6,8 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/gray"
     android:focusable="true"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
     tools:context="org.liangxiaokou.module.welcome.WelcomeActivity">
+
+    <include layout="@layout/view_top_bar" />
 
     <ScrollView
         android:id="@+id/sv"

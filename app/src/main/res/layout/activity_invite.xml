@@ -6,8 +6,11 @@
     android:background="@color/line"
     android:gravity="center"
     android:orientation="vertical"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     tools:context="org.liangxiaokou.module.invite.InviteActivity">
 
+    <include layout="@layout/view_top_bar" />
 
     <TextView
         android:id="@+id/tv_currentUserName"

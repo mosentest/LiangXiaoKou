@@ -67,4 +67,6 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     //https://segmentfault.com/a/1190000002969678
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
+    //https://github.com/jgilfelt/SystemBarTint
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 }

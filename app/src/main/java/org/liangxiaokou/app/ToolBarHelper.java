@@ -67,8 +67,8 @@ public class ToolBarHelper {
         mToolBar = (Toolbar) toolbar.findViewById(R.id.toolbar);
     }
 
-    private void initUserView(int id) {
-        mUserView = mInflater.inflate(id, null);
+    private void initUserView(int layoutId) {
+        mUserView = mInflater.inflate(layoutId, null);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         TypedArray typedArray = mContext.getTheme().obtainStyledAttributes(ATTRS);
         /*获取主题中定义的悬浮标志*/

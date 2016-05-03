@@ -1,25 +1,15 @@
 package org.liangxiaokou.app;
 
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.Toast;
+
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.liangxiaokou.module.R;
-import org.liangxiaokou.util.StatusBarCompat;
-import org.liangxiaokou.util.ThirdUtils;
-import org.liangxiaokou.widget.dialog.widget.MaterialDialog;
-
-import dmax.dialog.SpotsDialog;
 
 /**
  * Created by Eric on 15/3/3.
@@ -37,9 +27,13 @@ public abstract class SwipeBackActivity extends GeneralActivity implements Swipe
         swipeBackLayout.addView(view);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        // enable status bar tint
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setTintColor(getResources().getColor(R.color.system_press));
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         initView();
         initData();
-        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
     }
 
     private View getContainer() {

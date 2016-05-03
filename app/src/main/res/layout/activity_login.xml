@@ -4,8 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="org.liangxiaokou.module.login.LoginActivity">
+
+    <include layout="@layout/view_top_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,8 +35,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入您的邮箱地址"
-                    android:text="709847739@qq.com"
                     android:inputType="textEmailAddress"
+                    android:text="709847739@qq.com"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/normal_content_size" />
             </android.support.design.widget.TextInputLayout>
@@ -48,8 +52,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入您的密码"
-                    android:text="mzq83456386"
                     android:inputType="textPassword"
+                    android:text="mzq83456386"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/normal_content_size" />
             </android.support.design.widget.TextInputLayout>
