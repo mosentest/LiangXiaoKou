@@ -19,8 +19,6 @@ public abstract class ToolBarActivity extends GeneralActivity implements IActivi
         super.setContentView(layoutResID);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        initView();
-        initData();
     }
 
 }

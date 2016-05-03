@@ -72,6 +72,8 @@ public abstract class GeneralActivity extends AppCompatActivity {
         // enable status bar tint
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setTintColor(getResources().getColor(R.color.system_press));
+        initView();
+        initData();
     }
 
     @Override
