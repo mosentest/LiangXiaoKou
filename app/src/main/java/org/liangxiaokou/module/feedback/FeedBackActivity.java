@@ -1,23 +1,21 @@
 package org.liangxiaokou.module.feedback;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.liangxiaokou.app.SwipeBackActivity;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 
-public class FeedBackActivity extends SwipeBackActivity {
+public class FeedBackActivity extends ToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        showActionBarBack(true);
     }
 
     @Override

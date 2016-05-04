@@ -11,9 +11,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.MApplication;
-import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.config.Constants;
@@ -25,7 +23,7 @@ import java.lang.ref.WeakReference;
 
 import cn.bmob.v3.BmobUser;
 
-public class PersonActivity extends SwipeBackActivity {
+public class PersonActivity extends ToolBarActivity {
 
     private RelativeLayout mRlHeader;
     private CircleImageView mIvHeader;
@@ -60,7 +58,7 @@ public class PersonActivity extends SwipeBackActivity {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override

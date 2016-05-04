@@ -1,20 +1,16 @@
 package org.liangxiaokou.module.setlovedate;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.liangxiaokou.app.GeneralActivity;
-import org.liangxiaokou.app.SwipeBackActivity;
-import org.liangxiaokou.app.SwipeBackLayout;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.DateUtils;
-import org.liangxiaokou.util.LogUtils;
 
-public class SetLoveDateActivity extends SwipeBackActivity implements SetLoveDateActivityFragment.LoveDateTextListener {
+public class SetLoveDateActivity extends ToolBarActivity implements SetLoveDateActivityFragment.LoveDateTextListener {
 
     private static final java.lang.String TAG = "SetLoveDateActivity";
 

@@ -1,17 +1,15 @@
 package org.liangxiaokou.module.sleep;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.liangxiaokou.app.SwipeBackActivity;
-import org.liangxiaokou.app.SwipeBackLayout;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 
-public class SleepActivity extends SwipeBackActivity {
+public class SleepActivity extends ToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,14 +1,13 @@
 package org.liangxiaokou.module.setting;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 
-import org.liangxiaokou.app.SwipeBackActivity;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 
-public class SettingActivity extends SwipeBackActivity {
+public class SettingActivity extends ToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

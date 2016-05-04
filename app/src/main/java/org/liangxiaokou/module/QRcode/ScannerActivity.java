@@ -5,27 +5,19 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.android.volley.VolleyLog;
 import com.google.zxing.Result;
 
-import org.liangxiaokou.app.GeneralActivity;
-import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.app.ToolBarActivity;
-import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bean.User;
-import org.liangxiaokou.bmob.BmobNetUtils;
 import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.widget.activity.BaseWebActivity;
 import org.liangxiaokou.widget.dialog.listener.OnBtnClickL;
 
-import java.util.List;
-
-import cn.bmob.v3.listener.FindListener;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class ScannerActivity extends SwipeBackActivity implements ZXingScannerView.ResultHandler, IScannerView {
+public class ScannerActivity extends ToolBarActivity implements ZXingScannerView.ResultHandler, IScannerView {
 
     private ZXingScannerView mZXingScannerView;
 

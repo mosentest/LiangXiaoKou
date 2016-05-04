@@ -17,7 +17,7 @@ public class SplashScreenActivity extends GeneralActivity {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override

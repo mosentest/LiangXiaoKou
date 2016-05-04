@@ -140,7 +140,7 @@ public class InviteActivity extends ToolBarActivity implements InviteView {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override

@@ -6,19 +6,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.liangxiaokou.app.SwipeBackActivity;
-import org.liangxiaokou.app.SwipeBackLayout;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 
-public class ContactActivity extends SwipeBackActivity {
+public class ContactActivity extends ToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
+        showActionBarBack(true);
     }
 
 

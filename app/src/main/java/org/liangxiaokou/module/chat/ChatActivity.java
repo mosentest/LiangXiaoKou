@@ -1,18 +1,16 @@
 package org.liangxiaokou.module.chat;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import org.liangxiaokou.app.GeneralActivity;
-import org.liangxiaokou.app.SwipeBackActivity;
-import org.liangxiaokou.app.SwipeBackLayout;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 
-public class ChatActivity extends SwipeBackActivity {
+public class ChatActivity extends ToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,7 @@ public class ChatActivity extends SwipeBackActivity {
     }
 
     @Override
-    protected PendingTransitionMode getPendingTransitionMode() {
+    protected GeneralActivity.PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
     }
 

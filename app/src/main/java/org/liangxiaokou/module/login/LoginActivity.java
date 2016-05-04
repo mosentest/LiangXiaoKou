@@ -37,12 +37,12 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
-        return PendingTransitionMode.RIGHT;
+        return PendingTransitionMode.TOP;
     }
 
     @Override

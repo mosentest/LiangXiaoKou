@@ -130,13 +130,16 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        if (isOverridePendingTransition()) {
+        if (isOverridePendingTransition() && getPendingTransitionMode() != null) {
             switch (getPendingTransitionMode()) {
                 case RIGHT:
+                    //http://blog.csdn.net/djun100/article/details/14053653
                     overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+                    //overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
                     break;
                 case TOP:
-                    overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    //overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     break;
             }
         }
@@ -145,13 +148,15 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
-        if (isOverridePendingTransition()) {
+        if (isOverridePendingTransition() && getPendingTransitionMode() != null) {
             switch (getPendingTransitionMode()) {
                 case RIGHT:
                     overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+                    //overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
                     break;
                 case TOP:
-                    overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    //overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     break;
             }
         }
@@ -160,13 +165,15 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     @Override
     public void finish() {
         super.finish();
-        if (isOverridePendingTransition()) {
+        if (isOverridePendingTransition() && getPendingTransitionMode() != null) {
             switch (getPendingTransitionMode()) {
                 case RIGHT:
-                    overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+                    overridePendingTransition(R.anim.in_from_left, R.anim.out_from_right);
+                    //overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
                     break;
                 case TOP:
-                    overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    //overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     break;
             }
         }

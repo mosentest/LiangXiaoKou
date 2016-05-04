@@ -167,7 +167,7 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView, In
 
     @Override
     public boolean PreOnKeyDown(int keyCode, KeyEvent event) {
-        return false;
+        return true;
     }
 
 
@@ -203,7 +203,7 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView, In
 
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
-        return PendingTransitionMode.RIGHT;
+        return PendingTransitionMode.TOP;
     }
 
     @Override

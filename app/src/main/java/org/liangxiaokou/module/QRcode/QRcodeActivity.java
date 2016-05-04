@@ -1,15 +1,13 @@
 package org.liangxiaokou.module.QRcode;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.liangxiaokou.app.GeneralActivity;
-import org.liangxiaokou.app.SwipeBackActivity;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
 import org.liangxiaokou.config.Constants;
@@ -19,7 +17,7 @@ import org.liangxiaokou.util.VolleyLog;
 
 import cn.bmob.v3.listener.UpdateListener;
 
-public class QRcodeActivity extends SwipeBackActivity implements IQRcodeView {
+public class QRcodeActivity extends ToolBarActivity implements IQRcodeView {
 
     private ImageView mIv;
 

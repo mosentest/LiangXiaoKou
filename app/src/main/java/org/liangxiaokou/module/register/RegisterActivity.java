@@ -91,12 +91,12 @@ public class RegisterActivity extends ToolBarActivity implements IRegisterView {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
-        return PendingTransitionMode.RIGHT;
+        return PendingTransitionMode.TOP;
     }
 
     @Override

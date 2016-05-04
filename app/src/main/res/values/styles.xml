@@ -19,8 +19,8 @@
         <!--对话框-->
         <item name="android:alertDialogTheme">@style/AppTheme.Dialog.Alert</item>
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/line</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowContentOverlay">@android:color/transparent</item>
     </style>
 

@@ -10,9 +10,10 @@ import android.view.View;
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.app.SwipeBackLayout;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 
-public class TimerActivity extends SwipeBackActivity {
+public class TimerActivity extends ToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
