@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
@@ -35,6 +36,11 @@ public class QRcodeActivity extends SwipeBackActivity implements IQRcodeView {
     @Override
     public boolean isOverridePendingTransition() {
         return true;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
     @Override

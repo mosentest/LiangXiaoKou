@@ -99,9 +99,9 @@ public class HomeActivity extends GeneralActivity implements
         broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
         sendBroadcast(broadcastIntent);
         //百度定位
-        mLocationClient = BaiduLBSutils.locationStart(this, this);
+        mLocationClient = BaiduLBSutils.locationStart(getApplicationContext(), this);
         //连接Bmob服务器
-        BmobIMNetUtils.connect(this, new ConnectListener() {
+        BmobIMNetUtils.connect(getApplicationContext(), new ConnectListener() {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
@@ -226,6 +226,11 @@ public class HomeActivity extends GeneralActivity implements
     }
 
     @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
@@ -233,7 +238,7 @@ public class HomeActivity extends GeneralActivity implements
     @Override
     public void onPageSelected(int position) {
         //是否修改标题
-        //mToolbar.setTitle(tabTitle[position]);
+        mToolbar.setTitle(tabTitle[position]);
         switch (position) {
             case 1:
                 mFloatingActionButton.setVisibility(View.VISIBLE);
@@ -272,7 +277,7 @@ public class HomeActivity extends GeneralActivity implements
                 break;
             case R.id.nav_menu_update:
                 mDrawerLayout.closeDrawers();
-                ThirdUtils.umengInit(this, false, false, new UmengUpdateListener() {
+                ThirdUtils.umengInit(getApplicationContext(), false, false, new UmengUpdateListener() {
                     @Override
                     public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
                         //0表示有更新，1表示无更新，2表示非wifi状态，3表示请求超时
@@ -316,7 +321,7 @@ public class HomeActivity extends GeneralActivity implements
         //0表示有更新，1表示无更新，2表示非wifi状态，3表示请求超时
         switch (updateStatus) {
             case UpdateStatus.Yes: // has update
-                UmengUpdateAgent.showUpdateDialog(this, updateInfo);
+                UmengUpdateAgent.showUpdateDialog(getApplicationContext(), updateInfo);
                 break;
         }
     }

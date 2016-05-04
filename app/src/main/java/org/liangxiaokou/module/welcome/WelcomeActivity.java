@@ -15,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 
+import org.liangxiaokou.app.GeneralActivity;
+import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.invite.InviteActivity;
@@ -196,7 +198,12 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView, In
 
     @Override
     public boolean isOverridePendingTransition() {
-        return true;
+        return false;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
     @Override
@@ -217,10 +224,12 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView, In
     @Override
     public void onSuccess() {
         startActivity(InviteActivity.class);
+        finish();
     }
 
     @Override
     public void onSuccess(String logoutName) {
+        MApplication.getInstance().finishAllActivity();
         startActivity(LoginActivity.class);
     }
 

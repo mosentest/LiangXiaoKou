@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.KeyBoardUtils;
@@ -90,7 +91,12 @@ public class RegisterActivity extends ToolBarActivity implements IRegisterView {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return true;
+        return false;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
     @Override

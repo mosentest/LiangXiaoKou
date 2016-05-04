@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.liangxiaokou.app.GeneralActivity;
+import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.QRcode.QRcodeActivity;
@@ -138,7 +140,12 @@ public class InviteActivity extends ToolBarActivity implements InviteView {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return true;
+        return false;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
     @Override
@@ -157,6 +164,7 @@ public class InviteActivity extends ToolBarActivity implements InviteView {
 
     @Override
     public void onSuccess(String logoutName) {
+        MApplication.getInstance().finishAllActivity();
         startActivity(LoginActivity.class);
     }
 

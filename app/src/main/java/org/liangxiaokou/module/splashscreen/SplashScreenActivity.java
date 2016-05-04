@@ -21,6 +21,11 @@ public class SplashScreenActivity extends GeneralActivity {
     }
 
     @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.TOP;
+    }
+
+    @Override
     public void initView() {
     }
 

@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.app.SwipeBackLayout;
 import org.liangxiaokou.module.R;
@@ -52,6 +53,11 @@ public class SetLoveDateActivity extends SwipeBackActivity implements SetLoveDat
     @Override
     public boolean isOverridePendingTransition() {
         return true;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
     @Override

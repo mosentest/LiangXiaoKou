@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.squareup.okhttp.Request;
 
+import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.widget.view.MultiStateView;
@@ -103,6 +104,11 @@ public class BaseWebActivity extends ToolBarActivity implements ProgressWebView.
     @Override
     public boolean isOverridePendingTransition() {
         return true;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
 

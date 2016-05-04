@@ -25,6 +25,10 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     protected MaterialDialog materialDialog;//对话框
     protected AlertDialog alertDialog;
 
+    public enum PendingTransitionMode {
+        RIGHT, TOP;
+    }
+
     @Override
     protected void onStart() {
         MApplication.getInstance().getmNewsLifecycleHandler().onActivityStarted(this);
@@ -127,7 +131,14 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         if (isOverridePendingTransition()) {
-            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+            switch (getPendingTransitionMode()) {
+                case RIGHT:
+                    overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+                    break;
+                case TOP:
+                    overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    break;
+            }
         }
     }
 
@@ -135,7 +146,14 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
         if (isOverridePendingTransition()) {
-            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+            switch (getPendingTransitionMode()) {
+                case RIGHT:
+                    overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+                    break;
+                case TOP:
+                    overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    break;
+            }
         }
     }
 
@@ -143,7 +161,14 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     public void finish() {
         super.finish();
         if (isOverridePendingTransition()) {
-            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+            switch (getPendingTransitionMode()) {
+                case RIGHT:
+                    overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+                    break;
+                case TOP:
+                    overridePendingTransition(R.anim.in_from_buttom, R.anim.out_from_top);
+                    break;
+            }
         }
     }
 
@@ -162,6 +187,8 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     }
 
     public abstract boolean isOverridePendingTransition();
+
+    protected abstract PendingTransitionMode getPendingTransitionMode();
 
     @Override
     public void onBackPressed() {

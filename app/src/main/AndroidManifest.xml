@@ -66,9 +66,9 @@
     <application
         android:name="org.liangxiaokou.app.MApplication"
         android:allowBackup="true"
+        android:theme="@style/AppTheme"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:label="@string/app_name">
 
         <!-- Bmob -->
         <meta-data
@@ -262,6 +262,7 @@
             android:label="@string/title_activity_invite"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
+
     </application>
 
 </manifest>

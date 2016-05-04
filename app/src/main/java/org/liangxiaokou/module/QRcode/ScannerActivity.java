@@ -8,6 +8,8 @@ import android.view.View;
 import com.android.volley.VolleyLog;
 import com.google.zxing.Result;
 
+import org.liangxiaokou.app.GeneralActivity;
+import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bean.User;
@@ -23,7 +25,7 @@ import java.util.List;
 import cn.bmob.v3.listener.FindListener;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class ScannerActivity extends ToolBarActivity implements ZXingScannerView.ResultHandler, IScannerView {
+public class ScannerActivity extends SwipeBackActivity implements ZXingScannerView.ResultHandler, IScannerView {
 
     private ZXingScannerView mZXingScannerView;
 
@@ -39,6 +41,11 @@ public class ScannerActivity extends ToolBarActivity implements ZXingScannerView
     @Override
     public boolean isOverridePendingTransition() {
         return true;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
     @Override

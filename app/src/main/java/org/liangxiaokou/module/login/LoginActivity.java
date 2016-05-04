@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
@@ -36,7 +37,12 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return true;
+        return false;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
     @Override
@@ -117,13 +123,11 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
     public void onSuccess(User user) {
         //判断是否完善个人信息(性别，昵称)
         if (!user.getIsOk()) {
-            //清除所有activity
-            MApplication.getInstance().AppExit();
+            finish();
             //需要完善个人资料
             startActivity(WelcomeActivity.class);
         } else if (!user.getHaveLove()) {
-            //清除所有activity
-            MApplication.getInstance().AppExit();
+            finish();
             //需要添加好友
             startActivity(InviteActivity.class);
         } else {

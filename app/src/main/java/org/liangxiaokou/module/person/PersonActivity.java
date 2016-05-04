@@ -16,6 +16,7 @@ import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.SwipeBackActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
+import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.widget.view.CircleImageView;
@@ -59,7 +60,12 @@ public class PersonActivity extends SwipeBackActivity {
 
     @Override
     public boolean isOverridePendingTransition() {
-        return true;
+        return false;
+    }
+
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
     }
 
     @Override
@@ -124,9 +130,14 @@ public class PersonActivity extends SwipeBackActivity {
         switch (v.getId()) {
             case R.id.btn_logout: {
                 alertDialog.show();
-                BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
-                startActivity(LoginActivity.class);
-                finish();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
+                        MApplication.getInstance().finishAllActivity();
+                        startActivity(LoginActivity.class);
+                    }
+                }, Constants._TIME);
             }
             break;
         }

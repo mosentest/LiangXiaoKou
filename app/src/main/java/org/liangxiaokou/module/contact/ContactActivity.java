@@ -49,6 +49,10 @@ public class ContactActivity extends SwipeBackActivity {
         return true;
     }
 
+    @Override
+    protected PendingTransitionMode getPendingTransitionMode() {
+        return PendingTransitionMode.RIGHT;
+    }
 
     @Override
     public void initView() {
