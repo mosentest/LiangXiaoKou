@@ -77,6 +77,8 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     private Uri photoUri;
     private BmobIMUserInfo bmobIMFriendUserInfo;
 
+    private OtherPresenter otherPresenter = new OtherPresenter(this);
+
     //private ShimmerFrameLayout shimmerContent;
 
     //private AnimTextView animTextView;
@@ -164,6 +166,8 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         ivOtherSleep.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
         ivOtherTimer.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
         ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
+
+        otherPresenter.checkHasFriend(getContext());
     }
 
     @Override
@@ -303,6 +307,7 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     @Override
     public void hasFriend(Friend friend) {
         bmobIMFriendUserInfo = new BmobIMUserInfo(new Long(0), friend.getFriendUserId(), friend.getFriendName(), "");
+        tvOtherName.setText(friend.getFriendName());
     }
 
     @Override
