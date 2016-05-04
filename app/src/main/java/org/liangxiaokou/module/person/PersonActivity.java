@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.SwipeBackActivity;
+import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.login.LoginActivity;
@@ -52,7 +54,12 @@ public class PersonActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
-        showBack(true);
+        showActionBarBack(true);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
     @Override
@@ -118,8 +125,8 @@ public class PersonActivity extends SwipeBackActivity {
             case R.id.btn_logout: {
                 alertDialog.show();
                 BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
-                MApplication.getInstance().AppExit();
                 startActivity(LoginActivity.class);
+                finish();
             }
             break;
         }

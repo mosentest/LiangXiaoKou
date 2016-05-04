@@ -29,7 +29,12 @@ public class QRcodeActivity extends SwipeBackActivity implements IQRcodeView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode);
-        showBack(true);
+        showActionBarBack(true);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
     @Override

@@ -42,6 +42,10 @@ public class FeedBackActivity extends SwipeBackActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
+    }
 
 
     @Override

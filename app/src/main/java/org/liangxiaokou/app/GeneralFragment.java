@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
 
+import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ToastUtils;
 
@@ -67,7 +68,7 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     }
 
     public void showToast(String msg) {
-        ToastUtils.toast(getActivity().getApplicationContext(),msg);
+        ToastUtils.toast(getActivity().getApplicationContext(), msg);
     }
 
     public <T extends View> T findViewById(int resId) {
@@ -96,14 +97,14 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
 
     public abstract void PreOnDestroy();
 
-
     public void startActivity(Class<?> cls) {
         Intent intent = new Intent(getActivity(), cls);
-        startActivity(intent);
+        getActivity().startActivity(intent);
     }
 
     public void startActivityForResult(Class<?> cls, int requestCode) {
         Intent intent = new Intent(getActivity(), cls);
-        startActivityForResult(intent, requestCode);
+        getActivity().startActivityForResult(intent, requestCode);
     }
+
 }

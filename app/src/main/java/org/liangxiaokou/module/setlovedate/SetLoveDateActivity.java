@@ -23,10 +23,7 @@ public class SetLoveDateActivity extends SwipeBackActivity implements SetLoveDat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_love_date);
-        LogUtils.e(TAG, "onCreate");
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
+        showActionBarBack(true);
     }
 
 
@@ -50,6 +47,11 @@ public class SetLoveDateActivity extends SwipeBackActivity implements SetLoveDat
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
     @Override

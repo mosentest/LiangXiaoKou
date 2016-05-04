@@ -33,7 +33,12 @@ public class ScannerActivity extends ToolBarActivity implements ZXingScannerView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
-        showBack(true);
+        showActionBarBack(true);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
     @Override

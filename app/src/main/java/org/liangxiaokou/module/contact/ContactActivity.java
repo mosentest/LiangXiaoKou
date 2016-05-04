@@ -1,7 +1,6 @@
 package org.liangxiaokou.module.contact;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +42,11 @@ public class ContactActivity extends SwipeBackActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
 

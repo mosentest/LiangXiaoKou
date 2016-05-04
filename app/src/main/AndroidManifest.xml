@@ -67,7 +67,8 @@
         android:name="org.liangxiaokou.app.MApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
 
         <!-- Bmob -->
         <meta-data
@@ -133,7 +134,6 @@
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/AppBaseThemeMain"
             android:windowSoftInputMode="stateHidden" />
         <!-- 友盟设置 -->
         <meta-data
@@ -161,7 +161,6 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppBaseThemeMain"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -171,11 +170,10 @@
         <activity
             android:name=".splashscreen.SplashScreenActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashScreenActivityTheme"
+            android:theme="@style/FullscreenActivityTheme"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -185,15 +183,13 @@
             android:label="@string/title_activity_setting"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <!-- 设置love日期 -->
         <activity
             android:name=".setlovedate.SetLoveDateActivity"
             android:label="@string/title_activity_set_love_date"
             android:parentActivityName=".home.HomeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home.HomeActivity" />
@@ -202,79 +198,69 @@
             android:name=".feedback.FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".chat.ChatActivity"
             android:label="@string/title_activity_chat"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".sleep.SleepActivity"
             android:label="@string/title_activity_sleep"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".timer.TimerActivity"
             android:label="@string/title_activity_timer"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".contact.ContactActivity"
             android:label="@string/title_activity_contact"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/AppBaseThemeMain"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".register.RegisterActivity"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".person.PersonActivity"
             android:label="@string/title_activity_person"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".welcome.WelcomeActivity"
             android:label="@string/title_activity_welcome"
             android:screenOrientation="portrait"
-            android:theme="@style/AppBaseThemeMain"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".QRcode.ScannerActivity"
             android:label="@string/title_activity_scanner"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".QRcode.QRcodeActivity"
             android:label="@string/title_activity_qrcode"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="org.liangxiaokou.widget.activity.BaseWebActivity"
             android:label="@string/plusone"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
+
         <activity
             android:name=".invite.InviteActivity"
             android:label="@string/title_activity_invite"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
 

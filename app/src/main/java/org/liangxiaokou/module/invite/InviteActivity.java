@@ -137,6 +137,11 @@ public class InviteActivity extends ToolBarActivity implements InviteView {
     }
 
     @Override
+    public boolean isOverridePendingTransition() {
+        return true;
+    }
+
+    @Override
     public void showLoading() {
         alertDialog.show();
     }

@@ -14,10 +14,10 @@ import org.liangxiaokou.module.R;
 /**
  * Created by Eric on 15/3/3.
  */
-public abstract class SwipeBackActivity extends GeneralActivity implements SwipeBackLayout.SwipeBackListener, IActivity {
+public abstract class SwipeBackActivity extends GeneralActivity implements SwipeBackLayout.SwipeBackListener {
 
-    private SwipeBackLayout swipeBackLayout;
-    private ImageView ivShadow;
+    protected SwipeBackLayout swipeBackLayout;
+    protected ImageView ivShadow;
     protected Toolbar toolbar;
 
     @Override
@@ -50,10 +50,6 @@ public abstract class SwipeBackActivity extends GeneralActivity implements Swipe
 
     public void setDragEdge(SwipeBackLayout.DragEdge dragEdge) {
         swipeBackLayout.setDragEdge(dragEdge);
-    }
-
-    public SwipeBackLayout getSwipeBackLayout() {
-        return swipeBackLayout;
     }
 
     @Override

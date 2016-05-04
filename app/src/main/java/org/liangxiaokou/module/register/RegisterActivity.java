@@ -84,8 +84,13 @@ public class RegisterActivity extends ToolBarActivity implements IRegisterView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        showBack(true);
+        showActionBarBack(true);
         handler = new StaticHandler(this);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
     @Override

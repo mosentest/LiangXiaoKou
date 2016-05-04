@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <!--toolbar颜色-->
         <item name="colorPrimary">@color/system_color</item>
@@ -20,22 +20,17 @@
         <!--对话框-->
         <item name="android:alertDialogTheme">@style/AppTheme.Dialog.Alert</item>
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@android:color/transparent</item>
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="@style/BaseAppTheme">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimTheme</item>
-    </style>
+    <style name="AppTheme" parent="@style/BaseAppTheme"></style>
 
-    <!--主界面-->
-    <style name="AppBaseThemeMain" parent="@style/BaseAppTheme">
-        <!--<item name="android:windowIsTranslucent">false</item>-->
-    </style>
 
     <!--启动页-->
-    <style name="SplashScreenActivityTheme" parent="@style/BaseAppTheme">
-        <!--<item name="android:windowIsTranslucent">false</item>-->
+    <style name="FullscreenActivityTheme" parent="@style/BaseAppTheme">
+        <item name="android:windowFullscreen">false</item>
     </style>
 
     <style name="MenuTextStyle">
@@ -44,22 +39,9 @@
         <item name="android:background">@color/dark</item>
     </style>
 
-    <style name="WindowAnimTheme" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/out_from_left</item>
-        <item name="android:activityCloseEnterAnimation">@anim/in_from_left</item>
-        <item name="android:activityCloseExitAnimation">@anim/out_from_right</item>
-    </style>
-
-    <style name="Animation.Activity.Translucent.Style" parent="@android:style/Animation.Translucent">
-        <item name="android:windowEnterAnimation">@anim/in_from_right</item>
-        <item name="android:windowExitAnimation">@anim/out_from_right</item>
-    </style>
-
     <style name="AppTheme.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowNoTitle">true</item>
     </style>
-
 
     <style name="CustomDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>

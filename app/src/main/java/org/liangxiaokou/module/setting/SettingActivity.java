@@ -14,8 +14,12 @@ public class SettingActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        showActionBarBack(true);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
 

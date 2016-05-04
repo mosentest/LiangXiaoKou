@@ -221,6 +221,11 @@ public class HomeActivity extends GeneralActivity implements
     }
 
     @Override
+    public boolean isOverridePendingTransition() {
+        return true;
+    }
+
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }

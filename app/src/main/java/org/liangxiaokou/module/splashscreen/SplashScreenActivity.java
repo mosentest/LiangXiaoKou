@@ -2,6 +2,7 @@ package org.liangxiaokou.module.splashscreen;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.module.R;
@@ -12,6 +13,11 @@ public class SplashScreenActivity extends GeneralActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return false;
     }
 
     @Override
@@ -59,5 +65,10 @@ public class SplashScreenActivity extends GeneralActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

@@ -26,7 +26,7 @@ public class BaseWebActivity extends ToolBarActivity implements ProgressWebView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mo_activity_base_web);
-        showBack(true);
+        showActionBarBack(true);
     }
 
 
@@ -98,6 +98,11 @@ public class BaseWebActivity extends ToolBarActivity implements ProgressWebView.
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
 

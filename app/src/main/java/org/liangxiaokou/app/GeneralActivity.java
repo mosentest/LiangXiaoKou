@@ -2,7 +2,6 @@ package org.liangxiaokou.app;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -12,9 +11,7 @@ import android.widget.Toast;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.liangxiaokou.module.R;
-import org.liangxiaokou.util.StatusBarCompat;
 import org.liangxiaokou.util.ThirdUtils;
-import org.liangxiaokou.widget.dialog.listener.OnBtnClickL;
 import org.liangxiaokou.widget.dialog.widget.MaterialDialog;
 
 import dmax.dialog.SpotsDialog;
@@ -22,7 +19,7 @@ import dmax.dialog.SpotsDialog;
 /**
  * Created by Administrator on 2015/12/23.
  */
-public abstract class GeneralActivity extends AppCompatActivity {
+public abstract class GeneralActivity extends AppCompatActivity implements IActivity {
 
 
     protected MaterialDialog materialDialog;//对话框
@@ -39,37 +36,25 @@ public abstract class GeneralActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         materialDialog = new MaterialDialog(this);
-//        materialDialog.setOnBtnClickL(new OnBtnClickL() {
-//            @Override
-//            public void onBtnClick() {
-//
-//            }
-//        }, new OnBtnClickL() {
-//            @Override
-//            public void onBtnClick() {
-//
-//            }
-//        }, new OnBtnClickL() {
-//            @Override
-//            public void onBtnClick() {
-//
-//            }
-//        });
         alertDialog = new SpotsDialog(this, R.style.CustomDialog);
         MApplication.getInstance().addActivity(this);
     }
 
-    public void showBack(boolean isShow) {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(isShow);
+    /**
+     * 是否显示返回键
+     *
+     * @param isShow
+     */
+    public void showActionBarBack(boolean isShow) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(isShow);
+        }
     }
 
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        //StatusBarCompat.compat(this);
-        // create our manager instance after the content view is set
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        // enable status bar tint
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setTintColor(getResources().getColor(R.color.system_press));
         initView();
@@ -114,8 +99,8 @@ public abstract class GeneralActivity extends AppCompatActivity {
     protected void onDestroy() {
         alertDialog = null;
         materialDialog = null;
-        PreOnDestroy();
         MApplication.getInstance().finishActivity(this);
+        PreOnDestroy();
         super.onDestroy();
     }
 
@@ -137,8 +122,29 @@ public abstract class GeneralActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showToast(String msg) {
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        if (isOverridePendingTransition()) {
+            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+        }
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        if (isOverridePendingTransition()) {
+            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (isOverridePendingTransition()) {
+            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+        }
     }
 
     public void startActivity(Class<?> cls) {
@@ -151,23 +157,15 @@ public abstract class GeneralActivity extends AppCompatActivity {
         startActivityForResult(intent, requestCode);
     }
 
+    public void showToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
 
-    public abstract void initView();
+    public abstract boolean isOverridePendingTransition();
 
-    public abstract void initData();
-
-    public abstract void PreOnStart();
-
-    public abstract void PreOnResume();
-
-    public abstract void PreOnRestart();
-
-    public abstract void PreOnPause();
-
-    public abstract void PreOnStop();
-
-    public abstract void PreOnDestroy();
-
-    public abstract boolean PreOnKeyDown(int keyCode, KeyEvent event);
-
+    @Override
+    public void onBackPressed() {
+        finish();
+        //super.onBackPressed();
+    }
 }

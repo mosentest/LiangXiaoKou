@@ -17,7 +17,7 @@ public class ChatActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        showBack(true);
+        showActionBarBack(true);
     }
 
 
@@ -41,6 +41,11 @@ public class ChatActivity extends SwipeBackActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean isOverridePendingTransition() {
+        return true;
     }
 
     @Override

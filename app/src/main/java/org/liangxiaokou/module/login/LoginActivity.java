@@ -35,6 +35,11 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
     }
 
     @Override
+    public boolean isOverridePendingTransition() {
+        return true;
+    }
+
+    @Override
     public void initView() {
         mTextInputUsername = (TextInputLayout) findViewById(R.id.textInput_username);
         mTextInputPassword = (TextInputLayout) findViewById(R.id.textInput_password);
@@ -112,18 +117,22 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
     public void onSuccess(User user) {
         //判断是否完善个人信息(性别，昵称)
         if (!user.getIsOk()) {
+            //清除所有activity
+            MApplication.getInstance().AppExit();
             //需要完善个人资料
             startActivity(WelcomeActivity.class);
         } else if (!user.getHaveLove()) {
+            //清除所有activity
+            MApplication.getInstance().AppExit();
             //需要添加好友
             startActivity(InviteActivity.class);
         } else {
+            //清除所有activity
+            MApplication.getInstance().AppExit();
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra("LoginActivity_code", 0);
             startActivity(intent);
         }
-        //清除所有activity
-        MApplication.getInstance().AppExit();
     }
 
     @Override

@@ -195,6 +195,11 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView, In
     }
 
     @Override
+    public boolean isOverridePendingTransition() {
+        return true;
+    }
+
+    @Override
     public String getNick() {
         return mTextInputNick.getEditText().getText().toString().trim();
     }
