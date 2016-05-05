@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LiangXiaoKou.iml" filepath="$PROJECT_DIR$/LiangXiaoKou.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-chat-widget/android-chat-widget.iml" filepath="$PROJECT_DIR$/android-chat-widget/android-chat-widget.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -254,19 +254,21 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
                 photoDialog.show();
                 break;
             case R.id.rl_other_exist:
-                BmobIMNetUtils.createConversation(bmobIMFriendUserInfo, new ConversationListener() {
-                    @Override
-                    public void done(BmobIMConversation bmobIMConversation, BmobException e) {
-                        if (e == null) {
-                            //在此跳转到聊天页面
-                            Intent intent2 = new Intent(getActivity(), ChatActivity.class);
-                            intent2.putExtra("OtherFragment_bmobIMConversation", bmobIMConversation);
-                            startActivity(intent2);
-                        } else {
-                            ToastUtils.toast(getContext(), e.getMessage() + "(" + e.getErrorCode() + ")");
+                if (bmobIMFriendUserInfo != null) {
+                    BmobIMNetUtils.createConversation(bmobIMFriendUserInfo, new ConversationListener() {
+                        @Override
+                        public void done(BmobIMConversation bmobIMConversation, BmobException e) {
+                            if (e == null) {
+                                //在此跳转到聊天页面
+                                Intent intent2 = new Intent(getActivity(), ChatActivity.class);
+                                intent2.putExtra("OtherFragment_bmobIMConversation", bmobIMConversation);
+                                getActivity().startActivity(intent2);
+                            } else {
+                                ToastUtils.toast(getContext(), e.getMessage() + "(" + e.getErrorCode() + ")");
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 ivOtherHeader.setTipVisibility(RedTipImageView.TipType.RED_TIP_GONE);
                 break;
             case R.id.ll_other_sleep:
