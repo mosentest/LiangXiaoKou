@@ -6,11 +6,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.liangxiaokou.app.BackHandledFragment;
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 
-public class ChatActivity extends ToolBarActivity {
+public class ChatActivity extends ToolBarActivity implements BackHandledFragment.BackHandledInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,5 +101,21 @@ public class ChatActivity extends ToolBarActivity {
     @Override
     public void onClick(View v) {
 
+    }
+
+    private BackHandledFragment mBackHandedFragment;
+
+    @Override
+    public void setSelectedFragment(BackHandledFragment selectedFragment) {
+        this.mBackHandedFragment = selectedFragment;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mBackHandedFragment.onBackPressed()) {
+            super.onBackPressed();
+        } else {
+            mBackHandedFragment.onBackPressed();
+        }
     }
 }

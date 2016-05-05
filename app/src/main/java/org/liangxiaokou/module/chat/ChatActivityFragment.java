@@ -14,6 +14,7 @@ import com.jialin.chat.MessageInputToolBox;
 import com.jialin.chat.OnOperationListener;
 import com.jialin.chat.Option;
 
+import org.liangxiaokou.app.BackHandledFragment;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.VolleyLog;
@@ -34,7 +35,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ChatActivityFragment extends GeneralFragment {
+public class ChatActivityFragment extends BackHandledFragment {
 
     private BmobIMConversation conversation;
 
@@ -171,5 +172,14 @@ public class ChatActivityFragment extends GeneralFragment {
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (messageInputToolBox.isVisible()) {
+            messageInputToolBox.hide();
+            return false;
+        }
+        return true;
     }
 }

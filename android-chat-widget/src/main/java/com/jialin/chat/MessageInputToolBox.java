@@ -268,6 +268,14 @@ public class MessageInputToolBox extends RelativeLayout {
         hideKeyboard(context);
     }
 
+
+    public boolean isVisible() {
+        if (bottomHideLayout.getVisibility() == VISIBLE) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * 隐藏软键盘
      *
