@@ -35,7 +35,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ChatActivityFragment extends BackHandledFragment {
+public class ChatActivityFragment extends BackHandledFragment implements OnOperationListener{
 
     private BmobIMConversation conversation;
 
@@ -58,24 +58,7 @@ public class ChatActivityFragment extends BackHandledFragment {
         messageListview = findViewById(R.id.messageListview);
         messageInputToolBox = findViewById(R.id.messageInputToolBox);
         //设置处理显示listview
-        messageInputToolBox.setOnOperationListener(new OnOperationListener() {
-            @Override
-            public void send(String content) {
-                Message message = new Message(0, 1, "Tom", "avatar", "Jerry", "avatar", content, true, true, new Date());
-                adapter.getData().add(message);
-                messageListview.setSelection(messageListview.getBottom());
-            }
-
-            @Override
-            public void selectedFace(String content) {
-
-            }
-
-            @Override
-            public void selectedFuncation(int index) {
-
-            }
-        });
+        messageInputToolBox.setOnOperationListener(this);
         //设置表情
         ArrayList<String> faceNameList = new ArrayList<>();
         for (int x = 1; x <= 10; x++) {
@@ -118,30 +101,6 @@ public class ChatActivityFragment extends BackHandledFragment {
                 return false;
             }
         });
-        Intent intent = getActivity().getIntent();
-        BmobIMConversation bmobIMConversation = (BmobIMConversation) intent.getSerializableExtra("OtherFragment_bmobIMConversation");
-        //在聊天页面的onCreate方法中，通过如下方法创建新的会话实例
-        conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), bmobIMConversation);
-        BmobIMTextMessage bmobIMMessage = new BmobIMTextMessage();
-        //oppo
-//        bmobIMMessage.setFromId("021514db73");
-//        bmobIMMessage.setToId("d84d4f1c3e");
-        //huawei
-//        bmobIMMessage.setFromId("d84d4f1c3e");
-//        bmobIMMessage.setToId("021514db73");
-        bmobIMMessage.setContent("mo");
-        conversation.sendMessage(bmobIMMessage, new MessageSendListener() {
-
-            @Override
-            public void onStart(BmobIMMessage bmobIMMessage) {
-                super.onStart(bmobIMMessage);
-            }
-
-            @Override
-            public void done(BmobIMMessage bmobIMMessage, BmobException e) {
-                VolleyLog.e("%s", bmobIMMessage.getBmobIMUserInfo().getName());
-            }
-        });
     }
 
     @Override
@@ -181,5 +140,40 @@ public class ChatActivityFragment extends BackHandledFragment {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void send(String content) {
+        Message message = new Message(0, 1, "Tom", "avatar", "Jerry", "avatar", content, true, true, new Date());
+        adapter.getData().add(message);
+        messageListview.setSelection(messageListview.getBottom());
+        Intent intent = getActivity().getIntent();
+        BmobIMConversation bmobIMConversation = (BmobIMConversation) intent.getSerializableExtra("OtherFragment_bmobIMConversation");
+        //在聊天页面的onCreate方法中，通过如下方法创建新的会话实例
+        conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), bmobIMConversation);
+        BmobIMTextMessage bmobIMMessage = new BmobIMTextMessage();
+        bmobIMMessage.setContent("mo");
+        conversation.sendMessage(bmobIMMessage, new MessageSendListener() {
+
+            @Override
+            public void onStart(BmobIMMessage bmobIMMessage) {
+                super.onStart(bmobIMMessage);
+            }
+
+            @Override
+            public void done(BmobIMMessage bmobIMMessage, BmobException e) {
+                VolleyLog.e("%s", bmobIMMessage.getBmobIMUserInfo().getName());
+            }
+        });
+    }
+
+    @Override
+    public void selectedFace(String content) {
+
+    }
+
+    @Override
+    public void selectedFuncation(int index) {
+
     }
 }

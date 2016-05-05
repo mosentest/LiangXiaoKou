@@ -3,6 +3,10 @@ package org.liangxiaokou.app;
 import android.os.Bundle;
 
 /**
+ *
+ * http://www.jianshu.com/p/fff1ef649fc0
+ *
+ *
  * http://blog.csdn.net/guxiao1201/article/details/40507387
  */
 public abstract class BackHandledFragment extends GeneralFragment {
