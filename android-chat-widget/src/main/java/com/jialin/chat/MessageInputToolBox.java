@@ -53,7 +53,7 @@ public class MessageInputToolBox extends RelativeLayout {
      * face box
      **/
     private RelativeLayout bottomHideLayout;
-    private static RelativeLayout faceLayout;
+    private static LinearLayout faceLayout;
     private ViewPager faceCategroyViewPager;
     private PagerSlidingTabStrip faceCategroyTabs;
 
@@ -113,7 +113,7 @@ public class MessageInputToolBox extends RelativeLayout {
         moreTypeButton = (Button) findViewById(R.id.moreTypeButton);
         moreTypeLayout = (LinearLayout) findViewById(R.id.moreTypeLayout);
 
-        faceLayout = (RelativeLayout) findViewById(R.id.faceLayout);
+        faceLayout = (LinearLayout) findViewById(R.id.faceLayout);
         faceCategroyViewPager = (ViewPager) findViewById(R.id.faceCategroyViewPager);
         faceCategroyTabs = (PagerSlidingTabStrip) findViewById(R.id.faceCategroyTabs);
 

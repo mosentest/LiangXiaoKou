@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/messageToolBox"
@@ -11,17 +11,16 @@
         android:layout_height="wrap_content"
         android:background="#ffffffff"
         android:orientation="horizontal"
-        android:padding="4dp" >
+        android:padding="4dp">
 
         <EditText
             android:id="@+id/messageEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@android:color/black"
             android:maxHeight="80dp"
-            android:textSize="16dp" >
-        </EditText>
+            android:textColor="@android:color/black"
+            android:textSize="16dp"></EditText>
 
         <Button
             android:id="@+id/faceButton"
@@ -58,7 +57,7 @@
         android:id="@+id/bottomHideLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/moreTypeLayout"
@@ -66,13 +65,12 @@
             android:layout_height="170dp"
             android:background="#f6f5f5"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/fuctionViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="160dp" >
-            </android.support.v4.view.ViewPager>
+                android:layout_height="160dp" />
 
             <LinearLayout
                 android:id="@+id/pagePointLayout"
@@ -81,36 +79,42 @@
                 android:layout_marginBottom="6dip"
                 android:background="#00000000"
                 android:gravity="center"
-                android:orientation="horizontal" >
-            </LinearLayout>
+                android:orientation="horizontal" />
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/faceLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#f6f5f5"
-            android:visibility="gone" >
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/faceCategroyViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="170dp" >
-            </android.support.v4.view.ViewPager>
+                android:layout_height="170dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/dark" />
 
             <com.astuetz.PagerSlidingTabStrip
                 android:id="@+id/faceCategroyTabs"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@+id/faceCategroyViewPager"
-                android:background="#ffffff"
+                android:background="@null"
                 android:visibility="visible"
-                app:pstsDividerColor="#a7a5a5"
-                app:pstsIndicatorColor="#ffffff"
+                app:pstsDividerColor="@color/dark"
+                app:pstsIndicatorColor="@color/system_press"
+                app:pstsIndicatorHeight="2dp"
                 app:pstsShouldExpand="true"
                 app:pstsTabPaddingLeftRight="14dip"
-                app:pstsUnderlineColor="#ffffff" />
-        </RelativeLayout>
+                app:pstsUnderlineColor="@color/dark"
+                app:pstsTabBackground="@drawable/background_tab"
+                app:pstsUnderlineHeight="2dp" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

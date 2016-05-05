@@ -250,7 +250,6 @@
             android:name=".QRcode.QRcodeActivity"
             android:label="@string/title_activity_qrcode"
             android:screenOrientation="portrait"
-
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="org.liangxiaokou.widget.activity.BaseWebActivity"
