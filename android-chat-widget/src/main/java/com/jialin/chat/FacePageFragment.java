@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,13 +39,14 @@ public class FacePageFragment extends Fragment {
 
     private List<String> data;
 
+
     private ViewPager faceViewPager;
     private LinearLayout pagePointLayout;
 
     Activity activity;
 
-    List<View> faceGridViewList;
-    List<ImageView> pointViews;
+    private List<View> faceGridViewList;
+    private List<ImageView> pointViews;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,7 @@ public class FacePageFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         faceGridViewList = new ArrayList<View>();
         pointViews = new ArrayList<ImageView>();
@@ -68,16 +69,16 @@ public class FacePageFragment extends Fragment {
 
         for (int x = 0; x < (data.size() % 12 == 0 ? data.size() / 12 : (data.size() / 12) + 1); x++) {
             GridView view = new GridView(activity);
-            FaceAdapter faceAdapter = new FaceAdapter(activity, data.subList(x * 12, ((x + 1) * 12) > data.size() ? data.size() : ((x + 1) * 12)));
+            final List<String> tempData = data.subList(x * 12, ((x + 1) * 12) > data.size() ? data.size() : ((x + 1) * 12));
+            FaceAdapter faceAdapter = new FaceAdapter(activity, tempData);
             view.setAdapter(faceAdapter);
 
             view.setOnItemClickListener(new OnItemClickListener() {
 
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     if (onOperationListener != null) {
-                        onOperationListener.selectedFace(data.get(position));
+                        onOperationListener.selectedFace(tempData.get(position));
                     }
                 }
             });
@@ -97,9 +98,7 @@ public class FacePageFragment extends Fragment {
 
             ImageView imageView = new ImageView(activity);
             imageView.setBackgroundResource(R.drawable.point_normal);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,
-                            LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             layoutParams.leftMargin = 10;
             layoutParams.rightMargin = 10;
             layoutParams.width = 8;
@@ -113,7 +112,7 @@ public class FacePageFragment extends Fragment {
 
         PagerAdapter facePagerAdapter = new FacePagerAdapter(faceGridViewList);
         faceViewPager.setAdapter(facePagerAdapter);
-        faceViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+        faceViewPager.addOnPageChangeListener(new OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int index) {

@@ -17,6 +17,7 @@ import com.jialin.chat.Option;
 import org.liangxiaokou.app.BackHandledFragment;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.VolleyLog;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ChatActivityFragment extends BackHandledFragment implements OnOperationListener{
+public class ChatActivityFragment extends BackHandledFragment implements OnOperationListener {
 
     private BmobIMConversation conversation;
 
@@ -169,11 +170,11 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
 
     @Override
     public void selectedFace(String content) {
-
+        ToastUtils.toast(getContext(), content);
     }
 
     @Override
     public void selectedFuncation(int index) {
-
+        ToastUtils.toast(getContext(), "current is " + index);
     }
 }
