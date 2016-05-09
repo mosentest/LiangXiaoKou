@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import org.greenrobot.eventbus.EventBus;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 
@@ -35,14 +36,17 @@ public class BmobMessageHandler extends BmobIMMessageHandler {
         builder.setContentIntent(contentIntent)
                 .setDefaults(Notification.DEFAULT_ALL)//设置震动声音http://blog.csdn.net/wukunting/article/details/5661769，http://www.oschina.net/code/snippet_270292_14489
                 .setSmallIcon(R.mipmap.ic_launcher)//设置状态栏里面的图标（小图标）
-                        //.setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.i5))//下拉下拉列表里面的图标（大图标）
-                        //.setTicker("您有新的消息") //设置状态栏的显示的信息
+                //.setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.i5))//下拉下拉列表里面的图标（大图标）
+                //.setTicker("您有新的消息") //设置状态栏的显示的信息
                 .setWhen(System.currentTimeMillis())//设置时间发生时间
                 .setAutoCancel(true)//设置可以清除
                 .setContentTitle("您有新的消息")//设置下拉列表里的标题
                 .setContentText(event.getMessage().getContent() + "");//设置上下文内容
         Notification notification = builder.getNotification();
         mNotificationManager.notify(1, notification);
+
+        //利用eventBus传信息
+        EventBus.getDefault().post(event);
     }
 
     @Override

@@ -24,8 +24,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/id_coordinatorlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
         <!--
             AppBarLayout跟它的名字一样，把容器类的组件全部作为AppBar。
         将AppBarLayout放在CoordinatorLayout中，就可以实现滚动效果。

@@ -14,12 +14,17 @@ import com.jialin.chat.MessageInputToolBox;
 import com.jialin.chat.OnOperationListener;
 import com.jialin.chat.Option;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.liangxiaokou.app.BackHandledFragment;
-import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.util.AESUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.VolleyLog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +36,7 @@ import cn.bmob.newim.bean.BmobIMMessage;
 import cn.bmob.newim.bean.BmobIMTextMessage;
 import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.BmobIMClient;
+import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.newim.listener.MessagesQueryListener;
 import cn.bmob.v3.exception.BmobException;
@@ -48,7 +54,7 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     private BmobIMConversation bmobIMConversation;
     private BmobIMUserInfo bmobIMFriendUserInfo;
 
-    private int limit = 10;
+    private final static int LIMIT = 10;
 
 
     public ChatActivityFragment() {
@@ -97,10 +103,10 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         List<Message> messages = new ArrayList<Message>();
         adapter = new MessageAdapter(getContext(), messages);
         messageListview.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         messageListview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -114,15 +120,64 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
         bmobIMFriendUserInfo = (BmobIMUserInfo) intent.getSerializableExtra("OtherFragment_bmobIMFriendUserInfo");
         //在聊天页面的onCreate方法中，通过如下方法创建新的会话实例
         conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), bmobIMConversation);
-//        conversation.queryMessages(null, limit, new MessagesQueryListener() {
-//            @Override
-//            public void done(List<BmobIMMessage> list, BmobException e) {
-//                for (BmobIMMessage bmobIMMessage : list) {
-//
-//                    VolleyLog.e("queryMessages %s", bmobIMMessage.getContent());
-//                }
-//            }
-//        });
+        conversation.queryMessages(null, LIMIT, new MessagesQueryListener() {
+            @Override
+            public void done(List<BmobIMMessage> list, BmobException e) {
+                if (e == null) {
+                    if (list != null && list.size() > 0) {
+                        ArrayList<Message> messageArrayList = new ArrayList<>();
+                        for (BmobIMMessage bmobIMMessage : list) {
+                            //VolleyLog.e("queryMessages %s", bmobIMMessage.getContent());
+                            Message message = BmobIMMessage2Message(bmobIMMessage);
+                            messageArrayList.add(message);
+                        }
+                        adapter.getData().addAll(messageArrayList);
+                        adapter.notifyDataSetChanged();
+                    }
+                } else {
+                    ToastUtils.toast(getContext(), e.getMessage());
+                }
+
+            }
+        });
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        Message message = BmobIMMessage2Message(event.getMessage());
+        adapter.getData().add(message);
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 消息转换
+     *
+     * @param bmobIMMessage
+     * @return
+     */
+    private static Message BmobIMMessage2Message(BmobIMMessage bmobIMMessage) {
+        String dateTime = "2016-05-09 17:19:00";
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        Date date = null;
+        try {
+            date = df.parse(dateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Message message = new Message(Message.MSG_TYPE_TEXT,
+                Message.MSG_STATE_SUCCESS,
+                bmobIMMessage.getFromId(),
+                "",
+                bmobIMMessage.getToId(),
+                "",
+                bmobIMMessage.getCreateTime() > date.getTime() ? AESUtils.getDecryptString(bmobIMMessage.getContent()) : bmobIMMessage.getContent(),
+                bmobIMMessage.getSendStatus() != 4 ? true : false,
+                true,
+                new Date(bmobIMMessage.getCreateTime())
+        );
+        message.setId(bmobIMMessage.getId());
+        return message;
     }
 
     @Override
@@ -147,7 +202,7 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
 
     @Override
     public void PreOnDestroy() {
-
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -167,22 +222,30 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     @Override
     public void send(final String content) {
         BmobIMTextMessage bmobIMMessage = new BmobIMTextMessage();
-        bmobIMMessage.setContent(content);
-        conversation.sendMessage(bmobIMMessage, new MessageSendListener() {
+        try {
+            bmobIMMessage.setContent(AESUtils.getEncryptString(content));
+            conversation.sendMessage(bmobIMMessage, new MessageSendListener() {
 
-            @Override
-            public void onStart(BmobIMMessage bmobIMMessage) {
-                super.onStart(bmobIMMessage);
-                Message message = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar", content, true, true, new Date());
-                adapter.getData().add(message);
-                adapter.notifyDataSetChanged();
-            }
+                @Override
+                public void onStart(BmobIMMessage bmobIMMessage) {
+                    super.onStart(bmobIMMessage);
+                    Message message = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar", content, true, true, new Date());
+                    adapter.getData().add(message);
+                    adapter.notifyDataSetChanged();
+                }
 
-            @Override
-            public void done(BmobIMMessage bmobIMMessage, BmobException e) {
-                VolleyLog.e("sendMessage %s", bmobIMMessage.getContent());
-            }
-        });
+                @Override
+                public void done(BmobIMMessage bmobIMMessage, BmobException e) {
+                    if (e == null) {
+                        VolleyLog.e("sendMessage %s", AESUtils.getDecryptString(bmobIMMessage.getContent()));
+                    } else {
+                        ToastUtils.toast(getContext(), e.getMessage());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

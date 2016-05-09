@@ -20,13 +20,13 @@ public class Message {
     private String toUserAvatar;
     private String content;
 
-    private Boolean isSend;
-    private Boolean sendSucces;
+    private Boolean isSend;//用于标识是否为发送，还是接受
+    private Boolean sendSuccess;
     private Date time;
 
     public Message(Integer type, Integer state, String fromUserName,
                    String fromUserAvatar, String toUserName, String toUserAvatar,
-                   String content, Boolean isSend, Boolean sendSucces, Date time) {
+                   String content, Boolean isSend, Boolean sendSuccess, Date time) {
         super();
         this.type = type;
         this.state = state;
@@ -36,7 +36,7 @@ public class Message {
         this.toUserAvatar = toUserAvatar;
         this.content = content;
         this.isSend = isSend;
-        this.sendSucces = sendSucces;
+        this.sendSuccess = sendSuccess;
         this.time = time;
     }
 
@@ -113,11 +113,11 @@ public class Message {
     }
 
     public Boolean getSendSucces() {
-        return sendSucces;
+        return sendSuccess;
     }
 
     public void setSendSucces(Boolean sendSucces) {
-        this.sendSucces = sendSucces;
+        this.sendSuccess = sendSucces;
     }
 
     public Date getTime() {
