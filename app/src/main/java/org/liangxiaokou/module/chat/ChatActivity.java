@@ -1,5 +1,6 @@
 package org.liangxiaokou.module.chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -11,6 +12,9 @@ import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 
+import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMUserInfo;
+
 public class ChatActivity extends ToolBarActivity implements BackHandledFragment.BackHandledInterface {
 
     @Override
@@ -18,6 +22,9 @@ public class ChatActivity extends ToolBarActivity implements BackHandledFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         showActionBarBack(true);
+        Intent intent = getIntent();
+        BmobIMUserInfo bmobIMFriendUserInfo = (BmobIMUserInfo) intent.getSerializableExtra("OtherFragment_bmobIMFriendUserInfo");
+        getSupportActionBar().setTitle(String.format(getResources().getString(R.string.chat_friend), bmobIMFriendUserInfo.getName()));
     }
 
 
@@ -60,7 +67,6 @@ public class ChatActivity extends ToolBarActivity implements BackHandledFragment
 
     @Override
     public void initData() {
-
     }
 
     @Override

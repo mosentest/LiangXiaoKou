@@ -29,8 +29,10 @@ import java.util.Map;
 import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMMessage;
 import cn.bmob.newim.bean.BmobIMTextMessage;
+import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.BmobIMClient;
 import cn.bmob.newim.listener.MessageSendListener;
+import cn.bmob.newim.listener.MessagesQueryListener;
 import cn.bmob.v3.exception.BmobException;
 
 /**
@@ -43,6 +45,10 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     private ListView messageListview;
     private MessageInputToolBox messageInputToolBox;
     private MessageAdapter adapter;
+    private BmobIMConversation bmobIMConversation;
+    private BmobIMUserInfo bmobIMFriendUserInfo;
+
+    private int limit = 10;
 
 
     public ChatActivityFragment() {
@@ -102,6 +108,21 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                 return false;
             }
         });
+
+        Intent intent = getActivity().getIntent();
+        bmobIMConversation = (BmobIMConversation) intent.getSerializableExtra("OtherFragment_bmobIMConversation");
+        bmobIMFriendUserInfo = (BmobIMUserInfo) intent.getSerializableExtra("OtherFragment_bmobIMFriendUserInfo");
+        //在聊天页面的onCreate方法中，通过如下方法创建新的会话实例
+        conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), bmobIMConversation);
+//        conversation.queryMessages(null, limit, new MessagesQueryListener() {
+//            @Override
+//            public void done(List<BmobIMMessage> list, BmobException e) {
+//                for (BmobIMMessage bmobIMMessage : list) {
+//
+//                    VolleyLog.e("queryMessages %s", bmobIMMessage.getContent());
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -144,26 +165,22 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     }
 
     @Override
-    public void send(String content) {
-        Message message = new Message(0, 1, "Tom", "avatar", "Jerry", "avatar", content, true, true, new Date());
-        adapter.getData().add(message);
-        messageListview.setSelection(messageListview.getBottom());
-        Intent intent = getActivity().getIntent();
-        BmobIMConversation bmobIMConversation = (BmobIMConversation) intent.getSerializableExtra("OtherFragment_bmobIMConversation");
-        //在聊天页面的onCreate方法中，通过如下方法创建新的会话实例
-        conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), bmobIMConversation);
+    public void send(final String content) {
         BmobIMTextMessage bmobIMMessage = new BmobIMTextMessage();
-        bmobIMMessage.setContent("mo");
+        bmobIMMessage.setContent(content);
         conversation.sendMessage(bmobIMMessage, new MessageSendListener() {
 
             @Override
             public void onStart(BmobIMMessage bmobIMMessage) {
                 super.onStart(bmobIMMessage);
+                Message message = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar", content, true, true, new Date());
+                adapter.getData().add(message);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void done(BmobIMMessage bmobIMMessage, BmobException e) {
-                VolleyLog.e("%s", bmobIMMessage.getBmobIMUserInfo().getName());
+                VolleyLog.e("sendMessage %s", bmobIMMessage.getContent());
             }
         });
     }

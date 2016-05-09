@@ -105,7 +105,7 @@ public class HomeActivity extends GeneralActivity implements
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    VolleyLog.e("%s", "connect success");
+                    VolleyLog.e("%s", "bmob connect success");
                 } else {
                     VolleyLog.e("%s", e.getErrorCode() + "/" + e.getMessage());
                 }
@@ -185,7 +185,7 @@ public class HomeActivity extends GeneralActivity implements
         // 设置Drawerlayout开关指示器，即Toolbar最左边的那个icon
         ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
         mActionBarDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
 
         mNavigationView.setNavigationItemSelectedListener(this);
 
