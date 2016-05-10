@@ -95,6 +95,13 @@ public class BmobNetUtils {
         query.findObjects(context.getApplicationContext(), findListener);
     }
 
+
+    public static void findUserInfoByUserId(Context context, String objectId, FindListener<User> findListener) {
+        BmobQuery<User> query = new BmobQuery<User>();
+        query.addWhereEqualTo("objectId", objectId);
+        query.findObjects(context.getApplicationContext(), findListener);
+    }
+
     /**
      * 更新用户信息
      *
@@ -185,5 +192,6 @@ public class BmobNetUtils {
         currentFriend.setFriendName(friendName);
         currentFriend.save(context.getApplicationContext(), saveListener);
     }
+
 
 }

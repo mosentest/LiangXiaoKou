@@ -18,6 +18,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.liangxiaokou.app.BackHandledFragment;
+import org.liangxiaokou.bean.User;
+import org.liangxiaokou.bmob.BmobNetUtils;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.AESUtils;
 import org.liangxiaokou.util.ToastUtils;
@@ -39,6 +41,7 @@ import cn.bmob.newim.core.BmobIMClient;
 import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.newim.listener.MessagesQueryListener;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
 /**
@@ -53,8 +56,9 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     private MessageAdapter adapter;
     private BmobIMConversation bmobIMConversation;
     private BmobIMUserInfo bmobIMFriendUserInfo;
+    private User currentUser;
 
-    private final static int LIMIT = 10;
+    private final static int LIMIT = 30;
 
 
     public ChatActivityFragment() {
@@ -115,6 +119,8 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
             }
         });
 
+        currentUser = User.getCurrentUser(getContext(), User.class);
+
         Intent intent = getActivity().getIntent();
         bmobIMConversation = (BmobIMConversation) intent.getSerializableExtra("OtherFragment_bmobIMConversation");
         bmobIMFriendUserInfo = (BmobIMUserInfo) intent.getSerializableExtra("OtherFragment_bmobIMFriendUserInfo");
@@ -127,7 +133,6 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                     if (list != null && list.size() > 0) {
                         ArrayList<Message> messageArrayList = new ArrayList<>();
                         for (BmobIMMessage bmobIMMessage : list) {
-                            //VolleyLog.e("queryMessages %s", bmobIMMessage.getContent());
                             Message message = BmobIMMessage2Message(bmobIMMessage);
                             messageArrayList.add(message);
                         }
@@ -156,7 +161,7 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
      * @param bmobIMMessage
      * @return
      */
-    private static Message BmobIMMessage2Message(BmobIMMessage bmobIMMessage) {
+    private Message BmobIMMessage2Message(BmobIMMessage bmobIMMessage) {
         String dateTime = "2016-05-09 17:19:00";
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         Date date = null;
@@ -165,15 +170,16 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        VolleyLog.e("%s", bmobIMFriendUserInfo.getName());
         Message message = new Message(Message.MSG_TYPE_TEXT,
                 Message.MSG_STATE_SUCCESS,
-                bmobIMMessage.getFromId(),
-                "http://c.hiphotos.baidu.com/image/pic/item/0dd7912397dda1449fad6f63b6b7d0a20df486be.jpg",
-                bmobIMMessage.getToId(),
-                "http://e.hiphotos.baidu.com/image/pic/item/8644ebf81a4c510f4d6762f76459252dd52aa5b8.jpg",
+                currentUser.getNick(),
+                currentUser.getSex() == 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
+                bmobIMFriendUserInfo.getName(),
+                currentUser.getSex() != 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
                 bmobIMMessage.getCreateTime() > date.getTime() ? AESUtils.getDecryptString(bmobIMMessage.getContent()) : bmobIMMessage.getContent(),
-                bmobIMMessage.getSendStatus() != 4 ? true : false,
-                true,
+                bmobIMMessage.getSendStatus() == 4 ? false : true,
+                bmobIMMessage.getSendStatus() == 3 ? false : true,
                 new Date(bmobIMMessage.getCreateTime())
         );
         message.setId(bmobIMMessage.getId());
@@ -229,7 +235,16 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                 @Override
                 public void onStart(BmobIMMessage bmobIMMessage) {
                     super.onStart(bmobIMMessage);
-                    Message message = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar", content, true, true, new Date());
+                    Message message = new Message(Message.MSG_TYPE_TEXT,
+                            Message.MSG_STATE_SUCCESS,
+                            "fromName",
+                            currentUser.getSex() == 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
+                            "toName",
+                            currentUser.getSex() != 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
+                            content,
+                            true,
+                            true,
+                            new Date());
                     adapter.getData().add(message);
                     adapter.notifyDataSetChanged();
                 }

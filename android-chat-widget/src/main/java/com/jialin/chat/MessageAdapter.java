@@ -112,9 +112,11 @@ public class MessageAdapter extends BaseAdapter {
         }
 
         //设置个人头像
-        ImageUtils.loadChatUserImg(context, viewHolder.userAvatarImageView, message.getIsSend() ? message.getFromUserAvatar() : message.getToUserAvatar());
+        ImageUtils.loadChatUserImg(context,
+                viewHolder.userAvatarImageView,
+                message.getIsSend() ? Integer.parseInt(message.getFromUserAvatar()) : Integer.parseInt(message.getToUserAvatar()));
 
-        viewHolder.userNameTextView.setText(message.getFromUserName());
+        viewHolder.userNameTextView.setText(message.getToUserName());
 
 
         switch (message.getType()) {

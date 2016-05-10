@@ -9,12 +9,14 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import org.mo.module.R;
+
 
 /**
  * http://limuzhi.com/2016/01/24/Android%E5%9B%BE%E7%89%87%E5%BA%93-Glide/
- * <p/>
+ * <p>
  * http://vardhan-justlikethat.blogspot.jp/2014/09/android-image-loading-libraries-picasso.html
- * <p/>
+ * <p>
  * Created by Administrator on 2016/5/10.
  */
 public class ImageUtils {
@@ -46,6 +48,13 @@ public class ImageUtils {
         return bitmap;
     }
 
+    /**
+     * 聊天对话的使用
+     *
+     * @param context
+     * @param imageView
+     * @param uri
+     */
     public static void loadChatUserImg(Context context, ImageView imageView, String uri) {
         Glide.with(context.getApplicationContext())
                 .load(uri)
@@ -54,6 +63,35 @@ public class ImageUtils {
                 .thumbnail(0.5f)//缩略图
                 //.placeholder(R.drawable.ic_placeholder)//设置加载中图片
                 //.error(R.drawable.ic_error)//设置错误图片
+                .into(imageView);
+    }
+
+    public static void loadChatUserImg(Context context, ImageView imageView, int uri) {
+        Glide.with(context.getApplicationContext())
+                .load(uri)
+                .centerCrop()
+                .transform(new GlideCircleTransform(context.getApplicationContext()))
+                .thumbnail(0.5f)//缩略图
+                //.placeholder(R.drawable.ic_placeholder)//设置加载中图片
+                //.error(R.drawable.ic_error)//设置错误图片
+                .into(imageView);
+    }
+
+    /**
+     * 针对其他读取图片使用
+     *
+     * @param context
+     * @param imageView
+     * @param uri
+     */
+    public static void loadImg(Context context, ImageView imageView, String uri) {
+        Glide.with(context.getApplicationContext())
+                .load(uri)
+                .centerCrop()
+                //.transform(new GlideCircleTransform(context.getApplicationContext()))
+                .thumbnail(0.5f)//缩略图
+                .placeholder(R.drawable.ic_placeholder)//设置加载中图片
+                .error(R.drawable.ic_error)//设置错误图片
                 .into(imageView);
     }
 
