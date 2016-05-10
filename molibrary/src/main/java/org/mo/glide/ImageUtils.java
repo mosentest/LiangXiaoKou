@@ -1,4 +1,4 @@
-package org.liangxiaokou.util;
+package org.mo.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,13 +9,12 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import org.liangxiaokou.module.R;
 
 /**
  * http://limuzhi.com/2016/01/24/Android%E5%9B%BE%E7%89%87%E5%BA%93-Glide/
- * <p>
+ * <p/>
  * http://vardhan-justlikethat.blogspot.jp/2014/09/android-image-loading-libraries-picasso.html
- * <p>
+ * <p/>
  * Created by Administrator on 2016/5/10.
  */
 public class ImageUtils {
@@ -47,13 +46,14 @@ public class ImageUtils {
         return bitmap;
     }
 
-    public void loadImg(Context context, ImageView imageView, String uri) {
+    public static void loadChatUserImg(Context context, ImageView imageView, String uri) {
         Glide.with(context.getApplicationContext())
                 .load(uri)
                 .centerCrop()
-                .thumbnail(0.1f)//缩略图
-                .placeholder(R.drawable.ic_placeholder)//设置加载中图片
-                .error(R.drawable.ic_error)//设置错误图片
+                .transform(new GlideCircleTransform(context.getApplicationContext()))
+                .thumbnail(0.5f)//缩略图
+                //.placeholder(R.drawable.ic_placeholder)//设置加载中图片
+                //.error(R.drawable.ic_error)//设置错误图片
                 .into(imageView);
     }
 

@@ -1,4 +1,4 @@
-package org.liangxiaokou.util;
+package org.mo.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;

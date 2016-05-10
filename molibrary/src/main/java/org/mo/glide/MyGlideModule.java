@@ -1,4 +1,4 @@
-package com.glide;
+package org.mo.glide;
 
 import android.content.Context;
 
@@ -9,7 +9,7 @@ import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.module.GlideModule;
 import com.bumptech.glide.request.target.ViewTarget;
 
-import org.mo.widget.R;
+import org.mo.module.R;
 
 
 public class MyGlideModule implements GlideModule {

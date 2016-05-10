@@ -17,8 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.glide.ImageUtils;
 
+import org.mo.glide.ImageUtils;
 import org.mo.widget.R;
 
 public class MessageAdapter extends BaseAdapter {

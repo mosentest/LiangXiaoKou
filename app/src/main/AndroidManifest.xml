@@ -72,11 +72,6 @@
         android:theme="@style/AppTheme">
 
 
-        <meta-data
-            android:name="org.liangxiaokou.util.MyGlideModule"
-            android:value="GlideModule"
-            tools:node="remove" />
-
         <!-- Bmob -->
         <meta-data
             android:name="Bmob_APP_KEY"
