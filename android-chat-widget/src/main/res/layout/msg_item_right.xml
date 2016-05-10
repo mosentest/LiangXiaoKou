@@ -16,9 +16,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/messages_time_background"
-            android:padding="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
             android:textColor="#ffffff"
-            android:textSize="12sp" />
+            android:textSize="12dp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -48,10 +51,10 @@
             android:focusable="true"
             android:gravity="left|center"
             android:lineSpacingExtra="2dp"
-            android:maxWidth="180dp"
+            android:maxWidth="@dimen/chat_line"
             android:minHeight="50dp"
             android:textColor="#ff000000"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
 
         <ImageView
             android:id="@+id/photoImageView"
@@ -85,17 +88,17 @@
             android:id="@+id/sendTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_alignBottom="@+id/textTextView"
+            android:layout_marginBottom="5dp"
             android:layout_toLeftOf="@id/textTextView"
             android:clickable="true"
             android:focusable="true"
             android:gravity="left|bottom"
-            android:layout_alignBottom="@+id/textTextView"
             android:lineSpacingExtra="2dp"
-            android:layout_marginBottom="5dp"
             android:minHeight="50dp"
+            android:text="23:59下午"
             android:textColor="#ff58616d"
-            android:textSize="10sp" />
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/userNameTextView"
@@ -106,7 +109,7 @@
             android:layout_toRightOf="@id/textTextView"
             android:gravity="center"
             android:textColor="#818181"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:visibility="gone" />
 
         <ImageView
