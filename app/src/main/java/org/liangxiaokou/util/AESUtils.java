@@ -49,6 +49,7 @@ public class AESUtils {
      * @return
      */
     public static String getEncryptString(String str) {
+        //long time = System.currentTimeMillis();
         try {
             SecretKeySpec key = new SecretKeySpec(getKey(), ALGORITHM);
             Cipher cipher = Cipher.getInstance("AES/ECB/ZeroBytePadding");
@@ -58,6 +59,8 @@ public class AESUtils {
             return Base64.encodeToString(doFinal, Base64.DEFAULT);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }finally {
+            //VolleyLog.e("use time is %d", System.currentTimeMillis() - time);
         }
     }
 
@@ -68,6 +71,7 @@ public class AESUtils {
      * @return
      */
     public static String getDecryptString(String str) {
+        //long time = System.currentTimeMillis();
         try {
             SecretKeySpec key = new SecretKeySpec(getKey(), ALGORITHM);
             Cipher cipher = Cipher.getInstance("AES/ECB/ZeroBytePadding");
@@ -77,6 +81,8 @@ public class AESUtils {
             return new String(doFinal, CHARSETNAME);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            //VolleyLog.e("use time is %d", System.currentTimeMillis() - time);
         }
     }
 

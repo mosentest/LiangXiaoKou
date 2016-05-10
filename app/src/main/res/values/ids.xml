@@ -3,4 +3,5 @@
     <item name="toolbar" type="id"></item>
     <item name="slidable_panel" type="id" />
     <item name="slidable_content" type="id" />
+    <item name="glide_tag_id" type="id" />
 </resources>

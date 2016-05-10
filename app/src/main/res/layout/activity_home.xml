@@ -53,6 +53,8 @@
 
                 需要注意的是，后面两种模式基本只有在CollapsingToolbarLayout才有用，
                 而前面两种模式基本是需要一起使用的，也就是说，这些flag的使用场景，基本已经固定了。
+
+                app:layout_scrollFlags="scroll|enterAlways"
             -->
             <android.support.v7.widget.Toolbar
                 android:id="@+id/id_toolbar"
@@ -61,7 +63,6 @@
                 android:background="?attr/colorPrimary"
                 android:fitsSystemWindows="true"
                 android:translationZ="2dp"
-                app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:title="@string/app_name" />
@@ -82,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabBackground="@android:color/white"
+                android:fitsSystemWindows="true"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/system_color"
                 app:tabSelectedTextColor="@color/system_color"

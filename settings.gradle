@@ -1,1 +1,1 @@
-include ':app', ':android-chat-widget', ':xrecyclerview'
+include ':app', ':android-chat-widget', ':molibrary', ':xrecyclerview'

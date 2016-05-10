@@ -2,6 +2,8 @@ package org.liangxiaokou.config;
 
 import android.provider.MediaStore;
 
+import java.io.File;
+
 /**
  * Created by moziqi on 2015/12/17 0017.
  */
@@ -12,6 +14,10 @@ public class Constants {
     public static final String author = "moziqi";
 
     public static final String APP_NAME = "liangxiaokou";
+    /**
+     * 图片缓存路径
+     */
+    public static final String IMAGE_CACHE = File.separator + APP_NAME + File.separator + "cache";
 
     public static final String SAVE_IMAGE_DIR_PATH = "/image";
 

@@ -91,13 +91,12 @@ public class XRecyclerView extends RecyclerView {
         }
     }
 
-    public void setNoMore(boolean noMore) {
+    public void setNoMore(boolean noMore){
         this.isNoMore = noMore;
         View footView = mFootViews.get(0);
-        ((LoadingMoreFooter) footView).setState(this.isNoMore ? LoadingMoreFooter.STATE_NOMORE : LoadingMoreFooter.STATE_COMPLETE);
+        ((LoadingMoreFooter) footView).setState(this.isNoMore ? LoadingMoreFooter.STATE_NOMORE:LoadingMoreFooter.STATE_COMPLETE);
     }
-
-    public void reset() {
+    public void reset(){
         setNoMore(false);
         loadMoreComplete();
         refreshComplete();
@@ -187,10 +186,8 @@ public class XRecyclerView extends RecyclerView {
                 lastVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
             }
             if (layoutManager.getChildCount() > 0
-                    && lastVisibleItemPosition >= layoutManager.getItemCount() - 1
-                    && layoutManager.getItemCount() > layoutManager.getChildCount()
-                    && !isNoMore
-                    && mRefreshHeader.getState() < ArrowRefreshHeader.STATE_REFRESHING) {
+                    && lastVisibleItemPosition >= layoutManager.getItemCount() - 1 && layoutManager.getItemCount() > layoutManager.getChildCount() && !isNoMore && mRefreshHeader.getState() < ArrowRefreshHeader.STATE_REFRESHING) {
+
                 View footView = mFootViews.get(0);
                 isLoadingData = true;
                 if (footView instanceof LoadingMoreFooter) {
@@ -278,7 +275,7 @@ public class XRecyclerView extends RecyclerView {
 //        return false;
     }
 
-    private class DataObserver extends RecyclerView.AdapterDataObserver {
+     private class DataObserver extends RecyclerView.AdapterDataObserver {
         @Override
         public void onChanged() {
             Adapter<?> adapter = getAdapter();
@@ -327,9 +324,7 @@ public class XRecyclerView extends RecyclerView {
         public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
             mWrapAdapter.notifyItemMoved(fromPosition, toPosition);
         }
-    }
-
-    ;
+    };
 
     private class WrapAdapter extends RecyclerView.Adapter<ViewHolder> {
 
