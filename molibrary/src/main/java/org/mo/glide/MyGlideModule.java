@@ -17,7 +17,7 @@ public class MyGlideModule implements GlideModule {
     public void applyOptions(Context context, GlideBuilder builder) {
         //builder.setMemoryCache(new LruResourceCache(yourSizeInBytes)); 设置内存
         builder.setDiskCache(new ExternalCacheDiskCacheFactory(context.getApplicationContext()));
-        builder.setDecodeFormat(DecodeFormat.ALWAYS_ARGB_8888);
+        //builder.setDecodeFormat(DecodeFormat.ALWAYS_ARGB_8888);
         ViewTarget.setTagId(R.id.glide_tag_id);
     }
 

@@ -10,6 +10,7 @@ public class User extends BmobUser {
     private String nick;//别名
     private Boolean isOk;//是否完善个人信息
     private Boolean haveLove;//是否含有另一半
+    private String mood;//心情
 
     public User() {
     }
@@ -51,5 +52,13 @@ public class User extends BmobUser {
 
     public void setHaveLove(Boolean haveLove) {
         this.haveLove = haveLove;
+    }
+
+    public String getMood() {
+        return mood;
+    }
+
+    public void setMood(String mood) {
+        this.mood = mood;
     }
 }

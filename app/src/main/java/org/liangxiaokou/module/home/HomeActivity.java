@@ -51,7 +51,9 @@ import org.liangxiaokou.util.VolleyLog;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.newim.core.ConnectionStatus;
 import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.v3.exception.BmobException;
 
 /**
@@ -100,17 +102,45 @@ public class HomeActivity extends GeneralActivity implements
         sendBroadcast(broadcastIntent);
         //百度定位
         mLocationClient = BaiduLBSutils.locationStart(getApplicationContext(), this);
-        //连接Bmob服务器
         BmobIMNetUtils.connect(getApplicationContext(), new ConnectListener() {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    VolleyLog.e("%s", "bmob connect success");
+                    VolleyLog.e("connect %s", "bmob connect success");
                 } else {
                     VolleyLog.e("%s", e.getErrorCode() + "/" + e.getMessage());
                 }
             }
         });
+        BmobIMNetUtils.IMConnectStatusChangeListener(new ConnectStatusChangeListener() {
+            @Override
+            public void onChange(ConnectionStatus connectionStatus) {
+                switch (connectionStatus) {
+                    case DISCONNECT:
+                        BmobIMNetUtils.connect(getApplicationContext(), new ConnectListener() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if (e == null) {
+                                    VolleyLog.e("connect %s", "bmob connect success");
+                                } else {
+                                    VolleyLog.e("%s", e.getErrorCode() + "/" + e.getMessage());
+                                }
+                            }
+                        });
+                    case CONNECTING:
+                        break;
+                    case CONNECTED:
+                        break;
+                    case NETWORK_UNAVAILABLE:
+                        ToastUtils.toast(getApplicationContext(), "请打开网络");
+                        break;
+                    case KICK_ASS:
+                        ToastUtils.toast(getApplicationContext(), "检查到在其他手机登录");
+                        break;
+                }
+            }
+        });
+
     }
 
     @Override

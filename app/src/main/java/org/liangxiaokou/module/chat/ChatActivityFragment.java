@@ -170,7 +170,6 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        VolleyLog.e("%s", bmobIMFriendUserInfo.getName());
         Message message = new Message(Message.MSG_TYPE_TEXT,
                 Message.MSG_STATE_SUCCESS,
                 currentUser.getNick(),

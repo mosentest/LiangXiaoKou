@@ -60,7 +60,7 @@ public class ImageUtils {
                 .load(uri)
                 .centerCrop()
                 .transform(new GlideCircleTransform(context.getApplicationContext()))
-                .thumbnail(0.5f)//缩略图
+                .thumbnail(0.1f)//缩略图
                 //.placeholder(R.drawable.ic_placeholder)//设置加载中图片
                 //.error(R.drawable.ic_error)//设置错误图片
                 .into(imageView);
@@ -71,7 +71,7 @@ public class ImageUtils {
                 .load(uri)
                 .centerCrop()
                 .transform(new GlideCircleTransform(context.getApplicationContext()))
-                .thumbnail(0.5f)//缩略图
+                .thumbnail(0.1f)//缩略图
                 //.placeholder(R.drawable.ic_placeholder)//设置加载中图片
                 //.error(R.drawable.ic_error)//设置错误图片
                 .into(imageView);
@@ -89,7 +89,7 @@ public class ImageUtils {
                 .load(uri)
                 .centerCrop()
                 //.transform(new GlideCircleTransform(context.getApplicationContext()))
-                .thumbnail(0.5f)//缩略图
+                .thumbnail(0.1f)//缩略图
                 .placeholder(R.drawable.ic_placeholder)//设置加载中图片
                 .error(R.drawable.ic_error)//设置错误图片
                 .into(imageView);

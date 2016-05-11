@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.bean.Friend;
+import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobIMNetUtils;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.chat.ChatActivity;
@@ -36,6 +37,7 @@ import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
 import org.liangxiaokou.widget.view.CircleImageView;
 import org.liangxiaokou.widget.view.RedTipImageView;
+import org.mo.glide.ImageUtils;
 
 import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMUserInfo;
@@ -310,6 +312,8 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     @Override
     public void hasFriend(Friend friend) {
         bmobIMFriendUserInfo = new BmobIMUserInfo(new Long(0), friend.getFriendUserId(), friend.getFriendName(), "");
+        User currentUser = User.getCurrentUser(getContext(), User.class);
+        ImageUtils.loadChatUserImg(getContext(), ivOtherHeader, currentUser.getSex() != 0 ? R.mipmap.boy : R.mipmap.gril);
         tvOtherName.setText(friend.getFriendName());
     }
 

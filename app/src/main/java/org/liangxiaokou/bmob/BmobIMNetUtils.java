@@ -6,7 +6,9 @@ import org.liangxiaokou.bean.User;
 
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMUserInfo;
+import cn.bmob.newim.core.ConnectionStatus;
 import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.newim.listener.ConversationListener;
 
 /**
@@ -25,6 +27,10 @@ public class BmobIMNetUtils {
         if (currentUser != null) {
             BmobIM.connect(currentUser.getObjectId(), connectListener);
         }
+    }
+
+    public static void IMConnectStatusChangeListener(ConnectStatusChangeListener connectStatusChangeListener) {
+        BmobIM.getInstance().setOnConnectStatusChangeListener(connectStatusChangeListener);
     }
 
     /**
