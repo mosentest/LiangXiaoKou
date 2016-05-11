@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    android:orientation="vertical"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="org.liangxiaokou.module.person.PersonActivity">
 
     <include layout="@layout/view_top_bar" />
@@ -96,7 +96,39 @@
             android:textSize="@dimen/normal_content_size" />
     </RelativeLayout>
 
+
+    <include layout="@layout/view_line_1" />
+
+    <RelativeLayout
+        android:id="@+id/rl_mood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button"
+        android:padding="10dp">
+
+        <!--http://www.easyicon.net/1180534-gear_icon.html-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="个性签名"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_content_size" />
+
+        <TextView
+            android:id="@+id/tv_mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请设置"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/normal_content_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+
     <include layout="@layout/view_line_16" />
+
 
     <Button
         android:id="@+id/btn_logout"

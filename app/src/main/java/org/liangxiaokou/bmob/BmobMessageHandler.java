@@ -52,5 +52,6 @@ public class BmobMessageHandler extends BmobIMMessageHandler {
     @Override
     public void onOfflineReceive(final OfflineMessageEvent event) {
         //每次调用connect方法时会查询一次离线消息，如果有，此方法会被调用
+
     }
 }

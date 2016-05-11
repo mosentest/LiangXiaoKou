@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import org.liangxiaokou.bean.User;
 import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.login.LoginActivity;
+import org.liangxiaokou.widget.dialog.listener.OnBtnClickL;
 import org.liangxiaokou.widget.view.CircleImageView;
 import org.mo.glide.ImageUtils;
 import org.mo.netstatus.NetUtils;
@@ -100,6 +102,31 @@ public class PersonActivity extends ToolBarActivity {
             mTvSexRight.setText(currentUser.getSex() == 0 ? "男" : "女");
             ImageUtils.loadImgResourceId(getApplicationContext(), mIvHeader, currentUser.getSex() == 0 ? R.mipmap.boy : R.mipmap.gril);
         }
+        materialDialog.content("是否退出登录？");
+        materialDialog.contentGravity(Gravity.CENTER);
+        materialDialog.contentTextSize(18);
+        materialDialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                //取消
+                materialDialog.dismiss();
+            }
+        }, new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                materialDialog.dismiss();
+                //确认
+                alertDialog.show();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
+                        MApplication.getInstance().finishAllActivity();
+                        startActivity(LoginActivity.class);
+                    }
+                }, Constants._TIME);
+            }
+        });
     }
 
     @Override
@@ -140,15 +167,7 @@ public class PersonActivity extends ToolBarActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_logout: {
-                alertDialog.show();
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
-                        MApplication.getInstance().finishAllActivity();
-                        startActivity(LoginActivity.class);
-                    }
-                }, Constants._TIME);
+                materialDialog.show();
             }
             break;
         }

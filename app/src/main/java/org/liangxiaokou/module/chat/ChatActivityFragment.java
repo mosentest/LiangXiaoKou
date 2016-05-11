@@ -177,8 +177,8 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                 bmobIMFriendUserInfo.getName(),
                 currentUser.getSex() != 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
                 bmobIMMessage.getCreateTime() > date.getTime() ? AESUtils.getDecryptString(bmobIMMessage.getContent()) : bmobIMMessage.getContent(),
-                bmobIMMessage.getSendStatus() == 4 ? false : true,
-                bmobIMMessage.getSendStatus() == 3 ? false : true,
+                bmobIMMessage.getSendStatus() != 4,
+                bmobIMMessage.getSendStatus() != 3,
                 new Date(bmobIMMessage.getCreateTime())
         );
         message.setId(bmobIMMessage.getId());
@@ -235,7 +235,7 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                 public void onStart(BmobIMMessage bmobIMMessage) {
                     super.onStart(bmobIMMessage);
                     Message message = new Message(Message.MSG_TYPE_TEXT,
-                            Message.MSG_STATE_SUCCESS,
+                            Message.MSG_STATE_SENDING,
                             "fromName",
                             currentUser.getSex() == 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
                             "toName",
@@ -244,6 +244,7 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                             true,
                             true,
                             new Date());
+                    message.setId(bmobIMMessage.getId());
                     adapter.getData().add(message);
                     adapter.notifyDataSetChanged();
                 }
@@ -251,7 +252,16 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                 @Override
                 public void done(BmobIMMessage bmobIMMessage, BmobException e) {
                     if (e == null) {
-                        VolleyLog.e("sendMessage %s", AESUtils.getDecryptString(bmobIMMessage.getContent()));
+                        List<Message> data = adapter.getData();
+                        for (Message message : data) {
+                            if (message.getId() == bmobIMMessage.getId()) {
+                                VolleyLog.e("%s", "i'm coming here?");
+                                message.setState(Message.MSG_STATE_SUCCESS);
+                                break;
+                            }
+                        }
+                        adapter.getData().addAll(data);
+                        adapter.notifyDataSetChanged();
                     } else {
                         ToastUtils.toast(getContext(), e.getMessage());
                     }

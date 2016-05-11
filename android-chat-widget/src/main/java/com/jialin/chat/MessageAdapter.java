@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -274,6 +275,37 @@ public class MessageAdapter extends BaseAdapter {
         return false;
     }
 
+
+    /**
+     * 局部更新的方式
+     *
+     * @param listView
+     * @param index
+     * @param sendStatus
+     */
+    @Deprecated
+    public void onUpDataItem(ListView listView, int index, int sendStatus) {
+        int firstVisiblePosition = listView.getFirstVisiblePosition();//可见区第一个Item脚标
+        int lastVisiblePosition = listView.getLastVisiblePosition();//可见区最后一个Item脚标
+        if (index - firstVisiblePosition >= 0 && index <= lastVisiblePosition) {
+            // 更新目标view
+            View view = listView.getChildAt(index - firstVisiblePosition);
+            if (view == null)
+                return;
+            // 从view中取得holder
+            ViewHolder holder = (ViewHolder) view.getTag();
+            if (sendStatus == 3) {
+                holder.sendingProgressBar.setVisibility(View.GONE);
+                LayoutParams layoutParams = (LayoutParams) holder.failImageView.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.LEFT_OF, R.id.faceImageView);
+                holder.failImageView.setVisibility(View.VISIBLE);
+                holder.failImageView.setLayoutParams(layoutParams);
+            } else {
+                holder.sendingProgressBar.setVisibility(View.GONE);
+                holder.failImageView.setVisibility(View.GONE);
+            }
+        }
+    }
 
     static class ViewHolder {
 

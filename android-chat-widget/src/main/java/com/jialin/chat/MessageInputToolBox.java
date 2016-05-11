@@ -195,6 +195,15 @@ public class MessageInputToolBox extends RelativeLayout {
             }
         });
 
+        messageEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideFaceLayout();
+                }
+            }
+        });
+
         messageEditText.addTextChangedListener(new TextWatcher() {
 
             @Override
