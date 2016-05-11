@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -20,6 +19,6 @@ android {
 }
 
 dependencies {
-    compile project(':pickerview')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':molibrary')
 }
-

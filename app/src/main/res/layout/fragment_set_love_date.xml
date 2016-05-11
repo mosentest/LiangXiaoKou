@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入，例如：2015-02-14"
-            android:inputType="date"
+            android:inputType="none"
+            android:focusable="false"
             android:textColorHint="@color/dark"
             android:textColor="@android:color/black"
             android:textSize="@dimen/normal_content_size" />
@@ -33,5 +34,7 @@
         android:layout_marginTop="2dp"
         android:textColor="@color/dark"
         android:text="恋爱日代表你们谈恋爱的起始日期"
-        android:textSize="14sp" />
+        android:textSize="14dp" />
+
+
 </LinearLayout>

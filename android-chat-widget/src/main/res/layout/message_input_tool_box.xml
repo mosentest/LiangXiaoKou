@@ -42,11 +42,12 @@
 
         <Button
             android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
             android:layout_gravity="bottom"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="4dp"
+            android:background="@drawable/selector_button_with_corner"
             android:text="发送"
             android:textColor="#ffffffff"
             android:textSize="14dp"
@@ -110,9 +111,9 @@
                 app:pstsIndicatorColor="@color/system_press"
                 app:pstsIndicatorHeight="2dp"
                 app:pstsShouldExpand="true"
+                app:pstsTabBackground="@drawable/background_tab"
                 app:pstsTabPaddingLeftRight="14dip"
                 app:pstsUnderlineColor="@color/dark"
-                app:pstsTabBackground="@drawable/background_tab"
                 app:pstsUnderlineHeight="2dp" />
         </LinearLayout>
     </RelativeLayout>

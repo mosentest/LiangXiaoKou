@@ -65,6 +65,12 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_chat, container, false);
@@ -107,7 +113,6 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
 
     @Override
     public void initData() {
-        EventBus.getDefault().register(this);
         List<Message> messages = new ArrayList<Message>();
         adapter = new MessageAdapter(getContext(), messages);
         messageListview.setAdapter(adapter);

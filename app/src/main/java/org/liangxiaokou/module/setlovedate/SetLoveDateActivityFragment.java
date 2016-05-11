@@ -10,8 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.bigkoo.pickerview.TimePickerView;
+
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.app.GeneralFragment;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -21,6 +26,8 @@ public class SetLoveDateActivityFragment extends GeneralFragment implements Text
     private LoveDateTextListener mLoveDateTextListener;
 
     private TextInputLayout textInputDate;
+
+    private TimePickerView pvTime;
 
     public SetLoveDateActivityFragment() {
     }
@@ -40,7 +47,31 @@ public class SetLoveDateActivityFragment extends GeneralFragment implements Text
     public void initData() {
 //        textInputDate.setHint("请输入，例如：2015-02-14");
         EditText editTextDate = textInputDate.getEditText();
+        editTextDate.setFocusable(false);
+        editTextDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pvTime.show();
+            }
+        });
         editTextDate.addTextChangedListener(this);
+        pvTime = new TimePickerView(getActivity(), TimePickerView.Type.YEAR_MONTH_DAY);
+        pvTime.setTime(new Date());
+        pvTime.setCyclic(false);
+        pvTime.setCancelable(true);
+        //时间选择后回调
+        pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
+
+            @Override
+            public void onTimeSelect(Date date) {
+                textInputDate.getEditText().setText(getTime(date));
+            }
+        });
+    }
+
+    public String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
     }
 
     @Override
@@ -55,17 +86,18 @@ public class SetLoveDateActivityFragment extends GeneralFragment implements Text
 
     @Override
     public void PreOnPause() {
-
+        pvTime.dismiss();
     }
 
     @Override
     public void PreOnStop() {
-
+        pvTime.dismiss();
     }
 
     @Override
     public void PreOnDestroy() {
-
+        pvTime.dismiss();
+        pvTime = null;
     }
 
     @Override
