@@ -1,17 +1,14 @@
 package org.liangxiaokou.module.timer;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.liangxiaokou.app.GeneralActivity;
-import org.liangxiaokou.app.SwipeBackActivity;
-import org.liangxiaokou.app.SwipeBackLayout;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
+import org.mo.netstatus.NetUtils;
 
 public class TimerActivity extends ToolBarActivity {
 
@@ -53,6 +50,16 @@ public class TimerActivity extends ToolBarActivity {
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
 

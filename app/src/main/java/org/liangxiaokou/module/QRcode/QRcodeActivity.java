@@ -14,6 +14,7 @@ import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.util.VolleyLog;
+import org.mo.netstatus.NetUtils;
 
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -39,6 +40,16 @@ public class QRcodeActivity extends ToolBarActivity implements IQRcodeView {
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

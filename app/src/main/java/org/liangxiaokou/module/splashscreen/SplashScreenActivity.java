@@ -6,6 +6,8 @@ import android.view.View;
 
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.module.R;
+import org.mo.netstatus.NetStateReceiver;
+import org.mo.netstatus.NetUtils;
 
 public class SplashScreenActivity extends GeneralActivity {
 
@@ -23,6 +25,16 @@ public class SplashScreenActivity extends GeneralActivity {
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.TOP;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

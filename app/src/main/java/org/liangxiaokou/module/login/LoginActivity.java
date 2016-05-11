@@ -18,6 +18,7 @@ import org.liangxiaokou.module.invite.InviteActivity;
 import org.liangxiaokou.module.register.RegisterActivity;
 import org.liangxiaokou.module.welcome.WelcomeActivity;
 import org.liangxiaokou.util.KeyBoardUtils;
+import org.mo.netstatus.NetUtils;
 
 public class LoginActivity extends ToolBarActivity implements ILoginView {
 
@@ -43,6 +44,16 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.TOP;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

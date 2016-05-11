@@ -11,6 +11,7 @@ import org.liangxiaokou.app.BackHandledFragment;
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
+import org.mo.netstatus.NetUtils;
 
 import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMUserInfo;
@@ -58,6 +59,16 @@ public class ChatActivity extends ToolBarActivity implements BackHandledFragment
     @Override
     protected GeneralActivity.PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

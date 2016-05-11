@@ -313,7 +313,7 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     public void hasFriend(Friend friend) {
         bmobIMFriendUserInfo = new BmobIMUserInfo(new Long(0), friend.getFriendUserId(), friend.getFriendName(), "");
         User currentUser = User.getCurrentUser(getContext(), User.class);
-        ImageUtils.loadChatUserImg(getContext(), ivOtherHeader, currentUser.getSex() != 0 ? R.mipmap.boy : R.mipmap.gril);
+        ImageUtils.loadImgResourceId(getContext(), ivOtherHeader, currentUser.getSex() != 0 ? R.mipmap.boy : R.mipmap.gril);
         tvOtherName.setText(friend.getFriendName());
     }
 

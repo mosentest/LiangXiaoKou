@@ -12,7 +12,12 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.ThirdUtils;
+import org.liangxiaokou.util.ToastUtils;
+import org.liangxiaokou.util.VolleyLog;
 import org.liangxiaokou.widget.dialog.widget.MaterialDialog;
+import org.mo.netstatus.NetChangeObserver;
+import org.mo.netstatus.NetStateReceiver;
+import org.mo.netstatus.NetUtils;
 
 import dmax.dialog.SpotsDialog;
 
@@ -24,6 +29,12 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
 
     protected MaterialDialog materialDialog;//对话框
     protected AlertDialog alertDialog;
+
+    /**
+     * network status
+     */
+    protected NetChangeObserver mNetChangeObserver = null;
+
 
     public enum PendingTransitionMode {
         RIGHT, TOP;
@@ -42,6 +53,22 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
         materialDialog = new MaterialDialog(this);
         alertDialog = new SpotsDialog(this, R.style.CustomDialog);
         MApplication.getInstance().addActivity(this);
+
+        mNetChangeObserver = new NetChangeObserver() {
+            @Override
+            public void onNetConnected(NetUtils.NetType type) {
+                super.onNetConnected(type);
+                onNetworkConnected(type);
+            }
+
+            @Override
+            public void onNetDisConnect() {
+                super.onNetDisConnect();
+                onNetworkDisConnected();
+            }
+        };
+        NetStateReceiver.registerObserver(mNetChangeObserver);
+        //NetStateReceiver.registerNetworkStateReceiver(getApplicationContext());
     }
 
     /**
@@ -103,6 +130,8 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     protected void onDestroy() {
         alertDialog = null;
         materialDialog = null;
+        //NetStateReceiver.unRegisterNetworkStateReceiver(getApplicationContext());
+        NetStateReceiver.removeRegisterObserver(mNetChangeObserver);
         MApplication.getInstance().finishActivity(this);
         PreOnDestroy();
         super.onDestroy();
@@ -196,6 +225,17 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
     public abstract boolean isOverridePendingTransition();
 
     protected abstract PendingTransitionMode getPendingTransitionMode();
+
+
+    /**
+     * network connected
+     */
+    protected abstract void onNetworkConnected(NetUtils.NetType type);
+
+    /**
+     * network disconnected
+     */
+    protected abstract void onNetworkDisConnected();
 
     @Override
     public void onBackPressed() {

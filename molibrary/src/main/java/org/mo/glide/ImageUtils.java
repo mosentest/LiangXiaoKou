@@ -66,6 +66,13 @@ public class ImageUtils {
                 .into(imageView);
     }
 
+    /**
+     * 聊天对话的使用
+     *
+     * @param context
+     * @param imageView
+     * @param uri
+     */
     public static void loadChatUserImg(Context context, ImageView imageView, int uri) {
         Glide.with(context.getApplicationContext())
                 .load(uri)
@@ -89,9 +96,27 @@ public class ImageUtils {
                 .load(uri)
                 .centerCrop()
                 //.transform(new GlideCircleTransform(context.getApplicationContext()))
-                .thumbnail(0.1f)//缩略图
+                .thumbnail(0.5f)//缩略图
                 .placeholder(R.drawable.ic_placeholder)//设置加载中图片
                 .error(R.drawable.ic_error)//设置错误图片
+                .into(imageView);
+    }
+
+    /**
+     * 加载本地图片
+     *
+     * @param context
+     * @param imageView
+     * @param uri
+     */
+    public static void loadImgResourceId(Context context, ImageView imageView, int uri) {
+        Glide.with(context.getApplicationContext())
+                .load(uri)
+                .centerCrop()
+                //.transform(new GlideCircleTransform(context.getApplicationContext()))
+                //.thumbnail(0.5f)//缩略图
+                //.placeholder(R.drawable.ic_placeholder)//设置加载中图片
+                //.error(R.drawable.ic_error)//设置错误图片
                 .into(imageView);
     }
 

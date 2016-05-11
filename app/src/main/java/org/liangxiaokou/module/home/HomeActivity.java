@@ -47,6 +47,7 @@ import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.ViewPagerAdapter;
 import org.liangxiaokou.util.VolleyLog;
+import org.mo.netstatus.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -258,6 +259,16 @@ public class HomeActivity extends GeneralActivity implements
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

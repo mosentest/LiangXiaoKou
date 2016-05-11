@@ -18,6 +18,8 @@ import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.widget.view.CircleImageView;
+import org.mo.glide.ImageUtils;
+import org.mo.netstatus.NetUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -67,6 +69,16 @@ public class PersonActivity extends ToolBarActivity {
     }
 
     @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
+    }
+
+    @Override
     public void initView() {
         mRlHeader = (RelativeLayout) findViewById(R.id.rl_header);
         mIvHeader = (CircleImageView) findViewById(R.id.iv_header);
@@ -86,6 +98,7 @@ public class PersonActivity extends ToolBarActivity {
         if (currentUser != null) {
             mTvNickRight.setText(TextUtils.isEmpty(currentUser.getNick()) ? "请设置" : currentUser.getNick() + "");
             mTvSexRight.setText(currentUser.getSex() == 0 ? "男" : "女");
+            ImageUtils.loadImgResourceId(getApplicationContext(), mIvHeader, currentUser.getSex() == 0 ? R.mipmap.boy : R.mipmap.gril);
         }
     }
 

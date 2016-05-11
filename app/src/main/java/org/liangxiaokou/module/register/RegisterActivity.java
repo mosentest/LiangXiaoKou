@@ -15,6 +15,7 @@ import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.KeyBoardUtils;
+import org.mo.netstatus.NetUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -97,6 +98,16 @@ public class RegisterActivity extends ToolBarActivity implements IRegisterView {
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.TOP;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

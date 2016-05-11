@@ -13,6 +13,7 @@ import org.liangxiaokou.module.R;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.module.person.PersonActivity;
 import org.liangxiaokou.widget.view.CircleImageView;
+import org.mo.glide.ImageUtils;
 
 import cn.bmob.v3.BmobUser;
 
@@ -73,6 +74,7 @@ public class MeFragment extends GeneralFragment {
         if (currentUser != null) {
             mTvOtherName.setText(TextUtils.isEmpty(currentUser.getNick()) ? getString(R.string.app_name) : currentUser.getNick() + "");
             mTvOtherMood.setText("账号:" + currentUser.getUsername());
+            ImageUtils.loadImgResourceId(getContext(), mIvOtherHeader, currentUser.getSex() == 0 ? R.mipmap.boy : R.mipmap.gril);
         }
     }
 

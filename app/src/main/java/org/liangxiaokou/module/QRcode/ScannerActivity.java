@@ -14,6 +14,7 @@ import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
 import org.liangxiaokou.widget.activity.BaseWebActivity;
 import org.liangxiaokou.widget.dialog.listener.OnBtnClickL;
+import org.mo.netstatus.NetUtils;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -38,6 +39,16 @@ public class ScannerActivity extends ToolBarActivity implements ZXingScannerView
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

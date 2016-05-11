@@ -19,6 +19,7 @@ import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
+import org.mo.netstatus.NetUtils;
 
 
 public class InviteActivity extends ToolBarActivity implements InviteView {
@@ -146,6 +147,16 @@ public class InviteActivity extends ToolBarActivity implements InviteView {
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

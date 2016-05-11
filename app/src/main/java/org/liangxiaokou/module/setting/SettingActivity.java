@@ -6,6 +6,7 @@ import android.view.View;
 
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
+import org.mo.netstatus.NetUtils;
 
 public class SettingActivity extends ToolBarActivity {
 
@@ -24,6 +25,16 @@ public class SettingActivity extends ToolBarActivity {
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
 

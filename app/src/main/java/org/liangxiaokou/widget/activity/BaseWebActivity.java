@@ -13,6 +13,7 @@ import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.widget.view.MultiStateView;
+import org.mo.netstatus.NetUtils;
 
 /**
  * Created by moziqi on 2015/12/28.
@@ -109,6 +110,16 @@ public class BaseWebActivity extends ToolBarActivity implements ProgressWebView.
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
 

@@ -25,6 +25,7 @@ import org.liangxiaokou.module.invite.InviteView;
 import org.liangxiaokou.module.login.LoginActivity;
 import org.liangxiaokou.util.KeyBoardUtils;
 import org.liangxiaokou.widget.view.KeyboardListenRelativeLayout;
+import org.mo.netstatus.NetUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -204,6 +205,16 @@ public class WelcomeActivity extends ToolBarActivity implements IWelcomeView, In
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.TOP;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override

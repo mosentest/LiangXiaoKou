@@ -9,6 +9,7 @@ import android.view.View;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.DateUtils;
+import org.mo.netstatus.NetUtils;
 
 public class SetLoveDateActivity extends ToolBarActivity implements SetLoveDateActivityFragment.LoveDateTextListener {
 
@@ -54,6 +55,16 @@ public class SetLoveDateActivity extends ToolBarActivity implements SetLoveDateA
     @Override
     protected PendingTransitionMode getPendingTransitionMode() {
         return PendingTransitionMode.RIGHT;
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     @Override
