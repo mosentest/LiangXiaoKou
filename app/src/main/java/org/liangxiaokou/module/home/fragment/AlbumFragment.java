@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
 import org.liangxiaokou.bean.Album;
 import org.liangxiaokou.module.home.adapter.AlbumViewAdapter;
 import org.liangxiaokou.module.R;
@@ -26,7 +28,7 @@ import java.util.Random;
 public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    private XRecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private AlbumViewAdapter mAlbumViewAdapter;
 
@@ -63,7 +65,7 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
     @Override
     public void initView() {
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.album_swiperefreshlayout);
-        mRecyclerView = (RecyclerView) findViewById(R.id.album_recyclerview);
+        mRecyclerView = (XRecyclerView) findViewById(R.id.album_recyclerview);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
     }
@@ -73,6 +75,11 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
         // 刷新时，指示器旋转后变化的颜色
         mSwipeRefreshLayout.setColorSchemeResources(R.color.system_color, R.color.system_press);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setEnabled(false);
+
+        mRecyclerView.setPullRefreshEnabled(true);
+        mRecyclerView.setLoadingMoreEnabled(true);
+
         List<Album> mDatas = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             Random random = new Random();

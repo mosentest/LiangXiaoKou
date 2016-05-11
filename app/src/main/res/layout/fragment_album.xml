@@ -12,11 +12,8 @@ SwipeRefreshLayout是伟大的Google在v4包中给出的下拉刷新组件。
     android:background="@color/gray"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.liangxiaokou.module.home.fragment.AlbumFragment">
-    <!--
-        使用RecyclerView需要在build.gradle中添加
-       compile 'com.android.support:recyclerview-v7:22.2.0'
-    -->
-    <android.support.v7.widget.RecyclerView
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/album_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

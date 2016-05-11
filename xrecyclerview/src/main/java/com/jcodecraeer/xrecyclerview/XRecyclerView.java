@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * https://github.com/jianghejie/XRecyclerView
+ */
 public class XRecyclerView extends RecyclerView {
 
     private boolean isLoadingData = false;
