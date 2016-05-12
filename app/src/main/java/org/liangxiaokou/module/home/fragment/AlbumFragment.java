@@ -3,6 +3,7 @@ package org.liangxiaokou.module.home.fragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.liangxiaokou.bean.Album;
@@ -70,6 +72,9 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
 
     }
 
+    private int refreshTime = 0;
+    private int times = 0;
+
     @Override
     public void initData() {
         // 刷新时，指示器旋转后变化的颜色
@@ -77,9 +82,8 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setEnabled(false);
 
-        mRecyclerView.setPullRefreshEnabled(true);
-        mRecyclerView.setLoadingMoreEnabled(true);
-
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         List<Album> mDatas = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             Random random = new Random();
@@ -93,6 +97,36 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
         mAlbumViewAdapter = new AlbumViewAdapter(getActivity(), mDatas);
         mRecyclerView.setAdapter(mAlbumViewAdapter);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                refreshTime++;
+                times = 0;
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        mAlbumViewAdapter.notifyDataSetChanged();
+                        mRecyclerView.refreshComplete();
+                    }
+
+                }, 1000);            //refresh data here
+            }
+
+            @Override
+            public void onLoadMore() {
+                if (times == 5) {
+                    mRecyclerView.setNoMore(true);
+                    return;
+                }
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        mAlbumViewAdapter.notifyDataSetChanged();
+                        mRecyclerView.loadMoreComplete();
+                    }
+                }, 1000);
+                times++;
+            }
+        });
     }
 
     @Override

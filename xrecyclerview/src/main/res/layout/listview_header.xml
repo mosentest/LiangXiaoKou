@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@color/gray"
     android:gravity="bottom" >
 
     <RelativeLayout
@@ -24,6 +25,7 @@
                 android:id="@+id/refresh_status_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 android:text="@string/listview_header_hint_normal" />
 
             <LinearLayout
@@ -35,14 +37,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="@string/listview_header_last_time"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/last_refresh_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp" />
+                    android:textColor="@android:color/black"
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 
