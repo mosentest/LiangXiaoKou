@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.liangxiaokou.app.BackHandledFragment;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
+import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.AESUtils;
 import org.liangxiaokou.util.ToastUtils;
@@ -57,6 +58,8 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     private BmobIMConversation bmobIMConversation;
     private BmobIMUserInfo bmobIMFriendUserInfo;
     private User currentUser;
+
+    private final static String FACE_TAG = Constants.CHAT_FACE + Constants.APP_NAME + Constants.CHAT_FACE;//用于标识是否是表情
 
     private final static int LIMIT = 30;
 
@@ -175,13 +178,21 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Message message = new Message(Message.MSG_TYPE_TEXT,
+        int msgType = Message.MSG_TYPE_TEXT;
+        String content = AESUtils.getDecryptString(bmobIMMessage.getContent());
+        if (content.contains(FACE_TAG)) {
+            msgType = Message.MSG_TYPE_FACE;
+            content = content.split(Constants.CHAT_FACE)[content.split(Constants.CHAT_FACE).length - 1];
+        } else {
+            msgType = Message.MSG_TYPE_TEXT;
+        }
+        Message message = new Message(msgType,
                 Message.MSG_STATE_SUCCESS,
                 currentUser.getNick(),
                 currentUser.getSex() == 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
                 bmobIMFriendUserInfo.getName(),
                 currentUser.getSex() != 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
-                bmobIMMessage.getCreateTime() > date.getTime() ? AESUtils.getDecryptString(bmobIMMessage.getContent()) : bmobIMMessage.getContent(),
+                bmobIMMessage.getCreateTime() > date.getTime() ? content : bmobIMMessage.getContent(),
                 bmobIMMessage.getSendStatus() != 4,
                 bmobIMMessage.getSendStatus() != 3,
                 new Date(bmobIMMessage.getCreateTime())
@@ -259,13 +270,13 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                     if (e == null) {
                         List<Message> data = adapter.getData();
                         for (Message message : data) {
-                            if (message.getId() == bmobIMMessage.getId()) {
-                                VolleyLog.e("%s", "i'm coming here?");
+                            //if (message.getId() == bmobIMMessage.getId()) {
+                            //    VolleyLog.e("%s", "i'm coming here?");
                                 message.setState(Message.MSG_STATE_SUCCESS);
-                                break;
-                            }
+                            //    break;
+                            //}
                         }
-                        adapter.getData().addAll(data);
+                        adapter.setData(data);
                         adapter.notifyDataSetChanged();
                     } else {
                         ToastUtils.toast(getContext(), e.getMessage());
@@ -278,8 +289,52 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     }
 
     @Override
-    public void selectedFace(String content) {
-        ToastUtils.toast(getContext(), content);
+    public void selectedFace(final String content) {
+        BmobIMTextMessage bmobIMMessage = new BmobIMTextMessage();
+        try {
+            //设定表情的规则
+            bmobIMMessage.setContent(AESUtils.getEncryptString(FACE_TAG + content));
+            conversation.sendMessage(bmobIMMessage, new MessageSendListener() {
+
+                @Override
+                public void onStart(BmobIMMessage bmobIMMessage) {
+                    super.onStart(bmobIMMessage);
+                    Message message = new Message(Message.MSG_TYPE_FACE,
+                            Message.MSG_STATE_SENDING,
+                            "fromName",
+                            currentUser.getSex() == 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
+                            "toName",
+                            currentUser.getSex() != 0 ? R.mipmap.boy + "" : R.mipmap.gril + "",
+                            content,
+                            true,
+                            true,
+                            new Date());
+                    message.setId(bmobIMMessage.getId());
+                    adapter.getData().add(message);
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void done(BmobIMMessage bmobIMMessage, BmobException e) {
+                    if (e == null) {
+                        List<Message> data = adapter.getData();
+                        for (Message message : data) {
+                            //if (message.getId() == bmobIMMessage.getId()) {
+                            //    VolleyLog.e("%s", "i'm coming here?");
+                                message.setState(Message.MSG_STATE_SUCCESS);
+                            //    break;
+                            //}
+                        }
+                        adapter.setData(data);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        ToastUtils.toast(getContext(), e.getMessage());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

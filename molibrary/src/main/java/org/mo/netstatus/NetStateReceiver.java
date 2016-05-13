@@ -20,6 +20,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 
@@ -63,13 +64,13 @@ public class NetStateReceiver extends BroadcastReceiver {
         IntentFilter filter = new IntentFilter();
         filter.addAction(CUSTOM_ANDROID_NET_CHANGE_ACTION);
         filter.addAction(ANDROID_NET_CHANGE_ACTION);
-        mContext.getApplicationContext().registerReceiver(getReceiver(), filter);
+        mContext.getApplicationContext().registerReceiver(mBroadcastReceiver, filter);
     }
 
     public static void checkNetworkState(Context mContext) {
         Intent intent = new Intent();
         intent.setAction(CUSTOM_ANDROID_NET_CHANGE_ACTION);
-        mContext.sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(mContext.getApplicationContext()).sendBroadcast(intent);
     }
 
     public static void unRegisterNetworkStateReceiver(Context mContext) {

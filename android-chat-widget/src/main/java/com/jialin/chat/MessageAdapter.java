@@ -19,6 +19,8 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+
 import org.mo.glide.ImageUtils;
 import org.mo.widget.R;
 
@@ -113,9 +115,7 @@ public class MessageAdapter extends BaseAdapter {
         }
 
         //设置个人头像
-        ImageUtils.loadChatUserImg(context,
-                viewHolder.userAvatarImageView,
-                message.getIsSend() ? Integer.parseInt(message.getFromUserAvatar()) : Integer.parseInt(message.getToUserAvatar()));
+        ImageUtils.loadChatUserImg(context, viewHolder.userAvatarImageView, message.getIsSend() ? Integer.parseInt(message.getFromUserAvatar()) : Integer.parseInt(message.getToUserAvatar()));
 
         viewHolder.userNameTextView.setText(message.getToUserName());
 
@@ -204,7 +204,8 @@ public class MessageAdapter extends BaseAdapter {
                 viewHolder.textTextView.setVisibility(View.GONE);
                 viewHolder.faceImageView.setVisibility(View.VISIBLE);
                 int resId = context.getResources().getIdentifier(message.getContent(), "drawable", context.getPackageName());
-                viewHolder.faceImageView.setImageResource(resId);
+                ImageUtils.loadImgResourceId(context, viewHolder.faceImageView, resId);
+                //viewHolder.faceImageView.setImageResource(resId);
 
                 if (message.getIsSend()) {
                     LayoutParams sendTimeTextViewLayoutParams = (LayoutParams) viewHolder.sendTimeTextView.getLayoutParams();
@@ -234,9 +235,7 @@ public class MessageAdapter extends BaseAdapter {
                     sendTimeTextViewLayoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.faceImageView);
                     viewHolder.sendTimeTextView.setLayoutParams(sendTimeTextViewLayoutParams);
                 }
-
                 break;
-
             default:
                 viewHolder.textTextView.setText(message.getContent());
                 viewHolder.photoImageView.setVisibility(View.GONE);
@@ -248,6 +247,7 @@ public class MessageAdapter extends BaseAdapter {
 
         return convertView;
     }
+
 
 
     public List<Message> getData() {

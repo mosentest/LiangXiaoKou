@@ -32,4 +32,8 @@ public class MD5Util {
         return hexValue.toString();
     }
 
+
+//    public static void main(String args[]) throws Exception {
+//        System.out.print(MD5Util.md5Encode("123456"));
+//    }
 }

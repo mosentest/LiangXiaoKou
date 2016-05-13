@@ -82,6 +82,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/userAvatarImageView"
+            android:background="@drawable/chatfrom_bg"
             android:clickable="true"
             android:focusable="true"
             android:minHeight="50dp"

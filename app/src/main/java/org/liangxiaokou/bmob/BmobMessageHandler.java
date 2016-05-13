@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.support.v7.app.NotificationCompat;
 
 import org.greenrobot.eventbus.EventBus;
 import org.liangxiaokou.module.R;
@@ -15,6 +17,8 @@ import cn.bmob.newim.event.OfflineMessageEvent;
 import cn.bmob.newim.listener.BmobIMMessageHandler;
 
 /**
+ * http://it.zhaozhao.info/archives/33841
+ * http://my.oschina.net/zeroHigh/blog/516386
  * Created by moziqi on 16-4-9.
  */
 public class BmobMessageHandler extends BmobIMMessageHandler {
@@ -28,7 +32,8 @@ public class BmobMessageHandler extends BmobIMMessageHandler {
     public void onMessageReceive(final MessageEvent event) {
         //当接收到服务器发来的消息时，此方法被调用
         NotificationManager mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification.Builder builder = new Notification.Builder(mContext);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
+        //指定跳转的页面
         Intent notificationIntent = new Intent(mContext, HomeActivity.class);
         //该标志位表示如果Intent要启动的Activity在栈顶，则无须创建新的实例
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -36,13 +41,13 @@ public class BmobMessageHandler extends BmobIMMessageHandler {
         builder.setContentIntent(contentIntent)
                 .setDefaults(Notification.DEFAULT_ALL)//设置震动声音http://blog.csdn.net/wukunting/article/details/5661769，http://www.oschina.net/code/snippet_270292_14489
                 .setSmallIcon(R.mipmap.ic_launcher)//设置状态栏里面的图标（小图标）
-                //.setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.i5))//下拉下拉列表里面的图标（大图标）
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher))//下拉下拉列表里面的图标（大图标）
                 //.setTicker("您有新的消息") //设置状态栏的显示的信息
                 .setWhen(System.currentTimeMillis())//设置时间发生时间
                 .setAutoCancel(true)//设置可以清除
                 .setContentTitle("您有新的消息")//设置下拉列表里的标题
                 .setContentText(event.getMessage().getContent() + "");//设置上下文内容
-        Notification notification = builder.getNotification();
+        Notification notification = builder.build();
         mNotificationManager.notify(1, notification);
 
         //利用eventBus传信息
