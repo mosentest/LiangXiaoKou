@@ -10,6 +10,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.liangxiaokou.bmob.BmobMessageHandler;
+import org.liangxiaokou.util.ThirdUtils;
 
 import java.util.List;
 import java.util.Stack;
@@ -39,6 +40,7 @@ public class MApplication extends Application {
             mNewsLifecycleHandler = new NewsLifecycleHandler();
             registerActivityLifecycleCallbacks(mNewsLifecycleHandler);
             //bmob
+            ThirdUtils.bmobInit(this);
             //NewIM初始化
             BmobIM.init(this);
             //注册消息接收器

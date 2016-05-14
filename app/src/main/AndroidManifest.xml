@@ -71,7 +71,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-
         <!-- Bmob -->
         <meta-data
             android:name="Bmob_APP_KEY"
@@ -176,6 +175,7 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -212,7 +212,6 @@
             android:label="@string/title_activity_sleep"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".timer.TimerActivity"
@@ -258,13 +257,19 @@
             android:label="@string/plusone"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
             android:name=".invite.InviteActivity"
             android:label="@string/title_activity_invite"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
+        <service
+            android:name="org.liangxiaokou.service.BmobIMIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="org.liangxiaokou.service.action.IM" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

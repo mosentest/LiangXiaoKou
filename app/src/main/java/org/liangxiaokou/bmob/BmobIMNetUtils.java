@@ -19,14 +19,11 @@ public class BmobIMNetUtils {
     /**
      * 连接服务器
      *
-     * @param context
+     * @param userId
      * @param connectListener
      */
-    public static void connect(Context context, ConnectListener connectListener) {
-        User currentUser = User.getCurrentUser(context, User.class);
-        if (currentUser != null) {
-            BmobIM.connect(currentUser.getObjectId(), connectListener);
-        }
+    public static void connect(String userId, ConnectListener connectListener) {
+        BmobIM.connect(userId, connectListener);
     }
 
     public static void IMConnectStatusChangeListener(ConnectStatusChangeListener connectStatusChangeListener) {

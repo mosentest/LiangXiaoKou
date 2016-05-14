@@ -25,6 +25,7 @@ import org.mo.netstatus.NetUtils;
 
 import java.lang.ref.WeakReference;
 
+import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.BmobUser;
 
 public class PersonActivity extends ToolBarActivity {
@@ -120,6 +121,8 @@ public class PersonActivity extends ToolBarActivity {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        //断开连接
+                        BmobIM.getInstance().disConnect();
                         BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
                         MApplication.getInstance().finishAllActivity();
                         startActivity(LoginActivity.class);

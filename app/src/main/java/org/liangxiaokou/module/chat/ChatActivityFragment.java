@@ -270,11 +270,7 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                     if (e == null) {
                         List<Message> data = adapter.getData();
                         for (Message message : data) {
-                            //if (message.getId() == bmobIMMessage.getId()) {
-                            //    VolleyLog.e("%s", "i'm coming here?");
-                                message.setState(Message.MSG_STATE_SUCCESS);
-                            //    break;
-                            //}
+                            message.setState(Message.MSG_STATE_SUCCESS);
                         }
                         adapter.setData(data);
                         adapter.notifyDataSetChanged();
@@ -319,11 +315,7 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
                     if (e == null) {
                         List<Message> data = adapter.getData();
                         for (Message message : data) {
-                            //if (message.getId() == bmobIMMessage.getId()) {
-                            //    VolleyLog.e("%s", "i'm coming here?");
-                                message.setState(Message.MSG_STATE_SUCCESS);
-                            //    break;
-                            //}
+                            message.setState(Message.MSG_STATE_SUCCESS);
                         }
                         adapter.setData(data);
                         adapter.notifyDataSetChanged();

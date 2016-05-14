@@ -34,12 +34,14 @@ import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
 import org.liangxiaokou.app.GeneralActivity;
+import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobIMNetUtils;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.feedback.FeedBackActivity;
 import org.liangxiaokou.module.home.fragment.AlbumFragment;
 import org.liangxiaokou.module.home.fragment.MeFragment;
 import org.liangxiaokou.module.home.fragment.OtherFragment;
+import org.liangxiaokou.service.BmobIMIntentService;
 import org.liangxiaokou.util.BaiduLBSutils;
 import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.SnackBarUtils;
@@ -53,6 +55,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.newim.core.ConnectionStatus;
+import cn.bmob.newim.core.service.BmobImService;
 import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.v3.exception.BmobException;
@@ -95,53 +98,20 @@ public class HomeActivity extends GeneralActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ThirdUtils.bmobInit(getApplicationContext());
         ThirdUtils.umengInit(this, true, false, this);
-        //http://blog.csdn.net/shineflowers/article/details/40426361，http://blog.csdn.net/javensun/article/details/7334230
+        //http://blog.csdn.net/shineflowers/article/details/40426361，
+        // http://blog.csdn.net/javensun/article/details/7334230
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
         sendBroadcast(broadcastIntent);
         //百度定位
         mLocationClient = BaiduLBSutils.locationStart(getApplicationContext(), this);
-        BmobIMNetUtils.connect(getApplicationContext(), new ConnectListener() {
-            @Override
-            public void done(String s, BmobException e) {
-                if (e == null) {
-                    VolleyLog.e("connect %s", "bmob connect success");
-                } else {
-                    VolleyLog.e("%s", e.getErrorCode() + "/" + e.getMessage());
-                }
-            }
-        });
-        BmobIMNetUtils.IMConnectStatusChangeListener(new ConnectStatusChangeListener() {
-            @Override
-            public void onChange(ConnectionStatus connectionStatus) {
-                switch (connectionStatus) {
-                    case DISCONNECT:
-                        BmobIMNetUtils.connect(getApplicationContext(), new ConnectListener() {
-                            @Override
-                            public void done(String s, BmobException e) {
-                                if (e == null) {
-                                    VolleyLog.e("connect %s", "bmob connect success");
-                                } else {
-                                    VolleyLog.e("%s", e.getErrorCode() + "/" + e.getMessage());
-                                }
-                            }
-                        });
-                    case CONNECTING:
-                        break;
-                    case CONNECTED:
-                        break;
-                    case NETWORK_UNAVAILABLE:
-                        ToastUtils.toast(getApplicationContext(), "请打开网络");
-                        break;
-                    case KICK_ASS:
-                        ToastUtils.toast(getApplicationContext(), "检查到在其他手机登录");
-                        break;
-                }
-            }
-        });
-
+        //启动连接IM服务的service
+        Intent intent = new Intent();
+        User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
+        intent.putExtra(BmobIMIntentService.USER_ID, currentUser.getObjectId());
+        intent.setAction(BmobIMIntentService.ACTION_IM);
+        startService(intent);
     }
 
     @Override
