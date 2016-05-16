@@ -1,14 +1,16 @@
 package org.liangxiaokou.app;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.Toast;
 
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ToastUtils;
+
+import dmax.dialog.SpotsDialog;
 
 /**
  * Created by moziqi on 2015/9/13 0013.
@@ -18,43 +20,50 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     public String mTitle;
     public final static String TITLE = "title";
 
+    protected AlertDialog alertDialog;
+
 
     @Override
     public void onStart() {
-        super.onStart();
         PreOnStart();
+        super.onStart();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        alertDialog = new SpotsDialog(getActivity(), R.style.CustomDialog);
     }
 
     @Override
     public void onResume() {
-        super.onResume();
         PreOnResume();
         ThirdUtils.statisticsInFragmentResume(GeneralFragment.class);
+        super.onResume();
     }
 
     @Override
     public void onPause() {
-        super.onPause();
         PreOnPause();
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.hide();
+        }
         ThirdUtils.statisticsInFragmentPause(GeneralFragment.class);
+        super.onPause();
     }
 
     @Override
     public void onStop() {
-        super.onStop();
         PreOnStop();
+        super.onStop();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        alertDialog = null;
         PreOnDestroy();
+        super.onDestroy();
     }
 
     @Override

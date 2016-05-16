@@ -1,13 +1,16 @@
 package org.liangxiaokou.module.home.fragment;
 
 
-import android.app.Fragment;
-import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +20,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.liangxiaokou.app.GeneralFragment;
+import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobIMNetUtils;
+import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.chat.ChatActivity;
 import org.liangxiaokou.module.contact.ContactActivity;
@@ -31,13 +35,20 @@ import org.liangxiaokou.module.setlovedate.SetLoveDateActivity;
 import org.liangxiaokou.module.sleep.SleepActivity;
 import org.liangxiaokou.module.timer.TimerActivity;
 import org.liangxiaokou.util.DateUtils;
-import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.ToastUtils;
+import org.liangxiaokou.util.VolleyLog;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
 import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
 import org.liangxiaokou.widget.view.CircleImageView;
 import org.liangxiaokou.widget.view.RedTipImageView;
 import org.mo.glide.ImageUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
 
 import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMUserInfo;
@@ -46,16 +57,20 @@ import cn.bmob.v3.exception.BmobException;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * http://www.2cto.com/kf/201506/406053.html
+ * <p>
  */
 public class OtherFragment extends GeneralFragment implements IOtherView {
 
     public final static int update_Love_Date = 0x01;//更新恋爱日
+
     public final static int change_phone = 0x02;//更换纪念照
 
     public final static int REQUEST_CODE_PICK_IMAGE = 0x03;//从相册中选图片
 
     public final static int REQUEST_CODE_CAPTURE_CAMERA = 0x04;//拍照
+
+    public final static int CROP_REQUEST_CODE = 0x05;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView tvOtherName;
@@ -76,10 +91,36 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     private LinearLayout llOtherContact;
     private NormalListDialog photoDialog;//拍照类型
-    private Uri photoUri;
     private BmobIMUserInfo bmobIMFriendUserInfo;
 
     private OtherPresenter otherPresenter = new OtherPresenter(this);
+
+    public static class StaticHandler extends Handler {
+        private final WeakReference<Fragment> weakReference;
+
+        public StaticHandler(Fragment fragment) {
+            this.weakReference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            OtherFragment fragment = (OtherFragment) weakReference.get();
+            if (fragment != null) {
+                Uri uri = (Uri) msg.obj;
+                switch (msg.what) {
+                    case REQUEST_CODE_PICK_IMAGE:
+                        fragment.startImageZoom(fragment.convertUri(uri));
+                        break;
+                    case REQUEST_CODE_CAPTURE_CAMERA:
+                        fragment.startImageZoom(uri);
+                        break;
+                }
+            }
+            super.handleMessage(msg);
+        }
+    }
+
+    private static StaticHandler mHandler;
 
     //private ShimmerFrameLayout shimmerContent;
 
@@ -170,6 +211,8 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
 
         otherPresenter.checkHasFriend(getContext());
+
+        mHandler = new StaticHandler(this);
     }
 
     @Override
@@ -215,37 +258,13 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
                     public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
                         switch (position) {
                             case 0:
-                                String state = Environment.getExternalStorageState();
-                                if (state.equals(Environment.MEDIA_MOUNTED)) {
-                                    Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    String fileName = System.currentTimeMillis() + ".jpg";
-                                    /**
-                                     //自定义路径，设置路径
-                                     StringBuilder out_file_path = new StringBuilder();
-                                     out_file_path.append(SDCardUtils.getSDCardPath());
-                                     out_file_path.append(Constants.APP_NAME);
-                                     out_file_path.append(Constants.SAVE_IMAGE_DIR_PATH);
-                                     FileUtils.makeDirs(out_file_path.toString());
-                                     //文件名称
-                                     getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(out_file_path.toString(), fileName)));
-                                     **/
-                                    //保存到默认相册路径中http://blog.csdn.net/wsq458542323976/article/details/22880881
-                                    ContentValues values = new ContentValues();
-                                    values.put(MediaStore.Images.Media.DISPLAY_NAME, String.valueOf(fileName));
-                                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                                    photoUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                                    //照片方向
-                                    getImageByCamera.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
-                                    getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                                    startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMERA);
-                                } else {
-                                    Toast.makeText(getContext(), "请确认已经插入SD卡", Toast.LENGTH_LONG).show();
-                                }
+                                Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMERA);
                                 break;
                             case 1:
-                                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                intent.setType("image/*");//相片类型
-                                startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
+                                Intent pick_intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                pick_intent.setType("image/*");//相片类型
+                                startActivityForResult(pick_intent, REQUEST_CODE_PICK_IMAGE);
                                 break;
                             case 2:
                                 break;
@@ -289,19 +308,138 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         }
     }
 
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        Message message = null;
         switch (requestCode) {
             case REQUEST_CODE_PICK_IMAGE:
+                //相册
+                if (data == null) {
+                    return;
+                }
+                alertDialog.show();
+                message = new Message();
+                message.what = REQUEST_CODE_PICK_IMAGE;
                 Uri uri = data.getData();
-                LogUtils.e(OtherFragment.class.getSimpleName(), uri.toString());
+                message.obj = uri;
+                mHandler.sendMessage(message);
                 break;
             case REQUEST_CODE_CAPTURE_CAMERA:
-                LogUtils.e(OtherFragment.class.getSimpleName(), "resultCode:" + resultCode + "-" + (data == null ? null : data));
-//                Cursor cursor = getActivity().getContentResolver().query(photoUri, Constants.STORE_IMAGES, null, null, null);
+                //拍照
+                if (data == null) {
+                    return;
+                } else {
+                    Bundle extras = data.getExtras();
+                    if (extras != null) {
+                        alertDialog.show();
+                        message = new Message();
+                        message.what = REQUEST_CODE_CAPTURE_CAMERA;
+                        Bitmap bm = extras.getParcelable("data");
+                        message.obj = saveBitmap(bm);
+                        mHandler.sendMessage(message);
+                    }
+                }
+                break;
+            case CROP_REQUEST_CODE:
+                alertDialog.hide();
+                if (data == null) {
+                    return;
+                }//剪裁后的图片
+                Bundle extras = data.getExtras();
+                if (extras == null) {
+                    return;
+                }
+                Bitmap bm = extras.getParcelable("data");
+                ImageUtils.loadImg(getActivity(), ivOtherPhoto, saveBitmap(bm).toString());
                 break;
         }
-        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private Uri convertUri(Uri uri) {
+        InputStream is = null;
+        try {
+            is = getActivity().getApplicationContext().getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+            return saveBitmap(bitmap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Bitmap getSmallBitmap(String filePath, int reqWidth, int reqHeight) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = calculateInSampleSize(options, 300, 300);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
+    }
+
+    /**
+     * 计算图片的缩放值
+     *
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
+    public  int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+        if (height > reqHeight || width > reqWidth) {
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        return inSampleSize;
+    }
+
+
+    private Uri saveBitmap(Bitmap bm) {
+        File tmpDir = new File(Environment.getExternalStorageDirectory() + File.separator + Constants.SAVE_IMAGE_DIR_PATH);
+        if (!tmpDir.exists()) {
+            tmpDir.mkdirs();
+        }
+        File img = new File(tmpDir.getAbsolutePath() + File.separator + System.currentTimeMillis() + ".png");
+        try {
+            FileOutputStream fos = new FileOutputStream(img);
+            bm.compress(Bitmap.CompressFormat.PNG, 50, fos);
+            fos.flush();
+            fos.close();
+            VolleyLog.e("%s", "保存图片成功");
+            return Uri.fromFile(img);
+        } catch (FileNotFoundException e) {
+            VolleyLog.e("%s", e.getMessage());
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            VolleyLog.e("%s", e.getMessage());
+            return null;
+        }
+    }
+
+
+    /**
+     * 剪裁图片
+     *
+     * @param uri
+     */
+    private void startImageZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, CROP_REQUEST_CODE);
     }
 
     @Override

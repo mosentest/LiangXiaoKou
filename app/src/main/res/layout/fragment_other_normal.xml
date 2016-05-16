@@ -31,7 +31,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_toRightOf="@+id/iv_other_header"
-                android:text="**奇"
+                android:text="小俩口"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/normal_content_size" />
 
@@ -43,7 +43,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_toRightOf="@+id/iv_other_header"
-                android:text="天天好心情，爱女朋友"
+                android:text="最爱小俩口app"
                 android:textColor="@color/dark" />
 
         </RelativeLayout>
