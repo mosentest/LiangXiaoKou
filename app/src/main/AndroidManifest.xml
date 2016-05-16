@@ -117,20 +117,6 @@
             android:exported="true"
             android:process=":XLK" />
 
-        <!-- 百度lsb -->
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
-        <!-- 百度lsb -->
-        <!-- <meta-data -->
-        <!-- android:name="com.baidu.lbsapi.API_KEY" -->
-        <!-- android:value="y4GtjEBg34k8EI7i7O8CYHaf" /> -->
-        <!-- 百度lbs-测试key -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="6b7CdIgvMYsDdM4QGLe9DKsZSfHRRfgw" />
-
         <!-- 友盟更新 -->
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"

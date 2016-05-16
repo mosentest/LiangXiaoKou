@@ -17,17 +17,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.geocode.GeoCodeResult;
-import com.baidu.mapapi.search.geocode.GeoCoder;
-import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
@@ -35,30 +25,20 @@ import com.umeng.update.UpdateStatus;
 
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.bean.User;
-import org.liangxiaokou.bmob.BmobIMNetUtils;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.feedback.FeedBackActivity;
 import org.liangxiaokou.module.home.fragment.AlbumFragment;
 import org.liangxiaokou.module.home.fragment.MeFragment;
 import org.liangxiaokou.module.home.fragment.OtherFragment;
 import org.liangxiaokou.service.BmobIMIntentService;
-import org.liangxiaokou.util.BaiduLBSutils;
-import org.liangxiaokou.util.LogUtils;
 import org.liangxiaokou.util.SnackBarUtils;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.ViewPagerAdapter;
-import org.liangxiaokou.util.VolleyLog;
 import org.mo.netstatus.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.bmob.newim.core.ConnectionStatus;
-import cn.bmob.newim.core.service.BmobImService;
-import cn.bmob.newim.listener.ConnectListener;
-import cn.bmob.newim.listener.ConnectStatusChangeListener;
-import cn.bmob.v3.exception.BmobException;
 
 /**
  * http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android
@@ -70,9 +50,7 @@ public class HomeActivity extends GeneralActivity implements
         View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener,
         SearchView.OnQueryTextListener,
-        UmengUpdateListener,
-        BDLocationListener,
-        OnGetGeoCoderResultListener {
+        UmengUpdateListener {
 
     private final static String TAG = "HomeActivity";
     private DrawerLayout mDrawerLayout;
@@ -88,11 +66,6 @@ public class HomeActivity extends GeneralActivity implements
     private String[] tabTitle;
     private List<Fragment> fragments;
 
-    /**
-     * 百度lbs相关api
-     */
-    private LocationClient mLocationClient;
-    private GeoCoder mGeoCoder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,10 +77,9 @@ public class HomeActivity extends GeneralActivity implements
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
         sendBroadcast(broadcastIntent);
-        //百度定位
-        mLocationClient = BaiduLBSutils.locationStart(getApplicationContext(), this);
+
         //启动连接IM服务的service
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, BmobIMIntentService.class);
         User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
         intent.putExtra(BmobIMIntentService.USER_ID, currentUser.getObjectId());
         intent.setAction(BmobIMIntentService.ACTION_IM);
@@ -136,15 +108,10 @@ public class HomeActivity extends GeneralActivity implements
 
     @Override
     public void PreOnStop() {
-        BaiduLBSutils.locationStop(mLocationClient);
-
     }
 
     @Override
     public void PreOnDestroy() {
-        if (mGeoCoder != null) {
-            mGeoCoder.destroy();
-        }
     }
 
     @Override
@@ -353,50 +320,6 @@ public class HomeActivity extends GeneralActivity implements
         return super.onKeyDown(keyCode, event);
     }
 
-    /**
-     * baidu
-     *
-     * @param bdLocation
-     */
-    @Override
-    public void onReceiveLocation(BDLocation bdLocation) {
-        if (bdLocation == null) {
-            return;
-        }
-        LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
-        mGeoCoder = BaiduLBSutils.getInstance(latLng, this);
-    }
-
-    /**
-     * 地理编码查询结果回调函数
-     *
-     * @param geoCodeResult
-     */
-    @Override
-    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-    }
-
-    /**
-     * 反地理编码查询结果回调函数
-     *
-     * @param reverseGeoCodeResult
-     */
-    @Override
-    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-        if (reverseGeoCodeResult == null || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            // 没有检测到结果
-            return;
-        }
-        ReverseGeoCodeResult.AddressComponent addressDetail = reverseGeoCodeResult.getAddressDetail();
-        if (addressDetail != null) {
-            StringBuilder address = new StringBuilder()
-                    .append(addressDetail.province)
-                    .append(addressDetail.district)
-                    .append(addressDetail.street)
-                    .append(addressDetail.streetNumber);
-            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     public void onNewIntent(Intent intent) {

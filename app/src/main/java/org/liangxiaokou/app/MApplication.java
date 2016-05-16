@@ -6,7 +6,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.liangxiaokou.bmob.BmobMessageHandler;
@@ -47,8 +46,6 @@ public class MApplication extends Application {
             BmobIM.registerDefaultMessageHandler(new BmobMessageHandler(this));
             //检测代码问题
             LeakCanary.install(this);
-            // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
-            SDKInitializer.initialize(this);
             try {
                 /**
                  * 添加网络权限，安卓4.03必须
