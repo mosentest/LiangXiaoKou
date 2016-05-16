@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:hint="请输入您的邮箱地址"
                     android:inputType="textEmailAddress"
-                    android:text="709847739@qq.com"
+                    android:text="572508836@qq.com"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/normal_content_size" />
             </android.support.design.widget.TextInputLayout>

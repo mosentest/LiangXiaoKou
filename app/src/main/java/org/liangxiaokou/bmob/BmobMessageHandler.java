@@ -11,6 +11,10 @@ import android.support.v7.app.NotificationCompat;
 import org.greenrobot.eventbus.EventBus;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.home.HomeActivity;
+import org.liangxiaokou.util.VolleyLog;
+
+import java.util.List;
+import java.util.Map;
 
 import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.event.OfflineMessageEvent;
@@ -57,6 +61,11 @@ public class BmobMessageHandler extends BmobIMMessageHandler {
     @Override
     public void onOfflineReceive(final OfflineMessageEvent event) {
         //每次调用connect方法时会查询一次离线消息，如果有，此方法会被调用
-
+        Map<String, List<MessageEvent>> map = event.getEventMap();
+        for (Map.Entry<String, List<MessageEvent>> entry : map.entrySet()) {
+            List<MessageEvent> list = entry.getValue();
+            for (MessageEvent messageEvent : list)
+                VolleyLog.e("%s", messageEvent.getMessage().getContent());
+        }
     }
 }

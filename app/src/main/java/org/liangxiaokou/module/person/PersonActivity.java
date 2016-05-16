@@ -1,6 +1,7 @@
 package org.liangxiaokou.module.person;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +27,7 @@ import org.mo.netstatus.NetUtils;
 import java.lang.ref.WeakReference;
 
 import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.core.service.BmobImService;
 import cn.bmob.v3.BmobUser;
 
 public class PersonActivity extends ToolBarActivity {
@@ -121,6 +123,10 @@ public class PersonActivity extends ToolBarActivity {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        Intent intent = new Intent(PersonActivity.this, BmobImService.class);
+                        stopService(intent);
+                        //清空会话
+                        BmobIM.getInstance().clearAllConversation();
                         //断开连接
                         BmobIM.getInstance().disConnect();
                         BmobUser.logOut(getApplicationContext());   //清除缓存用户对象
