@@ -35,7 +35,14 @@ public class SetLoveDateActivityFragment extends GeneralFragment implements Text
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_set_love_date, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_set_love_date, container, false);
+        return inflate;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        lazyLoad();
     }
 
     @Override
@@ -98,6 +105,15 @@ public class SetLoveDateActivityFragment extends GeneralFragment implements Text
     public void PreOnDestroy() {
         pvTime.dismiss();
         pvTime = null;
+    }
+
+    @Override
+    protected void lazyLoad() {
+//        if (!isPrepared || !isVisible) {
+//            return;
+//        }
+        initView();
+        initData();
     }
 
     @Override

@@ -154,9 +154,17 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_other, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_other, container, false);
+        isPrepared = true;
+        return inflate;
     }
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        lazyLoad();
+    }
 
     @Override
     public void initView() {
@@ -242,6 +250,15 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     @Override
     public void PreOnDestroy() {
 
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if (!isPrepared || !isVisible) {
+            return;
+        }
+        initView();
+        initData();
     }
 
     @Override

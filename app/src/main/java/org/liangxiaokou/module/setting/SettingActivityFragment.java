@@ -22,7 +22,10 @@ public class SettingActivityFragment extends GeneralFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_setting, container, false);
+        isPrepared = true;
+        lazyLoad();
+        return inflate;
     }
 
     @Override
@@ -64,6 +67,15 @@ public class SettingActivityFragment extends GeneralFragment {
     @Override
     public void PreOnDestroy() {
 
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if (!isPrepared || !isVisible) {
+            return;
+        }
+        initView();
+        initData();
     }
 
     @Override

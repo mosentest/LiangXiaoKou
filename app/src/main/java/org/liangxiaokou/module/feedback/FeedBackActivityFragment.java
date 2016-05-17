@@ -23,7 +23,15 @@ public class FeedBackActivityFragment extends GeneralFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_feed_back, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_feed_back, container, false);
+        isPrepared = true;
+        return inflate;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        lazyLoad();
     }
 
     @Override
@@ -65,6 +73,15 @@ public class FeedBackActivityFragment extends GeneralFragment {
     @Override
     public void PreOnDestroy() {
 
+    }
+
+    @Override
+    protected void lazyLoad() {
+//        if (!isPrepared || !isVisible) {
+//            return;
+//        }
+        initView();
+        initData();
     }
 
     @Override

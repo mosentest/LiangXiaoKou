@@ -79,7 +79,14 @@ public class SplashScreenActivityFragment extends GeneralFragment implements Til
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_splash_screen, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_splash_screen, container, false);
+        return inflate;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        lazyLoad();
     }
 
     @Override
@@ -114,6 +121,15 @@ public class SplashScreenActivityFragment extends GeneralFragment implements Til
     @Override
     public void PreOnDestroy() {
 
+    }
+
+    @Override
+    protected void lazyLoad() {
+//        if (!isPrepared || !isVisible) {
+//            return;
+//        }
+        initView();
+        initData();
     }
 
     @Override

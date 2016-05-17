@@ -13,6 +13,7 @@ import org.liangxiaokou.util.ToastUtils;
 import dmax.dialog.SpotsDialog;
 
 /**
+ * http://blog.csdn.net/maosidiaoxian/article/details/38300627
  * Created by moziqi on 2015/9/13 0013.
  */
 public abstract class GeneralFragment extends Fragment implements View.OnClickListener {
@@ -21,6 +22,12 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     public final static String TITLE = "title";
 
     protected AlertDialog alertDialog;
+
+    // 标志位，标志是否可见
+    protected boolean isVisible;
+
+    // 标志位，标志已经初始化完成。
+    protected boolean isPrepared;
 
 
     @Override
@@ -84,8 +91,6 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
-        initData();
     }
 
 
@@ -111,6 +116,32 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     public void startActivityForResult(Class<?> cls, int requestCode) {
         Intent intent = new Intent(getActivity(), cls);
         getActivity().startActivityForResult(intent, requestCode);
+    }
+
+
+    /**
+     * 在这里实现Fragment数据的缓加载.
+     *
+     * @param isVisibleToUser
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
+
+    protected void onVisible() {
+        lazyLoad();
+    }
+    protected abstract void lazyLoad();//懒加载的方法,在这个方法里面我们为Fragment的各个组件去添加数据
+
+    protected void onInvisible() {
     }
 
 }

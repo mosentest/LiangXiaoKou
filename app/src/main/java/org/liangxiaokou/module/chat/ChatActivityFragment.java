@@ -76,10 +76,17 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_chat, container, false);
+        isPrepared = true;
+        return inflate;
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        lazyLoad();
+    }
+
     public void initView() {
         messageListview = findViewById(R.id.messageListview);
         messageInputToolBox = findViewById(R.id.messageInputToolBox);
@@ -114,7 +121,6 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
         messageInputToolBox.setFunctionData(functionData);
     }
 
-    @Override
     public void initData() {
         List<Message> messages = new ArrayList<Message>();
         adapter = new MessageAdapter(getContext(), messages);
@@ -225,6 +231,16 @@ public class ChatActivityFragment extends BackHandledFragment implements OnOpera
     public void PreOnDestroy() {
         EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    protected void lazyLoad() {
+//        if (!isPrepared || !isVisible) {
+//            return;
+//        }
+        initView();
+        initData();
+    }
+
 
     @Override
     public void onClick(View v) {
