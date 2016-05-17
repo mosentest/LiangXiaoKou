@@ -9,11 +9,27 @@
 
     <include layout="@layout/view_top_bar" />
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="org.liangxiaokou.module.chat.ChatActivityFragment"
+    <!--http://blog.csdn.net/sarsscofy/article/details/9245163-->
+    <ListView
+        android:id="@+id/messageListview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_chat" />
+        android:layout_weight="1"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:dividerHeight="3dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#7fd8d8d8" />
+
+    <com.jialin.chat.MessageInputToolBox
+        android:id="@+id/messageInputToolBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
 

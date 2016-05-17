@@ -26,6 +26,7 @@ import com.umeng.update.UpdateStatus;
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.module.album.AlbumActivity;
 import org.liangxiaokou.module.feedback.FeedBackActivity;
 import org.liangxiaokou.module.home.fragment.AlbumFragment;
 import org.liangxiaokou.module.home.fragment.MeFragment;
@@ -161,7 +162,7 @@ public class HomeActivity extends GeneralActivity implements
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, tabTitle);
         mViewPager.setAdapter(mViewPagerAdapter);
         // 设置ViewPager最大缓存的页面个数
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(1);
         // 给ViewPager添加页面动态监听器（为了让Toolbar中的Title可以变化相应的Tab的标题）
         mViewPager.addOnPageChangeListener(this);
 
@@ -169,7 +170,7 @@ public class HomeActivity extends GeneralActivity implements
         //mTabLayout.setTabTextColors(getResources().getColor(R.color.dark), getResources().getColor(R.color.system_color));//设置文本在选中和为选中时候的颜色
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.other)), true);//添加 Tab,默认选中
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来
-        mTabLayout.setTabsFromPagerAdapter(mViewPagerAdapter);//给Tabs设置适配器
+        //mTabLayout.setTabsFromPagerAdapter(mViewPagerAdapter);//给Tabs设置适配器
 
         // 设置FloatingActionButton的点击事件
         mFloatingActionButton.setOnClickListener(this);
@@ -236,7 +237,8 @@ public class HomeActivity extends GeneralActivity implements
         switch (v.getId()) {
             // FloatingActionButton的点击事件
             case R.id.id_floatingactionbutton:
-                SnackBarUtils.show(v, getString(R.string.plusone), 0);
+                startActivity(AlbumActivity.class);
+                //SnackBarUtils.show(v, getString(R.string.plusone), 0);
                 break;
         }
     }

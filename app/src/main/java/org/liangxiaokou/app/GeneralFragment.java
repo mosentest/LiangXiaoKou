@@ -3,8 +3,11 @@ package org.liangxiaokou.app;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.ThirdUtils;
@@ -23,11 +26,11 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
 
     protected AlertDialog alertDialog;
 
-    // 标志位，标志是否可见
-    protected boolean isVisible;
+    private boolean isFirstVisible = true;//第一次可见状态
 
-    // 标志位，标志已经初始化完成。
-    protected boolean isPrepared;
+    private boolean isFirstInvisible = true;//第一次不可见状态
+
+    private boolean isPrepared;
 
 
     @Override
@@ -40,8 +43,72 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        alertDialog = new SpotsDialog(getActivity(), R.style.CustomDialog);
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (getContentViewLayoutID() != 0) {
+            return inflater.inflate(getContentViewLayoutID(), null);
+        } else {
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        alertDialog = new SpotsDialog(getActivity(), R.style.CustomDialog);
+        initViewsAndEvents(view);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initPrepare();
+    }
+
+    protected abstract int getContentViewLayoutID();
+
+
+    protected abstract void initViewsAndEvents(View view);
+
+    private synchronized void initPrepare() {
+        if (isPrepared) {
+            onFirstUserVisible();
+        } else {
+            isPrepared = true;
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (isFirstVisible) {
+                isFirstVisible = false;
+                initPrepare();
+            } else {
+                onUserVisible();
+            }
+        } else {
+            if (isFirstInvisible) {
+                isFirstInvisible = false;
+                onFirstUserInvisible();
+            } else {
+                onUserInvisible();
+            }
+        }
+    }
+
+    protected abstract void onFirstUserVisible();
+
+    protected abstract void onUserVisible();
+
+    private void onFirstUserInvisible() {
+    }
+
+    protected abstract void onUserInvisible();
+
 
     @Override
     public void onResume() {
@@ -84,20 +151,6 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
         ToastUtils.toast(getActivity().getApplicationContext(), msg);
     }
 
-    public <T extends View> T findViewById(int resId) {
-        return (T) getView().findViewById(resId);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
-    public abstract void initView();
-
-    public abstract void initData();
-
     public abstract void PreOnStart();
 
     public abstract void PreOnResume();
@@ -107,6 +160,7 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     public abstract void PreOnStop();
 
     public abstract void PreOnDestroy();
+
 
     public void startActivity(Class<?> cls) {
         Intent intent = new Intent(getActivity(), cls);
@@ -118,30 +172,5 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
         getActivity().startActivityForResult(intent, requestCode);
     }
 
-
-    /**
-     * 在这里实现Fragment数据的缓加载.
-     *
-     * @param isVisibleToUser
-     */
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
-            onVisible();
-        } else {
-            isVisible = false;
-            onInvisible();
-        }
-    }
-
-    protected void onVisible() {
-        lazyLoad();
-    }
-    protected abstract void lazyLoad();//懒加载的方法,在这个方法里面我们为Fragment的各个组件去添加数据
-
-    protected void onInvisible() {
-    }
 
 }

@@ -1,21 +1,32 @@
 package org.liangxiaokou.module.setlovedate;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+
+import com.bigkoo.pickerview.TimePickerView;
 
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.DateUtils;
 import org.mo.netstatus.NetUtils;
 
-public class SetLoveDateActivity extends ToolBarActivity implements SetLoveDateActivityFragment.LoveDateTextListener {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class SetLoveDateActivity extends ToolBarActivity  implements TextWatcher {
 
     private static final java.lang.String TAG = "SetLoveDateActivity";
 
-    private String date = "";
+    private TextInputLayout textInputDate;
+
+    private TimePickerView pvTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +49,7 @@ public class SetLoveDateActivity extends ToolBarActivity implements SetLoveDateA
                 finish();
                 return true;
             case R.id.action_save:
-                boolean dateFormat = DateUtils.isDateFormat(date);
+                boolean dateFormat = DateUtils.isDateFormat(textInputDate.getEditText().getText().toString());
                 if (!dateFormat) {
                     showToast("格式不正确，例如2015-02-14");
                 }
@@ -67,16 +78,37 @@ public class SetLoveDateActivity extends ToolBarActivity implements SetLoveDateA
 
     }
 
-    @Override
-    public void onTextChange(CharSequence text) {
-        date = text.toString();
-    }
-
 
 
     @Override
     public void initView() {
+        textInputDate = (TextInputLayout) findViewById(R.id.textInput_date);
+        EditText editTextDate = textInputDate.getEditText();
+        editTextDate.setFocusable(false);
+        editTextDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pvTime.show();
+            }
+        });
+        editTextDate.addTextChangedListener(this);
+        pvTime = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
+        pvTime.setTime(new Date());
+        pvTime.setCyclic(false);
+        pvTime.setCancelable(true);
+        //时间选择后回调
+        pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
 
+            @Override
+            public void onTimeSelect(Date date) {
+                textInputDate.getEditText().setText(getTime(date));
+            }
+        });
+    }
+
+    public String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
     }
 
     @Override
@@ -111,7 +143,8 @@ public class SetLoveDateActivity extends ToolBarActivity implements SetLoveDateA
 
     @Override
     public void PreOnDestroy() {
-
+        pvTime.dismiss();
+        pvTime = null;
     }
 
     @Override
@@ -121,6 +154,21 @@ public class SetLoveDateActivity extends ToolBarActivity implements SetLoveDateA
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
 
     }
 }

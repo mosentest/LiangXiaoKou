@@ -126,12 +126,8 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     private static StaticHandler mHandler;
 
-    //private ShimmerFrameLayout shimmerContent;
-
-    //private AnimTextView animTextView;
 
     public OtherFragment() {
-        // Required empty public constructor
     }
 
     public static OtherFragment getInstance(String title) {
@@ -151,61 +147,36 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View inflate = inflater.inflate(R.layout.fragment_other, container, false);
-        isPrepared = true;
-        return inflate;
-    }
-
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        lazyLoad();
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_other;
     }
 
     @Override
-    public void initView() {
-        //shimmerContent = (ShimmerFrameLayout) findViewById(R.id.shimmerContent);
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+    protected void initViewsAndEvents(View view) {
+//shimmerContent = (ShimmerFrameLayout) findViewById(R.id.shimmerContent);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setRefreshing(false);
         swipeRefreshLayout.setEnabled(false);
-        tvOtherLoveDate = findViewById(R.id.tv_other_love_date);
-        tvOtherName = findViewById(R.id.tv_other_name);
-        tvOtherMood = findViewById(R.id.tv_other_mood);
+        tvOtherLoveDate = (TextView) view.findViewById(R.id.tv_other_love_date);
+        tvOtherName = (TextView) view.findViewById(R.id.tv_other_name);
+        tvOtherMood = (TextView) view.findViewById(R.id.tv_other_mood);
         //animTextView = (AnimTextView) findViewById(R.id.atv_day);
-        ivOtherPhoto = findViewById(R.id.iv_other_photo);
-        ivOtherCamera = findViewById(R.id.iv_other_camera);
-        ivOtherHeader = findViewById(R.id.iv_other_header);
+        ivOtherPhoto = (ImageView) view.findViewById(R.id.iv_other_photo);
+        ivOtherCamera = (ImageView) view.findViewById(R.id.iv_other_camera);
+        ivOtherHeader = (CircleImageView) view.findViewById(R.id.iv_other_header);
 
-        rlOtherExist = findViewById(R.id.rl_other_exist);
+        rlOtherExist = (RelativeLayout) view.findViewById(R.id.rl_other_exist);
 
-        llOtherSleep = findViewById(R.id.ll_other_sleep);
-        llOtherTimer = findViewById(R.id.ll_other_timer);
-        llOtherContact = findViewById(R.id.ll_other_contact);
+        llOtherSleep = (LinearLayout) view.findViewById(R.id.ll_other_sleep);
+        llOtherTimer = (LinearLayout) view.findViewById(R.id.ll_other_timer);
+        llOtherContact = (LinearLayout) view.findViewById(R.id.ll_other_contact);
 
-        ivOtherSleep = findViewById(R.id.iv_other_sleep);
-        ivOtherTimer = findViewById(R.id.iv_other_timer);
-        ivOtherContact = findViewById(R.id.iv_other_contact);
+        ivOtherSleep = (RedTipImageView) view.findViewById(R.id.iv_other_sleep);
+        ivOtherTimer = (RedTipImageView) view.findViewById(R.id.iv_other_timer);
+        ivOtherContact = (RedTipImageView) view.findViewById(R.id.iv_other_contact);
 
-    }
-
-    @Override
-    public void initData() {
-        //设置shimmer动画的时间间隔
-        //shimmerContent.setDuration(5000);
-        //设置shimmer动画重复类型
-        //shimmerContent.setRepeatMode(ObjectAnimator.REVERSE);
-        //设置shimmer闪光的倾斜角度
-        //shimmerContent.setAngle(ShimmerFrameLayout.MaskAngle.CW_90);
-        // 设置shimmer闪光的宽度
-        //shimmerContent.setDropoff(0.5f);
-        //设置shimmer闪光的形状
-        //shimmerContent.setMaskShape(ShimmerFrameLayout.MaskShape.LINEAR);
-
-        //animTextView.setText("162", true);
         swipeRefreshLayout.setRefreshing(false);
         String sDate = "2015-07-14";
         tvOtherLoveDate.setText("已恋爱" + DateUtils.getDaySub(sDate) + "天");
@@ -222,9 +193,22 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         ivOtherTimer.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
         ivOtherContact.setTipVisibility(RedTipImageView.TipType.RED_TIP_VISIBLE);
 
-        otherPresenter.checkHasFriend(getContext());
-
         mHandler = new StaticHandler(this);
+
+    }
+
+    @Override
+    protected void onFirstUserVisible() {
+        otherPresenter.checkHasFriend(getContext());
+    }
+
+    @Override
+    protected void onUserVisible() {
+    }
+
+    @Override
+    protected void onUserInvisible() {
+
     }
 
     @Override
@@ -249,16 +233,6 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     @Override
     public void PreOnDestroy() {
-
-    }
-
-    @Override
-    protected void lazyLoad() {
-        if (!isPrepared || !isVisible) {
-            return;
-        }
-        initView();
-        initData();
     }
 
     @Override

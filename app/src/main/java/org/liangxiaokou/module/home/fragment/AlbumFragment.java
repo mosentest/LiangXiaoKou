@@ -34,6 +34,10 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
     private RecyclerView.LayoutManager mLayoutManager;
     private AlbumViewAdapter mAlbumViewAdapter;
 
+    private int refreshTime = 0;
+    private int times = 0;
+
+
     public AlbumFragment() {
         // Required empty public constructor
     }
@@ -56,35 +60,17 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
         }
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View inflate = inflater.inflate(R.layout.fragment_album, container, false);
-        isPrepared = true;
-        return inflate;
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_album;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        lazyLoad();
-    }
-
-
-    @Override
-    public void initView() {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.album_swiperefreshlayout);
-        mRecyclerView = (XRecyclerView) findViewById(R.id.album_recyclerview);
+    protected void initViewsAndEvents(View view) {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.album_swiperefreshlayout);
+        mRecyclerView = (XRecyclerView) view.findViewById(R.id.album_recyclerview);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-
-    }
-
-    private int refreshTime = 0;
-    private int times = 0;
-
-    @Override
-    public void initData() {
         // 刷新时，指示器旋转后变化的颜色
         mSwipeRefreshLayout.setColorSchemeResources(R.color.system_color, R.color.system_press);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -93,19 +79,9 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         List<Album> mDatas = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            Random random = new Random();
-            int result = random.nextInt(2);
-            Album album = new Album();
-            album.setUsername(result == 1 ? "男：**qi" : "女：**qi");
-            album.setType(result);
-            mDatas.add(album);
-
-        }
         mAlbumViewAdapter = new AlbumViewAdapter(getActivity(), mDatas);
         mRecyclerView.setAdapter(mAlbumViewAdapter);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -138,6 +114,31 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
     }
 
     @Override
+    protected void onFirstUserVisible() {
+        List<Album> mDatas = new ArrayList<>();
+        for (int i = 0; i < 15; i++) {
+            Random random = new Random();
+            int result = random.nextInt(2);
+            Album album = new Album();
+            album.setUsername(result == 1 ? "男：**qi" : "女：**qi");
+            album.setType(result);
+            mDatas.add(album);
+        }
+        mAlbumViewAdapter.refreshData(mDatas);
+    }
+
+    @Override
+    protected void onUserVisible() {
+
+    }
+
+    @Override
+    protected void onUserInvisible() {
+
+    }
+
+
+    @Override
     public void PreOnStart() {
 
     }
@@ -160,15 +161,6 @@ public class AlbumFragment extends GeneralFragment implements SwipeRefreshLayout
     @Override
     public void PreOnDestroy() {
 
-    }
-
-    @Override
-    protected void lazyLoad() {
-        if (!isPrepared || !isVisible) {
-            return;
-        }
-        initView();
-        initData();
     }
 
     @Override

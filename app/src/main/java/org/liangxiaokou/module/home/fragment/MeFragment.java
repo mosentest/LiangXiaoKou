@@ -52,32 +52,6 @@ public class MeFragment extends GeneralFragment {
         }
     }
 
-
-    @Override
-    public void initView() {
-        mRlOtherExist = (RelativeLayout) findViewById(R.id.rl_other_exist);
-        mIvOtherHeader = (CircleImageView) findViewById(R.id.iv_other_header);
-        mTvOtherName = (TextView) findViewById(R.id.tv_other_name);
-        mTvOtherMood = (TextView) findViewById(R.id.tv_other_mood);
-        mRlDoc = (RelativeLayout) findViewById(R.id.rl_doc);
-        mRlCalc = (RelativeLayout) findViewById(R.id.rl_calc);
-        mRlShopping = (RelativeLayout) findViewById(R.id.rl_shopping);
-        mRlMusic = (RelativeLayout) findViewById(R.id.rl_music);
-        mRlGame = (RelativeLayout) findViewById(R.id.rl_game);
-        mRlSetting = (RelativeLayout) findViewById(R.id.rl_setting);
-    }
-
-    @Override
-    public void initData() {
-        mRlOtherExist.setOnClickListener(this);
-        User currentUser = BmobUser.getCurrentUser(getActivity().getApplicationContext(), User.class);
-        if (currentUser != null) {
-            mTvOtherName.setText(TextUtils.isEmpty(currentUser.getNick()) ? getString(R.string.app_name) : currentUser.getNick() + "");
-            mTvOtherMood.setText("账号:" + currentUser.getUsername());
-            ImageUtils.loadImgResourceId(getContext(), mIvOtherHeader, currentUser.getSex() == 0 ? R.mipmap.boy : R.mipmap.gril);
-        }
-    }
-
     @Override
     public void PreOnStart() {
 
@@ -104,28 +78,43 @@ public class MeFragment extends GeneralFragment {
     }
 
     @Override
-    protected void lazyLoad() {
-        if (!isPrepared || !isVisible) {
-            return;
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_me;
+    }
+
+    @Override
+    protected void initViewsAndEvents(View view) {
+        mRlOtherExist = (RelativeLayout) view.findViewById(R.id.rl_other_exist);
+        mIvOtherHeader = (CircleImageView) view.findViewById(R.id.iv_other_header);
+        mTvOtherName = (TextView) view.findViewById(R.id.tv_other_name);
+        mTvOtherMood = (TextView) view.findViewById(R.id.tv_other_mood);
+        mRlDoc = (RelativeLayout) view.findViewById(R.id.rl_doc);
+        mRlCalc = (RelativeLayout) view.findViewById(R.id.rl_calc);
+        mRlShopping = (RelativeLayout) view.findViewById(R.id.rl_shopping);
+        mRlMusic = (RelativeLayout) view.findViewById(R.id.rl_music);
+        mRlGame = (RelativeLayout) view.findViewById(R.id.rl_game);
+        mRlSetting = (RelativeLayout) view.findViewById(R.id.rl_setting);
+        mRlOtherExist.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onFirstUserVisible() {
+        User currentUser = BmobUser.getCurrentUser(getActivity().getApplicationContext(), User.class);
+        if (currentUser != null) {
+            mTvOtherName.setText(TextUtils.isEmpty(currentUser.getNick()) ? getString(R.string.app_name) : currentUser.getNick() + "");
+            mTvOtherMood.setText("账号:" + currentUser.getUsername());
+            ImageUtils.loadImgResourceId(getContext(), mIvOtherHeader, currentUser.getSex() == 0 ? R.mipmap.boy : R.mipmap.gril);
         }
-        initView();
-        initData();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View inflate = inflater.inflate(R.layout.fragment_me, container, false);
-        isPrepared = true;
-        return inflate;
+    protected void onUserVisible() {
+
     }
 
-
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        lazyLoad();
+    protected void onUserInvisible() {
+
     }
 
     @Override

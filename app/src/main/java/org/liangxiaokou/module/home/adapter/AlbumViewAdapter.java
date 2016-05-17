@@ -64,4 +64,12 @@ public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewHolder> {
     public int getItemCount() {
         return mDatas == null ? 0 : mDatas.size();
     }
+
+    public void refreshData(List<Album> mDatas) {
+        if (this.mDatas != null && this.mDatas.size() > 0) {
+            this.mDatas.clear();
+        }
+        this.mDatas = mDatas;
+        notifyDataSetChanged();
+    }
 }

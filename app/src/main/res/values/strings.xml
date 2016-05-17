@@ -42,4 +42,5 @@
     <string name="title_activity_invite">@string/plusone</string>
 
     <string name="chat_friend">与%1$s聊天</string>
+    <string name="album_activity">时光日记</string>
 </resources>

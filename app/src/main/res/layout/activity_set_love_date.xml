@@ -1,20 +1,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    android:fitsSystemWindows="true"
     android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <include layout="@layout/view_top_bar" />
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="org.liangxiaokou.module.setlovedate.SetLoveDateActivityFragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_set_love_date" />
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInput_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColorHint="@color/dark">
+            <!--http://blog.sina.com.cn/s/blog_6faf711d0101kbqz.html-->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="请输入，例如：2015-02-14"
+                android:inputType="none"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/dark"
+                android:textSize="@dimen/normal_content_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="恋爱日代表你们谈恋爱的起始日期"
+            android:textColor="@color/dark"
+            android:textSize="14dp" />
+
+    </LinearLayout>
 </LinearLayout>
 
