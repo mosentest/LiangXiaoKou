@@ -46,9 +46,6 @@ public abstract class GeneralFragment extends Fragment implements View.OnClickLi
     @Override
     public void onPause() {
         PreOnPause();
-        if (alertDialog != null && alertDialog.isShowing()) {
-            alertDialog.hide();
-        }
         ThirdUtils.statisticsInFragmentPause(GeneralFragment.class);
         super.onPause();
     }

@@ -104,6 +104,7 @@
             android:minHeight="50dp"
             android:text="23:59下午"
             android:textColor="#ff58616d"
+            android:visibility="gone"
             android:textSize="10dp" />
 
         <TextView
@@ -116,7 +117,7 @@
             android:gravity="center"
             android:textColor="#818181"
             android:textSize="15dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/failImageView"

@@ -95,18 +95,18 @@ public class MessageAdapter extends BaseAdapter {
         try {
             String dateString = DateFormat.format("yyyy-MM-dd h:mmaa", message.getTime()).toString();
             String[] t = dateString.split(" ");
-            viewHolder.sendDateTextView.setText(t[0]);
-            viewHolder.sendTimeTextView.setText(t[1]);
-
+            //viewHolder.sendTimeTextView.setText(t[1]);
             if (position == 0) {
                 viewHolder.sendDateTextView.setVisibility(View.VISIBLE);
             } else {
                 //TODO is same day ?
                 Message pmsg = data.get(position - 1);
                 if (inSameDay(pmsg.getTime(), message.getTime())) {
-                    viewHolder.sendDateTextView.setVisibility(View.GONE);
+                    //viewHolder.sendDateTextView.setVisibility(View.GONE);
+                    viewHolder.sendDateTextView.setText(friendlyTime(message.getTime()));
                 } else {
-                    viewHolder.sendDateTextView.setVisibility(View.VISIBLE);
+                    viewHolder.sendDateTextView.setText(t[0]);
+                    //viewHolder.sendDateTextView.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -117,7 +117,7 @@ public class MessageAdapter extends BaseAdapter {
         //设置个人头像
         ImageUtils.loadChatUserImg(context, viewHolder.userAvatarImageView, message.getIsSend() ? Integer.parseInt(message.getFromUserAvatar()) : Integer.parseInt(message.getToUserAvatar()));
 
-        viewHolder.userNameTextView.setText(message.getToUserName());
+        //viewHolder.userNameTextView.setText(message.getToUserName());
 
 
         switch (message.getType()) {
@@ -249,7 +249,6 @@ public class MessageAdapter extends BaseAdapter {
     }
 
 
-
     public List<Message> getData() {
         return data;
     }
@@ -258,6 +257,26 @@ public class MessageAdapter extends BaseAdapter {
         this.data = data;
     }
 
+
+    public static String friendlyTime(Date time) {
+        //获取time距离当前的秒数
+        int ct = (int) ((System.currentTimeMillis() - time.getTime()) / 1000);
+
+        if (ct == 0) {
+            return "刚刚";
+        }
+
+        if (ct > 0 && ct < 60) {
+            return ct + "秒前";
+        }
+
+        String dateString = DateFormat.format("yyyy-MM-dd h:mmaa", time).toString();
+        String[] split = dateString.split(" ");
+        if (ct >= 60) {
+            return split[1];
+        }
+        return "";
+    }
 
     public static boolean inSameDay(Date date1, Date Date2) {
         Calendar calendar = Calendar.getInstance();
@@ -268,7 +287,6 @@ public class MessageAdapter extends BaseAdapter {
         calendar.setTime(Date2);
         int year2 = calendar.get(Calendar.YEAR);
         int day2 = calendar.get(Calendar.DAY_OF_YEAR);
-
         if ((year1 == year2) && (day1 == day2)) {
             return true;
         }
