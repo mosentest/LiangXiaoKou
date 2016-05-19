@@ -60,6 +60,7 @@ public class OtherPresenter {
                 }
             }
         });
+        //查询恋爱日
         BmobNetUtils.queryLove(context, new GetListener<LoveDate>() {
             @Override
             public void onSuccess(LoveDate loveDate) {
@@ -75,6 +76,10 @@ public class OtherPresenter {
         });
     }
 
+    /**
+     * 监听表
+     * @param context
+     */
     public void toListenerTable(final Context context) {
         BmobRealTimeDataUtils.getInstance().start(context, new ValueEventListener() {
             @Override
@@ -92,6 +97,9 @@ public class OtherPresenter {
         });
     }
 
+    /**
+     * 取消监听
+     */
     public void unListenerTable() {
         BmobRealTimeDataUtils.getInstance().unsubRowUpdate(otherView.getTableName(), otherView.getTableNameObjectId());
     }
