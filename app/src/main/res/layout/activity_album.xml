@@ -25,6 +25,8 @@
             android:background="@android:color/white"
             android:enabled="true"
             android:gravity="top"
+            android:hint="请输入此时刻的心情..."
+            android:textColorHint="@color/dark"
             android:inputType="textMultiLine"
             android:maxLines="3"
             android:minLines="3"

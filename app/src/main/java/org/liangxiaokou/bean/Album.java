@@ -1,5 +1,7 @@
 package org.liangxiaokou.bean;
 
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -9,9 +11,13 @@ public class Album extends BmobObject {
     private String username;//用户名称
     private String content;//内容
     private String address;//地址
-    private String[] phones;//照片，最多4张
+    private List<Byte[]> photos;//照片，最多4张
     private String date;//日期
     private Integer type;//类型，表示男女
+
+    private Integer ResImg;//表示左边显示的图
+    private Integer ResColor;//左边显示的颜色
+
 
     public String getUsername() {
         return username;
@@ -37,12 +43,12 @@ public class Album extends BmobObject {
         this.address = address;
     }
 
-    public String[] getPhones() {
-        return phones;
+    public List<Byte[]> getPhotos() {
+        return photos;
     }
 
-    public void setPhones(String[] phones) {
-        this.phones = phones;
+    public void setPhotos(List<Byte[]> photos) {
+        this.photos = photos;
     }
 
     public String getDate() {
@@ -59,5 +65,21 @@ public class Album extends BmobObject {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getResImg() {
+        return ResImg;
+    }
+
+    public void setResImg(Integer resImg) {
+        ResImg = resImg;
+    }
+
+    public Integer getResColor() {
+        return ResColor;
+    }
+
+    public void setResColor(Integer resColor) {
+        ResColor = resColor;
     }
 }

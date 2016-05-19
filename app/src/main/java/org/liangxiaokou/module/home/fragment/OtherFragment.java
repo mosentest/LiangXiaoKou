@@ -208,11 +208,12 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
         mHandler = new StaticHandler(this);
 
+        otherPresenter.checkHasFriend(getActivity());
+
     }
 
     @Override
     protected void onFirstUserVisible() {
-        otherPresenter.checkHasFriend(getActivity());
         otherPresenter.toListenerTable(getActivity());
     }
 

@@ -59,7 +59,7 @@ public class AESUtils {
             return Base64.encodeToString(doFinal, Base64.DEFAULT);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             //VolleyLog.e("use time is %d", System.currentTimeMillis() - time);
         }
     }
@@ -86,4 +86,62 @@ public class AESUtils {
         }
     }
 
+
+    /**
+     * 对bytes进行DES加密
+     *
+     * @param bytes
+     * @return
+     */
+    public static byte[] getEncryptBytes(byte[] bytes) {
+        //long time = System.currentTimeMillis();
+        try {
+            SecretKeySpec key = new SecretKeySpec(getKey(), ALGORITHM);
+            Cipher cipher = Cipher.getInstance("AES/ECB/ZeroBytePadding");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] doFinal = cipher.doFinal(bytes);
+            return Base64.encode(doFinal, Base64.DEFAULT);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            //VolleyLog.e("use time is %d", System.currentTimeMillis() - time);
+        }
+    }
+
+    /**
+     * 对sBytes进行DES解密
+     *
+     * @param sBytes
+     * @return
+     */
+    public static byte[] getDecryptBytes(byte[] sBytes) {
+        //long time = System.currentTimeMillis();
+        try {
+            SecretKeySpec key = new SecretKeySpec(getKey(), ALGORITHM);
+            Cipher cipher = Cipher.getInstance("AES/ECB/ZeroBytePadding");
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] bytes = Base64.decode(sBytes, Base64.DEFAULT);
+            byte[] doFinal = cipher.doFinal(bytes);
+            return doFinal;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            //VolleyLog.e("use time is %d", System.currentTimeMillis() - time);
+        }
+    }
+
+
+    /**
+     * 对数据进行装箱
+     *
+     * @param sBytes
+     * @return
+     */
+    public Byte[] autoBoxing(byte[] sBytes) {
+        Byte[] aByte = new Byte[sBytes.length];
+        for (int i = 0; i < sBytes.length; i++) {
+            aByte[i] = new Byte(sBytes[i]);
+        }
+        return aByte;
+    }
 }

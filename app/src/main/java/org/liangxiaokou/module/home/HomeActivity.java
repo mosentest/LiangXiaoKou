@@ -33,6 +33,7 @@ import org.liangxiaokou.module.home.fragment.AlbumFragment;
 import org.liangxiaokou.module.home.fragment.MeFragment;
 import org.liangxiaokou.module.home.fragment.OtherFragment;
 import org.liangxiaokou.service.BmobIMIntentService;
+import org.liangxiaokou.util.AESUtils;
 import org.liangxiaokou.util.SnackBarUtils;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ToastUtils;
@@ -136,6 +137,7 @@ public class HomeActivity extends GeneralActivity implements
             }
         });
     }
+
     @Override
     public void PreOnStart() {
 

@@ -10,7 +10,7 @@ public class Friend extends BmobObject {
     private String friendUserId;//存储好友的用户id
     private Integer isLove;//是否还是恋爱（0：是，1不是）
     private String friendName;
-    private int status;//状态，1:用户1关注用户2,2:用户1用户2互相关注，等等...
+    private Integer status;//状态，1:用户1关注用户2,2:用户1用户2互相关注，等等...
     private String currentName;
 
     public String getCurrentUserId() {
@@ -45,11 +45,11 @@ public class Friend extends BmobObject {
         this.friendName = friendName;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
