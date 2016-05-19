@@ -10,11 +10,14 @@ public class AlbumBean {
     public AlbumBean() {
     }
 
+    public AlbumBean(String filePath) {
+        this(filePath, false);
+    }
+
     public AlbumBean(String filePath, boolean isPick) {
         this.filePath = filePath;
         this.isPick = isPick;
     }
-
 
     public String getFilePath() {
         return filePath;

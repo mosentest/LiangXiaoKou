@@ -12,6 +12,7 @@
     <ImageView
         android:focusable="false"
         android:id="@+id/image"
+        android:scaleType="centerCrop"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/marquee_add_photo_48" />

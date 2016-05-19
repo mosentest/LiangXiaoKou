@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yalantis.starwars.Const;
+
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bean.User;
@@ -35,6 +37,7 @@ import org.liangxiaokou.module.setlovedate.SetLoveDateActivity;
 import org.liangxiaokou.module.sleep.SleepActivity;
 import org.liangxiaokou.module.timer.TimerActivity;
 import org.liangxiaokou.util.DateUtils;
+import org.liangxiaokou.util.PhotoUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.VolleyLog;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
@@ -58,7 +61,7 @@ import cn.bmob.v3.exception.BmobException;
 
 /**
  * http://www.2cto.com/kf/201506/406053.html
- * <p>
+ * <p/>
  */
 public class OtherFragment extends GeneralFragment implements IOtherView {
 
@@ -66,13 +69,6 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     public final static int change_phone = 0x02;//更换纪念照
 
-    public final static int REQUEST_CODE_PICK_IMAGE = 0x03;//从相册中选图片
-
-    public final static int REQUEST_CODE_PICK_IMAGE_KITKAT = 0x04;//从相册中选图片
-
-    public final static int REQUEST_CODE_CAPTURE_CAMERA = 0x05;//拍照
-
-    public final static int CROP_REQUEST_CODE = 0x06;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView tvOtherName;
@@ -110,11 +106,11 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
             if (fragment != null) {
 
                 switch (msg.what) {
-                    case REQUEST_CODE_PICK_IMAGE:
+                    case Constants.REQUEST_CODE_PICK_IMAGE:
                         Uri uri = (Uri) msg.obj;
-                        fragment.startImageZoom(fragment.convertUri(uri));
+                        fragment.startImageZoom(PhotoUtils.convertUri(fragment.getActivity(), uri, PhotoUtils.getImageFile(Constants.SAVE_IMAGE_DIR_PATH, Constants.OTHER_FRAGMENT_PHONE)));
                         break;
-                    case REQUEST_CODE_CAPTURE_CAMERA:
+                    case Constants.REQUEST_CODE_CAPTURE_CAMERA:
                         Uri uri_camera = (Uri) msg.obj;
                         fragment.startImageZoom(uri_camera);
                         break;
@@ -243,7 +239,7 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
                 startActivityForResult(SetLoveDateActivity.class, update_Love_Date);
                 break;
             case R.id.iv_other_camera:
-                photoDialog = new NormalListDialog(getContext(), new String[]{"拍照", "相册"});
+                photoDialog = new NormalListDialog(getContext(), new String[]{"拍照(建议横屏拍照，效果更好)", "相册"});
                 photoDialog.titleBgColor(getContext().getResources().getColor(R.color.system_color));
                 photoDialog.title("请选择");
                 photoDialog.itemTextSize(16);
@@ -254,16 +250,16 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
                         switch (position) {
                             case 0:
                                 Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMERA);
+                                startActivityForResult(getImageByCamera, Constants.REQUEST_CODE_CAPTURE_CAMERA);
                                 break;
                             case 1:
                                 Intent pick_intent = new Intent(Intent.ACTION_GET_CONTENT);
                                 pick_intent.addCategory(Intent.CATEGORY_OPENABLE);
                                 pick_intent.setType("image/*");//相片类型
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                    startActivityForResult(pick_intent, REQUEST_CODE_PICK_IMAGE_KITKAT);
+                                    startActivityForResult(pick_intent, Constants.REQUEST_CODE_PICK_IMAGE_KITKAT);
                                 } else {
-                                    startActivityForResult(pick_intent, REQUEST_CODE_PICK_IMAGE);
+                                    startActivityForResult(pick_intent, Constants.REQUEST_CODE_PICK_IMAGE);
                                 }
                                 break;
                             case 2:
@@ -313,20 +309,20 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         Message message = null;
         switch (requestCode) {
-            case REQUEST_CODE_PICK_IMAGE:
-            case REQUEST_CODE_PICK_IMAGE_KITKAT:
+            case Constants.REQUEST_CODE_PICK_IMAGE:
+            case Constants.REQUEST_CODE_PICK_IMAGE_KITKAT:
                 //相册
                 if (data == null) {
                     return;
                 }
                 alertDialog.show();
                 message = new Message();
-                message.what = REQUEST_CODE_PICK_IMAGE;
+                message.what = Constants.REQUEST_CODE_PICK_IMAGE;
                 Uri uri = data.getData();
                 message.obj = uri;
                 mHandler.sendMessage(message);
                 break;
-            case REQUEST_CODE_CAPTURE_CAMERA:
+            case Constants.REQUEST_CODE_CAPTURE_CAMERA:
                 //拍照
                 if (data == null) {
                     return;
@@ -335,14 +331,14 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
                     if (extras != null) {
                         alertDialog.show();
                         message = new Message();
-                        message.what = REQUEST_CODE_CAPTURE_CAMERA;
+                        message.what = Constants.REQUEST_CODE_CAPTURE_CAMERA;
                         Bitmap bm = extras.getParcelable("data");
-                        message.obj = saveBitmap(bm);
+                        message.obj = PhotoUtils.saveBitmap(bm, PhotoUtils.getImageFile(Constants.SAVE_IMAGE_DIR_PATH, Constants.OTHER_FRAGMENT_PHONE));
                         mHandler.sendMessage(message);
                     }
                 }
                 break;
-            case CROP_REQUEST_CODE:
+            case Constants.CROP_REQUEST_CODE:
                 alertDialog.hide();
                 if (data == null) {
                     return;
@@ -357,118 +353,6 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         }
     }
 
-
-    /**
-     * 获取图片的路径
-     */
-    private File getImageFile() {
-        File tmpDir = new File(Environment.getExternalStorageDirectory(), Constants.SAVE_IMAGE_DIR_PATH);
-        if (!tmpDir.exists()) {
-            tmpDir.mkdirs();
-        }
-        File outputImage = new File(tmpDir.getAbsolutePath() + File.separator + "other_home.png");
-        if (outputImage.exists()) {
-            outputImage.delete();
-        }
-        try {
-            outputImage.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return outputImage;
-    }
-
-    /**
-     * 转换uri
-     *
-     * @param uri
-     * @return
-     */
-    private Uri convertUri(Uri uri) {
-        InputStream is = null;
-        try {
-            is = getActivity().getContentResolver().openInputStream(uri);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = false;
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            options.inSampleSize = 10;   //width，hight设为原来的十分一
-            Bitmap bitmap = BitmapFactory.decodeStream(is, null, options);
-            is.close();
-            return saveBitmap(bitmap);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-        }
-    }
-
-
-    /**
-     * 保存图片
-     *
-     * @param bm
-     * @return
-     */
-    private Uri saveBitmap(Bitmap bm) {
-        File imageFile = getImageFile();
-        long time = System.currentTimeMillis();
-        try {
-            FileOutputStream fos = new FileOutputStream(imageFile);
-            bm.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-            VolleyLog.e("%s", "保存图片成功");
-            return Uri.fromFile(imageFile);
-        } catch (FileNotFoundException e) {
-            VolleyLog.e("%s", e.getMessage());
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            VolleyLog.e("%s", e.getMessage());
-            return null;
-        } finally {
-            VolleyLog.e("%s", (System.currentTimeMillis() - time) + ".s");
-        }
-    }
-
-
-    /**
-     * 计算图片的缩放值
-     */
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-        if (height > reqHeight || width > reqWidth) {
-            final int heightRatio = Math.round((float) height / (float) reqHeight);
-            final int widthRatio = Math.round((float) width / (float) reqWidth);
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-        }
-        return inSampleSize;
-    }
-
-    /**
-     * 根据路径获得图片并压缩，返回bitmap用于显示
-     */
-    public static Bitmap getSmallBitmap(String filePath) {
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        //设置inJustDecodeBounds为true后，decodeFile并不分配空间，但可计算出原始图片的长度和宽度，即opts.width和opts.height
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(filePath, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, 480, 800);
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        // 设置为true，画质更好一点，加载时间略长
-        options.inPreferQualityOverSpeed = true;
-
-        return BitmapFactory.decodeFile(filePath, options);
-    }
 
     /**
      * 剪裁图片
@@ -487,7 +371,7 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         intent.putExtra("outputX", 600);
         intent.putExtra("outputY", 400);
         intent.putExtra("return-data", true);
-        startActivityForResult(intent, CROP_REQUEST_CODE);
+        startActivityForResult(intent, Constants.CROP_REQUEST_CODE);
     }
 
     @Override

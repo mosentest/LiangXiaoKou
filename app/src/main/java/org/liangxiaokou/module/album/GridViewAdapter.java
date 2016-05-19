@@ -1,6 +1,7 @@
 package org.liangxiaokou.module.album;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +56,8 @@ public class GridViewAdapter extends BaseAdapter {
         if (albumBean.isPick()) {
             viewHolder.imageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.marquee_add_photo_48));
         } else {
-            //
-            viewHolder.imageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.face_btn_normal));
+            //设置图片
+            viewHolder.imageView.setImageURI(Uri.parse(albumBean.getFilePath()));
         }
         return convertView;
     }
