@@ -3,6 +3,7 @@ package org.liangxiaokou.util;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 
@@ -128,6 +129,42 @@ public class PhotoUtils {
         options.inPreferQualityOverSpeed = true;
 
         return BitmapFactory.decodeFile(filePath, options);
+    }
+
+
+    public Bitmap getRotateBitmap(int type, String bitmapPath) { // type 1
+        // 竖屏显示图片，2
+        // 横屏显示图片
+
+        Bitmap bitmap = BitmapFactory.decodeFile(bitmapPath);
+
+        Bitmap resultBitmap = bitmap;
+        int height = bitmap.getHeight();
+        int width = bitmap.getWidth();
+
+        //System.out.println("获取的bitmap 宽和高：" + width + "：" + height);
+
+        switch (type) {
+            case 1: // 竖屏显示图片,需要偏高
+                if (height < width) {
+                    // 如果长度小于宽度，则需要选择，否则不需要旋转，只要将option修改即可
+                    Matrix mmMatrix = new Matrix();
+                    mmMatrix.postRotate(90f);
+                    resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mmMatrix, true);
+                }
+                break;
+            case 2: // 横屏显示图片，需要偏长
+                if (height > width) {
+                    // 如果宽度小于长度
+                    Matrix mmMatrix = new Matrix();
+                    mmMatrix.postRotate(90f);
+                    resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mmMatrix, true);
+                }
+                break;
+            default:
+                break;
+        }
+        return resultBitmap;
     }
 
 }

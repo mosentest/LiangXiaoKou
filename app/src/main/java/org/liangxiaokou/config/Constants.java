@@ -25,6 +25,8 @@ public class Constants {
 
     public static final String SAVE_IMAGE_DIR_PATH = APP_NAME + "/image";
 
+    public static final String SAVE_IMAGE_ALBUM_DIR_PATH = APP_NAME + "/album_image";
+
     public static final String PNG = ".png";
 
     public static final String OTHER_FRAGMENT_PHONE = "other_home" + PNG;

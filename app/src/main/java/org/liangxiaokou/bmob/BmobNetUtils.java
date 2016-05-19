@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.bean.Friend;
+import org.liangxiaokou.bean.LoveDate;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.util.ToastUtils;
 
@@ -35,20 +36,68 @@ public class BmobNetUtils {
      * @param context
      * @param email
      * @param password
-     * @param saveListener
+     * @param bmobListener
      */
-    public static void signUp(Context context, String email, String password, SaveListener saveListener) {
-        User user = new User();
+    public static void signUp(final Context context, final String email, final String password, final BmobListener bmobListener) {
+        final User user = new User();
         user.setUsername(email);
         user.setPassword(password);
         user.setEmail(email);
         user.setNick("");//默认为空
         user.setSex(1);//默认设置为女
         user.setIsOk(false);//默认没完善信息
+        user.setMood("我爱小俩口app");
+        user.setLoveDateObjectId("-1");
         user.setHaveLove(false);
         //邮箱验证
         user.setEmailVerified(true);
-        user.signUp(context.getApplicationContext(), saveListener);
+        //注册用户
+        user.signUp(context.getApplicationContext(), new SaveListener() {
+            @Override
+            public void onSuccess() {
+                //插入love记录
+                final LoveDate loveDate = new LoveDate();
+                loveDate.setLoveDate("");
+                loveDate.save(context.getApplicationContext(), new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        //执行更新用户信息
+                        User updateUser = new User();
+                        updateUser.setObjectId(user.getObjectId());
+                        updateUser.setUsername(email);
+                        updateUser.setPassword(password);
+                        updateUser.setEmail(email);
+                        updateUser.setNick("");//默认为空
+                        updateUser.setSex(1);//默认设置为女
+                        updateUser.setIsOk(false);//默认没完善信息
+                        updateUser.setMood("我爱小俩口app");
+                        updateUser.setLoveDateObjectId(loveDate.getObjectId());
+                        updateUser.setHaveLove(false);
+                        BmobNetUtils.updateUserInfo(context, updateUser, user.getObjectId(), new UpdateListener() {
+                            @Override
+                            public void onSuccess() {
+                                bmobListener.onSuccess();
+                            }
+
+                            @Override
+                            public void onFailure(int i, String s) {
+                                bmobListener.onFailure(i, s);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        bmobListener.onFailure(i, s);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                bmobListener.onFailure(i, s);
+            }
+        });
     }
 
     /**

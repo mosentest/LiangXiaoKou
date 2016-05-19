@@ -146,7 +146,7 @@ public class AlbumActivity extends ToolBarActivity {
                     return;
                 }
                 alertDialog.show();
-                imageFile = PhotoUtils.getImageFile(Constants.SAVE_IMAGE_DIR_PATH, Constants.ALBUM_ACTIVITY_PHONE + position + Constants.PNG);
+                imageFile = PhotoUtils.getImageFile(Constants.SAVE_IMAGE_ALBUM_DIR_PATH, Constants.ALBUM_ACTIVITY_PHONE + position + Constants.PNG);
                 Uri uri = data.getData();
                 PhotoUtils.convertUri(this, uri, imageFile);
                 gridViewAdapter.addData(new AlbumBean(imageFile.getPath()));
@@ -159,7 +159,7 @@ public class AlbumActivity extends ToolBarActivity {
                     Bundle extras = data.getExtras();
                     if (extras != null) {
                         alertDialog.show();
-                        imageFile = PhotoUtils.getImageFile(Constants.SAVE_IMAGE_DIR_PATH, Constants.ALBUM_ACTIVITY_PHONE + position + Constants.PNG);
+                        imageFile = PhotoUtils.getImageFile(Constants.SAVE_IMAGE_ALBUM_DIR_PATH, Constants.ALBUM_ACTIVITY_PHONE + position + Constants.PNG);
                         Bitmap bm = extras.getParcelable("data");
                         PhotoUtils.saveBitmap(bm, imageFile);
                         gridViewAdapter.addData(new AlbumBean(imageFile.getPath()));

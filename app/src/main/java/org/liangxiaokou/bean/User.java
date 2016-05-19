@@ -11,6 +11,7 @@ public class User extends BmobUser {
     private Boolean isOk;//是否完善个人信息
     private Boolean haveLove;//是否含有另一半
     private String mood;//心情
+    private String loveDateObjectId;//设置love
 
     public User() {
     }
@@ -61,4 +62,21 @@ public class User extends BmobUser {
     public void setMood(String mood) {
         this.mood = mood;
     }
+
+    public Boolean getOk() {
+        return isOk;
+    }
+
+    public void setOk(Boolean ok) {
+        isOk = ok;
+    }
+
+    public String getLoveDateObjectId() {
+        return loveDateObjectId;
+    }
+
+    public void setLoveDateObjectId(String loveDateObjectId) {
+        this.loveDateObjectId = loveDateObjectId;
+    }
+
 }

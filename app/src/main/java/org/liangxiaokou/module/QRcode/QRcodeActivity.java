@@ -60,7 +60,7 @@ public class QRcodeActivity extends ToolBarActivity implements IQRcodeView {
         StringBuilder urlBuilder = new StringBuilder()
                 .append(Constants.author)
                 .append("&")
-                .append(Constants.author)
+                .append(Constants.APP_NAME)
                 .append("&")
                 .append(currentUser.getObjectId())
                 .append("&")

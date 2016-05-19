@@ -1,24 +1,17 @@
 package org.liangxiaokou.bean;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by Administrator on 2015/12/17.
  */
-public class Album {
-    private int id;//编号
+public class Album extends BmobObject {
     private String username;//用户名称
     private String content;//内容
     private String address;//地址
     private String[] phones;//照片，最多4张
     private String date;//日期
-    private int type;//类型，表示男女
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private Integer type;//类型，表示男女
 
     public String getUsername() {
         return username;
@@ -60,11 +53,11 @@ public class Album {
         this.date = date;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 }

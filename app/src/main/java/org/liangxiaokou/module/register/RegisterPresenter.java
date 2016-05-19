@@ -3,6 +3,7 @@ package org.liangxiaokou.module.register;
 import android.content.Context;
 import android.text.TextUtils;
 
+import org.liangxiaokou.bmob.BmobListener;
 import org.liangxiaokou.bmob.BmobNetUtils;
 import org.liangxiaokou.util.ToastUtils;
 
@@ -41,7 +42,7 @@ public class RegisterPresenter {
         BmobNetUtils.signUp(context,
                 registerView.getUsername(),
                 registerView.getPassword(),
-                new SaveListener() {
+                new BmobListener() {
                     @Override
                     public void onSuccess() {
                         registerView.onSuccess();

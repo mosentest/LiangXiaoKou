@@ -25,6 +25,7 @@ import com.umeng.update.UpdateStatus;
 
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.bean.User;
+import org.liangxiaokou.bmob.BmobIMNetUtils;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.album.AlbumActivity;
 import org.liangxiaokou.module.feedback.FeedBackActivity;
@@ -36,10 +37,16 @@ import org.liangxiaokou.util.SnackBarUtils;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.ViewPagerAdapter;
+import org.liangxiaokou.util.VolleyLog;
 import org.mo.netstatus.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.newim.core.ConnectionStatus;
+import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.ConnectStatusChangeListener;
+import cn.bmob.v3.exception.BmobException;
 
 /**
  * http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android
@@ -79,14 +86,56 @@ public class HomeActivity extends GeneralActivity implements
         broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
         sendBroadcast(broadcastIntent);
 
-        //启动连接IM服务的service
-        Intent intent = new Intent(this, BmobIMIntentService.class);
         User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
-        intent.putExtra(BmobIMIntentService.USER_ID, currentUser.getObjectId());
-        intent.setAction(BmobIMIntentService.ACTION_IM);
-        startService(intent);
+        //启动连接IM服务的service
+//        Intent intent = new Intent(this, BmobIMIntentService.class);
+//        intent.putExtra(BmobIMIntentService.USER_ID, currentUser.getObjectId());
+//        intent.setAction(BmobIMIntentService.ACTION_IM);
+//        startService(intent);
+
+        connect(currentUser.getObjectId());
+        handleActionIM(currentUser.getObjectId());
     }
 
+
+    private void handleActionIM(final String userId) {
+        BmobIMNetUtils.IMConnectStatusChangeListener(new ConnectStatusChangeListener() {
+            @Override
+            public void onChange(ConnectionStatus connectionStatus) {
+                switch (connectionStatus) {
+                    case DISCONNECT:
+                        connect(userId);
+                    case CONNECTING:
+                        break;
+                    case CONNECTED:
+                        break;
+                    case NETWORK_UNAVAILABLE:
+                        ToastUtils.toast(getApplicationContext(), "请打开网络");
+                        break;
+                    case KICK_ASS:
+                        ToastUtils.toast(getApplicationContext(), "检查到在其他手机登录");
+                        break;
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 连接IM
+     */
+    private void connect(String userId) {
+        BmobIMNetUtils.connect(userId, new ConnectListener() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+                    VolleyLog.e("BmobIMIntentService %s", "bmob connect success");
+                } else {
+                    VolleyLog.e("BmobIMIntentService %s", e.getErrorCode() + "/" + e.getMessage());
+                }
+            }
+        });
+    }
     @Override
     public void PreOnStart() {
 
