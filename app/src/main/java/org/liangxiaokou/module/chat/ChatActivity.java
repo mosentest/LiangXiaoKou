@@ -2,6 +2,7 @@ package org.liangxiaokou.module.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,6 +63,14 @@ public class ChatActivity extends ToolBarActivity implements OnOperationListener
 
     private final static int LIMIT = 30;
 
+
+    private static Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(android.os.Message msg) {
+            return false;
+        }
+    });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +78,36 @@ public class ChatActivity extends ToolBarActivity implements OnOperationListener
         showActionBarBack(true);
         EventBus.getDefault().register(this);
         Intent intent = getIntent();
-        BmobIMUserInfo bmobIMFriendUserInfo = (BmobIMUserInfo) intent.getSerializableExtra("OtherFragment_bmobIMFriendUserInfo");
+        bmobIMConversation = (BmobIMConversation) intent.getSerializableExtra("OtherFragment_bmobIMConversation");
+        bmobIMFriendUserInfo = (BmobIMUserInfo) intent.getSerializableExtra("OtherFragment_bmobIMFriendUserInfo");
+        //getSupportActionBar().setTitle(String.format(getResources().getString(R.string.chat_friend), bmobIMFriendUserInfo.getName()));
+        currentUser = User.getCurrentUser(this, User.class);
+        //在聊天页面的onCreate方法中，通过如下方法创建新的会话实例
+        conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), bmobIMConversation);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                conversation.queryMessages(null, LIMIT, new MessagesQueryListener() {
+                    @Override
+                    public void done(List<BmobIMMessage> list, BmobException e) {
+                        if (e == null) {
+                            if (list != null && list.size() > 0) {
+                                ArrayList<Message> messageArrayList = new ArrayList<>();
+                                for (BmobIMMessage bmobIMMessage : list) {
+                                    Message message = BmobIMMessage2Message(bmobIMMessage);
+                                    messageArrayList.add(message);
+                                }
+                                adapter.getData().addAll(messageArrayList);
+                                adapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            ToastUtils.toast(getApplicationContext(), e.getMessage());
+                        }
+
+                    }
+                });
+            }
+        }, Constants._TIME);
         getSupportActionBar().setTitle(String.format(getResources().getString(R.string.chat_friend), bmobIMFriendUserInfo.getName()));
     }
 
@@ -141,32 +179,6 @@ public class ChatActivity extends ToolBarActivity implements OnOperationListener
 
     @Override
     public void initData() {
-        Intent intent = getIntent();
-        bmobIMConversation = (BmobIMConversation) intent.getSerializableExtra("OtherFragment_bmobIMConversation");
-        bmobIMFriendUserInfo = (BmobIMUserInfo) intent.getSerializableExtra("OtherFragment_bmobIMFriendUserInfo");
-        //getSupportActionBar().setTitle(String.format(getResources().getString(R.string.chat_friend), bmobIMFriendUserInfo.getName()));
-        currentUser = User.getCurrentUser(this, User.class);
-        //在聊天页面的onCreate方法中，通过如下方法创建新的会话实例
-        conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), bmobIMConversation);
-        conversation.queryMessages(null, LIMIT, new MessagesQueryListener() {
-            @Override
-            public void done(List<BmobIMMessage> list, BmobException e) {
-                if (e == null) {
-                    if (list != null && list.size() > 0) {
-                        ArrayList<Message> messageArrayList = new ArrayList<>();
-                        for (BmobIMMessage bmobIMMessage : list) {
-                            Message message = BmobIMMessage2Message(bmobIMMessage);
-                            messageArrayList.add(message);
-                        }
-                        adapter.getData().addAll(messageArrayList);
-                        adapter.notifyDataSetChanged();
-                    }
-                } else {
-                    ToastUtils.toast(getApplicationContext(), e.getMessage());
-                }
-
-            }
-        });
     }
 
 

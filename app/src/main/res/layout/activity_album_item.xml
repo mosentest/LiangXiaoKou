@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:focusable="false"
+    android:padding="10dp"
+    tools:context="org.liangxiaokou.module.album.AlbumActivity">
+
+    <ImageView
+        android:focusable="false"
+        android:id="@+id/image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/marquee_add_photo_48" />
+
+</LinearLayout>

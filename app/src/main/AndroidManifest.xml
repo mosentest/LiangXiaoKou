@@ -261,7 +261,7 @@
             android:name=".album.AlbumActivity"
             android:screenOrientation="portrait"
             android:label="@string/album_activity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
     </application>
