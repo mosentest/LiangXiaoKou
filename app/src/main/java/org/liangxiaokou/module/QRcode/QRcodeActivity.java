@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
@@ -146,8 +147,8 @@ public class QRcodeActivity extends ToolBarActivity implements IQRcodeView {
                                 BmobNetUtils.updateUserInfo(getApplicationContext(), user, currentUser.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void onSuccess() {
+                                        MApplication.getInstance().AppExit();
                                         startActivity(HomeActivity.class);
-                                        finish();
                                     }
 
                                     @Override

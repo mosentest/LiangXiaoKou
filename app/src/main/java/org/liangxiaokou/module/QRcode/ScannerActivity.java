@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.google.zxing.Result;
 
+import org.liangxiaokou.app.MApplication;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.config.Constants;
@@ -159,8 +160,8 @@ public class ScannerActivity extends ToolBarActivity implements ZXingScannerView
 
     @Override
     public void onSuccess() {
+        MApplication.getInstance().AppExit();
         startActivity(HomeActivity.class);
-        finish();
     }
 
     @Override

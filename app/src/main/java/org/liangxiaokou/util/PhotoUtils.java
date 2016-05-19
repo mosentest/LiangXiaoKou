@@ -55,7 +55,7 @@ public class PhotoUtils {
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             options.inPreferQualityOverSpeed = true;
             //1kb = 1024b,1mb = 1024kb
-            if (is.available() > 1024 * 1024) {
+            if (is.available() > 100 * 1024) {
                 options.inSampleSize = 10;
             }
             Bitmap bitmap = BitmapFactory.decodeStream(is, null, options);
