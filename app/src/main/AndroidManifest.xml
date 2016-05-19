@@ -259,11 +259,13 @@
 
         <activity
             android:name=".album.AlbumActivity"
-            android:screenOrientation="portrait"
             android:label="@string/album_activity"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
-        </activity>
+        <service
+            android:name=".album.UploadAlbumService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
