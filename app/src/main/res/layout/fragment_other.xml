@@ -60,7 +60,7 @@
                         android:id="@+id/tv_other_love_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="已相恋162天"
+                        android:text="已相恋0天"
                         android:textColor="@color/selector_tv_textcolor"
                         android:textSize="@dimen/normal_content_size" />
                 </com.facebook.shimmer.ShimmerFrameLayout>

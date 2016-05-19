@@ -2,28 +2,31 @@ package org.liangxiaokou.module.home.fragment;
 
 import android.content.Context;
 
+import org.json.JSONObject;
 import org.liangxiaokou.bean.Friend;
+import org.liangxiaokou.bean.LoveDate;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobNetUtils;
+import org.liangxiaokou.bmob.BmobRealTimeDataUtils;
 import org.liangxiaokou.config.Constants;
-import org.liangxiaokou.util.VolleyLog;
 
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobQueryResult;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.SQLQueryListener;
+import cn.bmob.v3.listener.ValueEventListener;
 
 /**
  * Created by Administrator on 2016/4/23.
  */
 public class OtherPresenter {
-    private IOtherView iHomeView;
+    private IOtherView otherView;
 
-    public OtherPresenter(IOtherView iHomeView) {
-        this.iHomeView = iHomeView;
+    public OtherPresenter(IOtherView otherView) {
+        this.otherView = otherView;
     }
 
     /**
@@ -36,7 +39,7 @@ public class OtherPresenter {
             @Override
             public void done(BmobQueryResult<Friend> bmobQueryResult, BmobException e) {
                 if (e != null) {
-                    iHomeView.onFailure(Constants.other_code, e.getMessage());
+                    otherView.onFailure(Constants.other_code, e.getMessage());
                     return;
                 }
                 if (bmobQueryResult != null) {
@@ -48,14 +51,48 @@ public class OtherPresenter {
                     //获取朋友
                     for (Friend friend : results) {
                         if (userId.equals(friend.getCurrentUserId())) {
-                            iHomeView.hasFriend(friend);
+                            otherView.hasFriend(friend);
                             break;
                         }
                     }
                 } else {
-                    iHomeView.noFriend();
+                    otherView.noFriend();
                 }
             }
         });
+        BmobNetUtils.queryLove(context, new GetListener<LoveDate>() {
+            @Override
+            public void onSuccess(LoveDate loveDate) {
+                if (loveDate != null && !"".equals(loveDate.getLoveDate())) {
+                    otherView.onSuccess(loveDate);
+                }
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                otherView.onFailure(i, s);
+            }
+        });
+    }
+
+    public void toListenerTable(final Context context) {
+        BmobRealTimeDataUtils.getInstance().start(context, new ValueEventListener() {
+            @Override
+            public void onConnectCompleted() {
+                if (BmobRealTimeDataUtils.getInstance().isConnected()) {
+                    // 监听表更新
+                    BmobRealTimeDataUtils.getInstance().subRowUpdate(otherView.getTableName(), otherView.getTableNameObjectId());
+                }
+            }
+
+            @Override
+            public void onDataChange(JSONObject jsonObject) {
+                otherView.toListenerData(jsonObject);
+            }
+        });
+    }
+
+    public void unListenerTable() {
+        BmobRealTimeDataUtils.getInstance().unsubRowUpdate(otherView.getTableName(), otherView.getTableNameObjectId());
     }
 }

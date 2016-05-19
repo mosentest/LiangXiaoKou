@@ -24,10 +24,14 @@ import android.widget.TextView;
 
 import com.yalantis.starwars.Const;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.bean.Friend;
+import org.liangxiaokou.bean.LoveDate;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobIMNetUtils;
+import org.liangxiaokou.bmob.BmobRealTimeDataUtils;
 import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.module.chat.ChatActivity;
@@ -36,6 +40,7 @@ import org.liangxiaokou.module.invite.InviteActivity;
 import org.liangxiaokou.module.setlovedate.SetLoveDateActivity;
 import org.liangxiaokou.module.sleep.SleepActivity;
 import org.liangxiaokou.module.timer.TimerActivity;
+import org.liangxiaokou.util.AESUtils;
 import org.liangxiaokou.util.DateUtils;
 import org.liangxiaokou.util.PhotoUtils;
 import org.liangxiaokou.util.ToastUtils;
@@ -57,6 +62,7 @@ import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.listener.ConversationListener;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.ValueEventListener;
 
 
 /**
@@ -174,8 +180,19 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         ivOtherContact = (RedTipImageView) view.findViewById(R.id.iv_other_contact);
 
         swipeRefreshLayout.setRefreshing(false);
-        String sDate = "2015-07-14";
-        tvOtherLoveDate.setText("已恋爱" + DateUtils.getDaySub(sDate) + "天");
+//        String sDate = "2015-07-14";
+//        tvOtherLoveDate.setText("已恋爱" + DateUtils.getDaySub(sDate) + "天");
+        BmobRealTimeDataUtils.getInstance().start(getActivity(), new ValueEventListener() {
+            @Override
+            public void onConnectCompleted() {
+
+            }
+
+            @Override
+            public void onDataChange(JSONObject jsonObject) {
+
+            }
+        });
         tvOtherLoveDate.setOnClickListener(this);
         ivOtherCamera.setOnClickListener(this);
         rlOtherExist.setOnClickListener(this);
@@ -195,7 +212,8 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     @Override
     protected void onFirstUserVisible() {
-        otherPresenter.checkHasFriend(getContext());
+        otherPresenter.checkHasFriend(getActivity());
+        otherPresenter.toListenerTable(getActivity());
     }
 
     @Override
@@ -229,6 +247,7 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     @Override
     public void PreOnDestroy() {
+        otherPresenter.unListenerTable();
     }
 
     @Override
@@ -385,6 +404,35 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
         User currentUser = User.getCurrentUser(getContext(), User.class);
         ImageUtils.loadImgResourceId(getContext(), ivOtherHeader, currentUser.getSex() != 0 ? R.mipmap.boy : R.mipmap.gril);
         tvOtherName.setText(friend.getFriendName());
+    }
+
+    @Override
+    public void onSuccess(LoveDate loveDate) {
+        tvOtherLoveDate.setText("已恋爱" + DateUtils.getDaySub(AESUtils.getDecryptString(loveDate.getLoveDate())) + "天");
+    }
+
+    @Override
+    public String getTableName() {
+        return "LoveDate";
+    }
+
+    @Override
+    public String getTableNameObjectId() {
+        return User.getCurrentUser(getActivity(), User.class).getLoveDateObjectId();
+    }
+
+    @Override
+    public String toListenerData(JSONObject jsonObject) {
+        VolleyLog.e("%s", jsonObject);
+        try {
+            JSONObject data = jsonObject.getJSONObject("data");
+            data.getString("loveDate");
+            //String sDate = "2015-07-14";
+            tvOtherLoveDate.setText("已恋爱" + DateUtils.getDaySub(AESUtils.getDecryptString(data.getString("loveDate"))) + "天");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

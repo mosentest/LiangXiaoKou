@@ -17,6 +17,7 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobRealTimeData;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SQLQueryListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -242,5 +243,30 @@ public class BmobNetUtils {
         currentFriend.save(context.getApplicationContext(), saveListener);
     }
 
+
+    /**
+     * 更新恋爱日
+     *
+     * @param context
+     * @param sloveDate
+     * @param updateListener
+     */
+    public static void updateLove(Context context, String sloveDate, UpdateListener updateListener) {
+        LoveDate loveDate = new LoveDate();
+        loveDate.setLoveDate(sloveDate);
+        loveDate.update(context.getApplicationContext(), User.getCurrentUser(context, User.class).getLoveDateObjectId(), updateListener);
+    }
+
+
+    /**
+     * 查询恋爱日
+     *
+     * @param context
+     * @param listener
+     */
+    public static void queryLove(Context context, GetListener<LoveDate> listener) {
+        BmobQuery<LoveDate> query = new BmobQuery<LoveDate>();
+        query.getObject(context.getApplicationContext(), User.getCurrentUser(context, User.class).getLoveDateObjectId(), listener);
+    }
 
 }

@@ -15,18 +15,21 @@ import com.bigkoo.pickerview.TimePickerView;
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.module.R;
 import org.liangxiaokou.util.DateUtils;
+import org.liangxiaokou.util.ToastUtils;
 import org.mo.netstatus.NetUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class SetLoveDateActivity extends ToolBarActivity  implements TextWatcher {
+public class SetLoveDateActivity extends ToolBarActivity implements TextWatcher, ISetLoveDateView {
 
     private static final java.lang.String TAG = "SetLoveDateActivity";
 
     private TextInputLayout textInputDate;
 
     private TimePickerView pvTime;
+
+    private SetLoveDatePresenter setLoveDatePresenter = new SetLoveDatePresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class SetLoveDateActivity extends ToolBarActivity  implements TextWatcher
                 if (!dateFormat) {
                     showToast("格式不正确，例如2015-02-14");
                 }
+                setLoveDatePresenter.updateLove(getApplicationContext());
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -77,7 +81,6 @@ public class SetLoveDateActivity extends ToolBarActivity  implements TextWatcher
     protected void onNetworkDisConnected() {
 
     }
-
 
 
     @Override
@@ -170,5 +173,30 @@ public class SetLoveDateActivity extends ToolBarActivity  implements TextWatcher
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    @Override
+    public String getLoveDate() {
+        return textInputDate.getEditText().getText().toString();
+    }
+
+    @Override
+    public void showLoading() {
+        alertDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        alertDialog.hide();
+    }
+
+    @Override
+    public void onSuccess() {
+        finish();
+    }
+
+    @Override
+    public void onFailure(int code, String msg) {
+        ToastUtils.toast(getApplicationContext(), msg);
     }
 }
