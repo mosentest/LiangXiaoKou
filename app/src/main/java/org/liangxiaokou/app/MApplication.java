@@ -46,23 +46,22 @@ public class MApplication extends Application {
             BmobIM.registerDefaultMessageHandler(new BmobMessageHandler(this));
             //检测代码问题
             LeakCanary.install(this);
-            try {
-                /**
-                 * 添加网络权限，安卓4.03必须
-                 */
-                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                        .detectDiskReads().detectDiskWrites().detectNetwork()
-                        .penaltyLog().build());
-                StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                        .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
-                        .penaltyLog().penaltyDeath().build());
-                /**
-                 * 添加网络权限，安卓4.03必须
-                 */
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                /**
+//                 * 添加网络权限，安卓4.03必须
+//                 */
+//                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//                        .detectDiskReads().detectDiskWrites().detectNetwork()
+//                        .penaltyLog().build());
+//                StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+//                        .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
+//                        .penaltyLog().penaltyDeath().build());
+//                /**
+//                 * 添加网络权限，安卓4.03必须
+//                 */
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
     }
 

@@ -63,8 +63,6 @@ public class XLKIntentService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_IM.equals(action)) {
                 final String userId = intent.getStringExtra(USER_ID);
-                //实现调用链接IM
-                connect(userId);
                 handleActionIM(userId);
             } else if (ACTION_UPLOAD_ALBUM.equals(action)) {
                 //实现发布纪念册的内容

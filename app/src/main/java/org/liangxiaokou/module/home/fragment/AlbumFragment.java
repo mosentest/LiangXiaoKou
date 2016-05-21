@@ -21,6 +21,7 @@ import org.liangxiaokou.app.GeneralFragment;
 import org.liangxiaokou.util.VolleyLog;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cn.bmob.v3.listener.FindListener;
@@ -34,10 +35,6 @@ public class AlbumFragment extends GeneralFragment implements XRecyclerView.Load
     private XRecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private AlbumViewAdapter mAlbumViewAdapter;
-
-    private int refreshTime = 0;
-    private int times = 0;
-
 
     public AlbumFragment() {
         // Required empty public constructor
@@ -79,8 +76,6 @@ public class AlbumFragment extends GeneralFragment implements XRecyclerView.Load
         mRecyclerView.setAdapter(mAlbumViewAdapter);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setLoadingListener(this);
-        //执行刷新
-        mRecyclerView.setRefreshing(true);
     }
 
     @Subscribe
@@ -94,6 +89,8 @@ public class AlbumFragment extends GeneralFragment implements XRecyclerView.Load
 
     @Override
     protected void onFirstUserVisible() {
+        //执行刷新
+        mRecyclerView.setRefreshing(true);
     }
 
     @Override
@@ -142,14 +139,13 @@ public class AlbumFragment extends GeneralFragment implements XRecyclerView.Load
         BmobNetUtils.queryAlbums(getActivity(), 0, new FindListener<Album>() {
             @Override
             public void onSuccess(List<Album> list) {
-                VolleyLog.e("%s", "-------------------");
+                Collections.reverse(list);
                 mAlbumViewAdapter.refreshData(list);
                 mRecyclerView.refreshComplete();
             }
 
             @Override
             public void onError(int i, String s) {
-                VolleyLog.e("%s", i + "---" + s);
                 mRecyclerView.refreshComplete();
             }
         });

@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="2015-12-30"
-                android:textColor="@color/system_color"
+                android:textColor="@color/dark"
                 android:textSize="14dp" />
         </LinearLayout>
 
@@ -59,14 +59,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp">
         <!--发的作者-->
         <TextView
             android:id="@+id/tv__album_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="哈哈测试"
-            android:textColor="@color/system_color"
+            android:textColor="@color/ms_marvel"
             android:textSize="14sp" />
 
         <!--发的文字-->
@@ -94,7 +96,8 @@
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
                 android:background="@drawable/image_view_border"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_album_two"
@@ -103,7 +106,8 @@
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
                 android:background="@drawable/image_view_border"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_album_three"
@@ -112,7 +116,8 @@
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
                 android:background="@drawable/image_view_border"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_album_four"
@@ -121,7 +126,8 @@
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
                 android:background="@drawable/image_view_border"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:visibility="gone" />
         </GridLayout>
         <!--定位，位置-->
         <TextView
@@ -130,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="地址：例如xxx镇xxx区"
-            android:textColor="@color/blue"
+            android:textColor="@color/dark"
             android:textSize="12dp" />
     </LinearLayout>
 </LinearLayout>
