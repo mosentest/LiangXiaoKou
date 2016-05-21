@@ -68,6 +68,8 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public void initData() {
+        User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
+        mTextInputUsername.getEditText().setText(currentUser != null ? currentUser.getUsername() : "");
         mTvRegister.setOnClickListener(this);
         mBtnLogin.setOnClickListener(this);
     }

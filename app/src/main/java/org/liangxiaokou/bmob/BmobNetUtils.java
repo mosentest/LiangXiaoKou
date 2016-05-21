@@ -3,6 +3,7 @@ package org.liangxiaokou.bmob;
 import android.content.Context;
 
 import org.liangxiaokou.app.MApplication;
+import org.liangxiaokou.bean.Album;
 import org.liangxiaokou.bean.Friend;
 import org.liangxiaokou.bean.LoveDate;
 import org.liangxiaokou.bean.User;
@@ -13,9 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobRealTimeData;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.LogInListener;
@@ -23,6 +26,7 @@ import cn.bmob.v3.listener.SQLQueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.StatisticQueryListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadBatchListener;
 import cn.bmob.v3.listener.ValueEventListener;
 
 /**
@@ -269,4 +273,33 @@ public class BmobNetUtils {
         query.getObject(context.getApplicationContext(), User.getCurrentUser(context, User.class).getLoveDateObjectId(), listener);
     }
 
+
+    /**
+     * 查询日志
+     * @param context
+     * @param page
+     * @param findListener
+     */
+    public static void queryAlbums(Context context, int page, FindListener findListener) {
+        BmobQuery<Album> query = new BmobQuery<>();
+        User currentUser = User.getCurrentUser(context.getApplicationContext(), User.class);
+        query.addWhereEqualTo("loveDateObjectId", currentUser.getLoveDateObjectId());
+        query.setLimit(50);
+        if (page > 0) {
+            query.setSkip(50 * page);
+        }
+        query.findObjects(context.getApplicationContext(), findListener);
+    }
+
+
+    /**
+     * 批量上传文件
+     *
+     * @param context
+     * @param filePaths
+     * @param uploadBatchListener
+     */
+    public static void updateFileBatch(Context context, String[] filePaths, UploadBatchListener uploadBatchListener) {
+        Bmob.uploadBatch(context, filePaths, uploadBatchListener);
+    }
 }

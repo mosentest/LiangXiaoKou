@@ -64,7 +64,7 @@ public class NetStateReceiver extends BroadcastReceiver {
         IntentFilter filter = new IntentFilter();
         filter.addAction(CUSTOM_ANDROID_NET_CHANGE_ACTION);
         filter.addAction(ANDROID_NET_CHANGE_ACTION);
-        mContext.getApplicationContext().registerReceiver(mBroadcastReceiver, filter);
+        mContext.getApplicationContext().registerReceiver(getReceiver(), filter);
     }
 
     public static void checkNetworkState(Context mContext) {
@@ -76,7 +76,7 @@ public class NetStateReceiver extends BroadcastReceiver {
     public static void unRegisterNetworkStateReceiver(Context mContext) {
         if (mBroadcastReceiver != null) {
             try {
-                mContext.getApplicationContext().unregisterReceiver(mBroadcastReceiver);
+                mContext.getApplicationContext().unregisterReceiver(getReceiver());
             } catch (Exception e) {
             }
         }

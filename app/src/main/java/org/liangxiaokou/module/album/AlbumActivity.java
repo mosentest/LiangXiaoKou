@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.annotation.UiThread;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +17,13 @@ import android.widget.EditText;
 import android.widget.GridView;
 
 import org.liangxiaokou.app.ToolBarActivity;
+import org.liangxiaokou.bean.Album;
+import org.liangxiaokou.bean.User;
 import org.liangxiaokou.config.Constants;
+import org.liangxiaokou.enum_.ExpressionManEnum;
+import org.liangxiaokou.enum_.ExpressionWomanEnum;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.util.DateUtils;
 import org.liangxiaokou.util.PhotoUtils;
 import org.liangxiaokou.util.VolleyLog;
 import org.liangxiaokou.widget.dialog.listener.OnOperItemClickL;
@@ -25,8 +31,13 @@ import org.liangxiaokou.widget.dialog.widget.NormalListDialog;
 import org.mo.netstatus.NetUtils;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
-public class AlbumActivity extends ToolBarActivity {
+public class AlbumActivity extends ToolBarActivity implements IAlbumView {
 
     private EditText mEditContent;
     private GridView mGridView;
@@ -34,6 +45,8 @@ public class AlbumActivity extends ToolBarActivity {
     private NormalListDialog photoDialog;//拍照类型
 
     private static long position;//标识当前是那一张图片
+
+    private AlbumPresenter albumPresenter = new AlbumPresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +70,7 @@ public class AlbumActivity extends ToolBarActivity {
                 for (AlbumBean albumBean : gridViewAdapter.getData()) {
                     VolleyLog.e("%s", albumBean.getFilePath());
                 }
+                albumPresenter.toPublish(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -193,7 +207,7 @@ public class AlbumActivity extends ToolBarActivity {
 
     @Override
     public void PreOnStop() {
-
+        alertDialog.hide();
     }
 
     @Override
@@ -211,4 +225,76 @@ public class AlbumActivity extends ToolBarActivity {
 
     }
 
+    @Override
+    public void showLoading() {
+        alertDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        alertDialog.hide();
+    }
+
+    @Override
+    public void onSuccess() {
+        mEditContent.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, Constants._TIME * 10);
+    }
+
+    @Override
+    public void onFailure(int code, String msg) {
+
+    }
+
+    @Override
+    public Album getAlbum() {
+        User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        //取得随机数
+        Random random = new Random();
+        int result = random.nextInt(5);
+        Album album = new Album();
+        album.setUsername(currentUser.getNick());
+        album.setLoveDateObjectId(currentUser.getLoveDateObjectId());
+        album.setContent(mEditContent.getText().toString().trim());
+        album.setDate(format.format(new Date()));
+        album.setType(currentUser.getSex());
+        //可以后期修改由定位sdk来获取
+        album.setAddress("东莞");
+        if (currentUser.getSex() == Constants.man) {
+            ExpressionManEnum[] values = ExpressionManEnum.values();
+            ExpressionManEnum value = values[result];
+            album.setResImg(value.getResImg());
+            album.setResColor(value.getResColor());
+        } else {
+            ExpressionWomanEnum[] values = ExpressionWomanEnum.values();
+            ExpressionWomanEnum value = values[result];
+            album.setResImg(value.getResImg());
+            album.setResColor(value.getResColor());
+        }
+        return album;
+    }
+
+    @Override
+    public String[] getAlbumBeans() {
+        //获取数据
+        List<AlbumBean> data = gridViewAdapter.getData();
+        //获取真实的数据
+        List<AlbumBean> tempData = new ArrayList<>();
+        for (int i = 0; i < data.size() - 1; i++) {
+            if (!data.get(i).isPick()) {
+                tempData.add(data.get(i));
+            }
+        }
+        //转成需求的格式
+        String[] filePath = new String[tempData.size()];
+        for (int i = 0; i < tempData.size(); i++) {
+            filePath[i] = tempData.get(i).getFilePath();
+        }
+        return filePath;
+    }
 }

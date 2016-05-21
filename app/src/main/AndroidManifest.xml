@@ -97,8 +97,7 @@
             android:name="org.liangxiaokou.recevier.XLKReceiver"
             android:enabled="true"
             android:exported="true"
-            android:permission="org.liangxiaokou.RECV.XLKRECEIVE"
-            android:process=":XLK">
+            android:permission="org.liangxiaokou.RECV.XLKRECEIVE">
             <intent-filter>
                 <action android:name="org.liangxiaokou.receiver.xlk_action" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -250,12 +249,8 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <service
-            android:name="org.liangxiaokou.service.BmobIMIntentService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="org.liangxiaokou.service.action.IM" />
-            </intent-filter>
-        </service>
+            android:name="org.liangxiaokou.service.XLKIntentService"
+            android:exported="false"></service>
 
         <activity
             android:name=".album.AlbumActivity"
@@ -263,9 +258,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
-        <service
-            android:name=".album.UploadAlbumService"
-            android:exported="false"></service>
     </application>
 
 </manifest>

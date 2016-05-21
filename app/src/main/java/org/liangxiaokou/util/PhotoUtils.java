@@ -1,18 +1,25 @@
 package org.liangxiaokou.util;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2016/5/19.
@@ -48,29 +55,44 @@ public class PhotoUtils {
      */
     public static Uri convertUri(Activity activity, Uri uri, File imageFile) {
         InputStream is = null;
+        ContentResolver contentResolver = activity.getContentResolver();
         try {
-            is = activity.getContentResolver().openInputStream(uri);
+            is = contentResolver.openInputStream(uri);
             BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = false;
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            options.inPreferQualityOverSpeed = true;
-            //1kb = 1024b,1mb = 1024kb
-            if (is.available() > 100 * 1024) {
-                options.inSampleSize = 10;
-            }
-            Bitmap bitmap = BitmapFactory.decodeStream(is, null, options);
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(is, null, options);
             is.close();
+            // The new size we want to scale to
+            final int REQUIRED_WIDTH = 300;
+            // Find the correct scale value. It should be the power of 2.
+            int width_tmp = options.outWidth, height_tmp = options.outHeight;
+            int scale = 1;
+            while (true) {
+                if (width_tmp / 2 < REQUIRED_WIDTH
+                        || height_tmp / 2 < REQUIRED_WIDTH) {
+                    break;
+                }
+                width_tmp /= 2;
+                height_tmp /= 2;
+                scale *= 2;
+            }
+            is = contentResolver.openInputStream(uri);
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            Bitmap bitmap = BitmapFactory.decodeStream(is, null, o2);
             return saveBitmap(bitmap, imageFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
     }
 
     /**
@@ -167,4 +189,78 @@ public class PhotoUtils {
         return resultBitmap;
     }
 
+
+    /** */
+    /**
+     * 文件转化为字节数组
+     */
+    public static byte[] getBytesFromFile(File f) {
+        if (f == null) {
+            return null;
+        }
+        try {
+            FileInputStream stream = new FileInputStream(f);
+            ByteArrayOutputStream out = new ByteArrayOutputStream(1000);
+            byte[] b = new byte[1000];
+            int n;
+            while ((n = stream.read(b)) != -1)
+                out.write(b, 0, n);
+            stream.close();
+            out.close();
+            return out.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /** */
+    /**
+     * 把字节数组保存为一个文件
+     */
+    public static File getFileFromBytes(byte[] b, String outputFile) {
+        BufferedOutputStream stream = null;
+        File file = null;
+        try {
+            file = new File(outputFile);
+            FileOutputStream fstream = new FileOutputStream(file);
+            stream = new BufferedOutputStream(fstream);
+            stream.write(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        return file;
+    }
+    /** */
+    /**
+     * 从字节数组获取对象
+     */
+    public static Object getObjectFromBytes(byte[] objBytes) throws Exception {
+        if (objBytes == null || objBytes.length == 0) {
+            return null;
+        }
+        ByteArrayInputStream bi = new ByteArrayInputStream(objBytes);
+        ObjectInputStream oi = new ObjectInputStream(bi);
+        return oi.readObject();
+    }
+    /** */
+    /**
+     * 从对象获取一个字节数组
+     */
+    public static byte[] getBytesFromObject(Serializable obj) throws Exception {
+        if (obj == null) {
+            return null;
+        }
+        ByteArrayOutputStream bo = new ByteArrayOutputStream();
+        ObjectOutputStream oo = new ObjectOutputStream(bo);
+        oo.writeObject(obj);
+        return bo.toByteArray();
+    }
 }

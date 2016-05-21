@@ -1,8 +1,12 @@
 package org.liangxiaokou.bean;
 
+import org.liangxiaokou.util.AESUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by Administrator on 2015/12/17.
@@ -11,12 +15,15 @@ public class Album extends BmobObject {
     private String username;//用户名称
     private String content;//内容
     private String address;//地址
-    private List<Byte[]> photos;//照片，最多4张
+    private List<BmobFile> photos;//照片，最多4张
+    private List<String> photosUrl;//照片，最多4张
     private String date;//日期
     private Integer type;//类型，表示男女
 
     private Integer ResImg;//表示左边显示的图
     private Integer ResColor;//左边显示的颜色
+
+    private String loveDateObjectId;
 
 
     public String getUsername() {
@@ -28,27 +35,35 @@ public class Album extends BmobObject {
     }
 
     public String getContent() {
-        return content;
+        return AESUtils.getDecryptString(content);
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = AESUtils.getEncryptString(content);
     }
 
     public String getAddress() {
-        return address;
+        return AESUtils.getDecryptString(address);
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = AESUtils.getEncryptString(address);
     }
 
-    public List<Byte[]> getPhotos() {
+    public List<BmobFile> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<Byte[]> photos) {
+    public void setPhotos(List<BmobFile> photos) {
         this.photos = photos;
+    }
+
+    public List<String> getPhotosUrl() {
+        return photosUrl;
+    }
+
+    public void setPhotosUrl(List<String> photosUrl) {
+        this.photosUrl = photosUrl;
     }
 
     public String getDate() {
@@ -81,5 +96,14 @@ public class Album extends BmobObject {
 
     public void setResColor(Integer resColor) {
         ResColor = resColor;
+    }
+
+
+    public String getLoveDateObjectId() {
+        return loveDateObjectId;
+    }
+
+    public void setLoveDateObjectId(String loveDateObjectId) {
+        this.loveDateObjectId = loveDateObjectId;
     }
 }

@@ -128,6 +128,8 @@ public abstract class GeneralActivity extends AppCompatActivity implements IActi
 
     @Override
     protected void onDestroy() {
+        alertDialog.dismiss();
+        materialDialog.dismiss();
         alertDialog = null;
         materialDialog = null;
         //NetStateReceiver.unRegisterNetworkStateReceiver(getApplicationContext());

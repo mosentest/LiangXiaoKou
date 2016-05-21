@@ -137,10 +137,18 @@ public class AESUtils {
      * @param sBytes
      * @return
      */
-    public Byte[] autoBoxing(byte[] sBytes) {
+    public static Byte[] autoBoxing(byte[] sBytes) {
         Byte[] aByte = new Byte[sBytes.length];
         for (int i = 0; i < sBytes.length; i++) {
-            aByte[i] = new Byte(sBytes[i]);
+            aByte[i] = Byte.valueOf(sBytes[i]);
+        }
+        return aByte;
+    }
+
+    public static byte[] autoBoxing(Byte[] sBytes) {
+        byte[] aByte = new byte[sBytes.length];
+        for (int i = 0; i < sBytes.length; i++) {
+            aByte[i] = Byte.valueOf(sBytes[i]);
         }
         return aByte;
     }

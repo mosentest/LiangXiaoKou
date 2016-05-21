@@ -55,8 +55,9 @@ public class SetLoveDateActivity extends ToolBarActivity implements TextWatcher,
                 boolean dateFormat = DateUtils.isDateFormat(textInputDate.getEditText().getText().toString());
                 if (!dateFormat) {
                     showToast("格式不正确，例如2015-02-14");
+                } else {
+                    setLoveDatePresenter.updateLove(getApplicationContext());
                 }
-                setLoveDatePresenter.updateLove(getApplicationContext());
                 return true;
         }
         return super.onOptionsItemSelected(item);

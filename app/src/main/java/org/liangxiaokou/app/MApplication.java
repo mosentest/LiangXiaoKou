@@ -37,7 +37,7 @@ public class MApplication extends Application {
         if (shouldInit()) {
             instance = this;
             mNewsLifecycleHandler = new NewsLifecycleHandler();
-            registerActivityLifecycleCallbacks(mNewsLifecycleHandler);
+            //registerActvityLifecycleCallbacks(mNewsLifecycleHandler);
             //bmob
             ThirdUtils.bmobInit(this);
             //NewIM初始化

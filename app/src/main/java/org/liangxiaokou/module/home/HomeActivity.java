@@ -32,13 +32,11 @@ import org.liangxiaokou.module.feedback.FeedBackActivity;
 import org.liangxiaokou.module.home.fragment.AlbumFragment;
 import org.liangxiaokou.module.home.fragment.MeFragment;
 import org.liangxiaokou.module.home.fragment.OtherFragment;
-import org.liangxiaokou.service.BmobIMIntentService;
-import org.liangxiaokou.util.AESUtils;
-import org.liangxiaokou.util.SnackBarUtils;
 import org.liangxiaokou.util.ThirdUtils;
 import org.liangxiaokou.util.ToastUtils;
 import org.liangxiaokou.util.ViewPagerAdapter;
 import org.liangxiaokou.util.VolleyLog;
+import org.mo.netstatus.NetStateReceiver;
 import org.mo.netstatus.NetUtils;
 
 import java.util.ArrayList;
@@ -75,6 +73,7 @@ public class HomeActivity extends GeneralActivity implements
     private String[] tabTitle;
     private List<Fragment> fragments;
 
+    private User currentUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,16 +85,15 @@ public class HomeActivity extends GeneralActivity implements
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
         sendBroadcast(broadcastIntent);
+        currentUser = User.getCurrentUser(getApplicationContext(), User.class);
 
-        User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
         //启动连接IM服务的service
 //        Intent intent = new Intent(this, BmobIMIntentService.class);
 //        intent.putExtra(BmobIMIntentService.USER_ID, currentUser.getObjectId());
 //        intent.setAction(BmobIMIntentService.ACTION_IM);
 //        startService(intent);
-
         connect(currentUser.getObjectId());
-        handleActionIM(currentUser.getObjectId());
+        NetStateReceiver.registerNetworkStateReceiver(this);
     }
 
 
@@ -160,10 +158,12 @@ public class HomeActivity extends GeneralActivity implements
 
     @Override
     public void PreOnStop() {
+        NetStateReceiver.registerNetworkStateReceiver(this);
     }
 
     @Override
     public void PreOnDestroy() {
+        BmobIMNetUtils.disConnect();
     }
 
     @Override
@@ -252,12 +252,14 @@ public class HomeActivity extends GeneralActivity implements
 
     @Override
     protected void onNetworkConnected(NetUtils.NetType type) {
-
+        if (type != NetUtils.NetType.NONE) {
+            handleActionIM(currentUser.getObjectId());
+        }
     }
 
     @Override
     protected void onNetworkDisConnected() {
-
+        BmobIMNetUtils.disConnect();
     }
 
     @Override

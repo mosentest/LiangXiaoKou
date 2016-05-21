@@ -54,7 +54,7 @@ public class SplashScreenActivity extends GeneralActivity {
                 if (user != null) {
                     //用户信息不为空
                     if (user.getIsOk() && user.getHaveLove()) {
-                        activity.startActivity(new Intent(activity, HomeActivity.class));
+                        activity.startActivity(new Intent(activity, LoginActivity.class));
                     } else if (user.getIsOk() && !user.getHaveLove()) {
                         activity.startActivity(new Intent(activity, InviteActivity.class));
                     } else {

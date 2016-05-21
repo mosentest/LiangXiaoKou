@@ -3,10 +3,9 @@
 SwipeRefreshLayout是伟大的Google在v4包中给出的下拉刷新组件。
 
 -->
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/album_swiperefreshlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
@@ -17,4 +16,4 @@ SwipeRefreshLayout是伟大的Google在v4包中给出的下拉刷新组件。
         android:id="@+id/album_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
