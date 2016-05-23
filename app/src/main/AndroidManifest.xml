@@ -71,7 +71,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-
+        <!--百度Key-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="6b7CdIgvMYsDdM4QGLe9DKsZSfHRRfgw" />
@@ -135,7 +135,7 @@
         <!-- 友盟设置 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5673664ae0f55a2c17002f87" />
+            android:value="5742a86767e58e5d7d00266e" />
         <!-- 推广渠道 -->
         <meta-data
             android:name="UMENG_CHANNEL"

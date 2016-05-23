@@ -82,9 +82,9 @@ public class HomeActivity extends GeneralActivity implements
         ThirdUtils.umengInit(this, true, false, this);
         //http://blog.csdn.net/shineflowers/article/details/40426361，
         // http://blog.csdn.net/javensun/article/details/7334230
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
-        sendBroadcast(broadcastIntent);
+//        Intent broadcastIntent = new Intent();
+//        broadcastIntent.setAction("org.liangxiaokou.receiver.xlk_action");
+//        sendBroadcast(broadcastIntent);
         currentUser = User.getCurrentUser(getApplicationContext(), User.class);
 
         //启动连接IM服务的service
