@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:hint="请输入您的密码"
                     android:inputType="textPassword"
-                    android:text="mzq83456386"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/normal_content_size" />
             </android.support.design.widget.TextInputLayout>

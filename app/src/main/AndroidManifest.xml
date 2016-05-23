@@ -66,7 +66,7 @@
 
     <application
         android:name="org.liangxiaokou.app.MApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -104,6 +104,18 @@
         <!-- Bmob -->
         <service android:name="cn.bmob.newim.core.service.HeartBeatService" />
 
+
+
+        <activity
+            android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+        <!-- 推广渠道 -->
+        <meta-data
+            android:name="BMOB_CHANNEL"
+            android:value="Bmob" />
+
         <receiver
             android:name="org.liangxiaokou.recevier.XLKReceiver"
             android:enabled="true"
@@ -127,23 +139,6 @@
             android:exported="true"
             android:process=":XLK" />
 
-        <!-- 友盟更新 -->
-        <activity
-            android:name="com.umeng.update.UpdateDialogActivity"
-            android:launchMode="singleInstance"
-            android:windowSoftInputMode="stateHidden" />
-        <!-- 友盟设置 -->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="5742a86767e58e5d7d00266e" />
-        <!-- 推广渠道 -->
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="Umeng" />
-
-        <service
-            android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService" />
 
         <!--
         主页 http://blog.csdn.net/cy524563/article/details/41605261

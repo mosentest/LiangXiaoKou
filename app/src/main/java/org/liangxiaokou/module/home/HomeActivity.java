@@ -18,11 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
-import com.umeng.update.UpdateStatus;
-
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.bmob.BmobIMNetUtils;
@@ -46,6 +41,8 @@ import cn.bmob.newim.core.ConnectionStatus;
 import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.BmobUpdateListener;
+import cn.bmob.v3.update.UpdateResponse;
 
 /**
  * http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android
@@ -57,7 +54,7 @@ public class HomeActivity extends GeneralActivity implements
         View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener,
         SearchView.OnQueryTextListener,
-        UmengUpdateListener {
+        BmobUpdateListener {
 
     private final static String TAG = "HomeActivity";
     private DrawerLayout mDrawerLayout;
@@ -79,7 +76,7 @@ public class HomeActivity extends GeneralActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ThirdUtils.umengInit(this, true, false, this);
+        ThirdUtils.updateInit(this, true, false, this);
         //http://blog.csdn.net/shineflowers/article/details/40426361，
         // http://blog.csdn.net/javensun/article/details/7334230
 //        Intent broadcastIntent = new Intent();
@@ -310,24 +307,7 @@ public class HomeActivity extends GeneralActivity implements
                 break;
             case R.id.nav_menu_update:
                 mDrawerLayout.closeDrawers();
-                ThirdUtils.umengInit(getApplicationContext(), false, false, new UmengUpdateListener() {
-                    @Override
-                    public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
-                        //0表示有更新，1表示无更新，2表示非wifi状态，3表示请求超时
-                        switch (updateStatus) {
-                            case UpdateStatus.Yes: // has update
-                                UmengUpdateAgent.showUpdateDialog(getApplicationContext(), updateInfo);
-                                break;
-                            case UpdateStatus.No: // has no update
-                                ToastUtils.toast(getApplicationContext(), "亲，没有新版本哦！");
-                                break;
-                            case UpdateStatus.Timeout: // time out
-                                ToastUtils.toast(getApplicationContext(), "你这个笨蛋，快打开数据！");
-                                break;
-                        }
-                    }
-                });
-                UmengUpdateAgent.forceUpdate(getApplicationContext());
+                ThirdUtils.updateInit(this, true, true, this);
                 break;
         }
         return false;
@@ -344,19 +324,14 @@ public class HomeActivity extends GeneralActivity implements
     }
 
     /**
-     * umeng
+     *
      *
      * @param updateStatus
      * @param updateInfo
      */
     @Override
     public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
-        //0表示有更新，1表示无更新，2表示非wifi状态，3表示请求超时
-        switch (updateStatus) {
-            case UpdateStatus.Yes: // has update
-                UmengUpdateAgent.showUpdateDialog(getApplicationContext(), updateInfo);
-                break;
-        }
+
     }
 
     private long mkeyTime;
@@ -382,4 +357,5 @@ public class HomeActivity extends GeneralActivity implements
         //设置页面
         mViewPager.setCurrentItem(intent.getIntExtra("LoginActivity_code", 0));
     }
+
 }
