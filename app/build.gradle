@@ -30,6 +30,19 @@ android {
 //    dataBinding {
 //        enabled = true
 //    }
+
+
+    task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
+        destinationDir file("$projectDir/libs")
+        baseName "Native_Libs2"
+        extension "jar"
+        from fileTree(dir: "libs", include: "**/*.so")
+        into "lib"
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(nativeLibsToJar)
+    }
 }
 
 dependencies {
@@ -38,6 +51,8 @@ dependencies {
     compile 'com.facebook.shimmer:shimmer:0.1.0'
     //https://github.com/d-max/spots-dialog
     compile 'com.github.d-max:spots-dialog:0.4@aar'
+    //https://github.com/Manabu-GT/ExpandableTextView
+    compile 'com.ms-square:expandableTextView:0.1.4'
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile project(':android-chat-widget')
 }

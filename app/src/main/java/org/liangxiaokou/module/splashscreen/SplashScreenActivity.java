@@ -8,6 +8,8 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.baidu.mapapi.SDKInitializer;
+
 import org.liangxiaokou.app.GeneralActivity;
 import org.liangxiaokou.bean.User;
 import org.liangxiaokou.module.R;
@@ -73,6 +75,7 @@ public class SplashScreenActivity extends GeneralActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        SDKInitializer.initialize(getApplicationContext());
     }
 
     @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -7,33 +8,27 @@
     http://www.25xt.com/allcode/6976.html
     http://romannurik.github.io/AndroidAssetStudio/nine-patches.html-->
     <!--左边的时光轴-->
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
+        android:orientation="vertical"
         android:layout_height="match_parent">
         <!--http://www.easyicon.net/1181645-album_icon.html-->
         <View
             android:id="@+id/view_line"
             android:layout_width="5dp"
             android:layout_height="10dp"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:background="@color/system_color" />
         <!--设置图片和时间-->
         <LinearLayout
             android:id="@+id/ll_album"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_line"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
             android:orientation="vertical">
-            <!--图片http://www.easyicon.net/iconsearch/iconset:freecons-icons/3/-->
-            <ImageView
-                android:id="@+id/iv_line_ico"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@mipmap/duke_nukem_48px" />
             <!--时间-->
             <TextView
                 android:id="@+id/tv_line_time"
@@ -43,16 +38,23 @@
                 android:text="2015-12-30"
                 android:textColor="@color/dark"
                 android:textSize="14dp" />
+            <!--图片http://www.easyicon.net/iconsearch/iconset:freecons-icons/3/-->
+            <ImageView
+                android:id="@+id/iv_line_ico"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/duke_nukem_48px" />
         </LinearLayout>
 
         <View
             android:id="@+id/view_line_bottom"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_album"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:background="@color/system_color" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <!--内容-->
     <LinearLayout
@@ -60,8 +62,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
         <!--发的作者-->
         <TextView
             android:id="@+id/tv__album_user"
@@ -69,17 +71,34 @@
             android:layout_height="wrap_content"
             android:text="哈哈测试"
             android:textColor="@color/ms_marvel"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
-        <!--发的文字-->
-        <TextView
-            android:id="@+id/tv__album_content"
-            android:layout_width="wrap_content"
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/expand_text_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="哈哈测试，哈哈测试哈，哈测试哈哈测试哈，哈测试哈哈测试哈，哈测试哈哈测，试哈哈测试，哈哈测试哈哈测试哈哈测试哈哈测试"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/normal_content_size" />
+            app:animDuration="200"
+            app:maxCollapsedLines="2">
+            <!--发的文字-->
+            <TextView
+                android:id="@+id/expandable_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/normal_content_size" />
+
+            <ImageButton
+                android:id="@id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp" />
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
+
         <!--发的图片，最多4张-->
         <GridLayout
             android:layout_width="wrap_content"
@@ -89,43 +108,47 @@
             android:orientation="horizontal"
             android:rowCount="2">
 
-            <ImageView
+            <org.liangxiaokou.widget.view.TouchImageView
                 android:id="@+id/iv_album_one"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
                 android:background="@drawable/image_view_border"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
 
-            <ImageView
+            <org.liangxiaokou.widget.view.TouchImageView
                 android:id="@+id/iv_album_two"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
                 android:background="@drawable/image_view_border"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
 
-            <ImageView
+            <org.liangxiaokou.widget.view.TouchImageView
                 android:id="@+id/iv_album_three"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
                 android:background="@drawable/image_view_border"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
 
-            <ImageView
+            <org.liangxiaokou.widget.view.TouchImageView
                 android:id="@+id/iv_album_four"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
                 android:background="@drawable/image_view_border"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
         </GridLayout>

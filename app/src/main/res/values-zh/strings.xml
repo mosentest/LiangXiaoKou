@@ -4,13 +4,13 @@
     <string name="hello_world">你好！</string>
     <string name="action_share">分享</string>
     <string name="other">他/她</string>
-    <string name="album">纪念册</string>
+    <string name="album">我们</string>
     <string name="me">我</string>
     <string name="open">打开</string>
     <string name="close">关闭</string>
     <string-array name="tab_titles">
         <item>他/她</item>
-        <item>纪念册</item>
+        <item>我们</item>
         <item>我</item>
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -42,4 +42,6 @@
     <string name="title_activity_invite">@string/plusone</string>
 
     <string name="chat_friend">与%1$s聊天</string>
+    <string name="album_activity">日常</string>
+    <string name="action_publish">发布</string>
 </resources>

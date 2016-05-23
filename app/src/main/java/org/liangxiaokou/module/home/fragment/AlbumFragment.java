@@ -81,6 +81,7 @@ public class AlbumFragment extends GeneralFragment implements XRecyclerView.Load
     @Subscribe
     public void toEvent(Event event) {
         if (event.isSuccess()) {
+            mRecyclerView.offsetTopAndBottom(0);
             mRecyclerView.setRefreshing(true);
         } else {
             showToast(event.getEventmsg());

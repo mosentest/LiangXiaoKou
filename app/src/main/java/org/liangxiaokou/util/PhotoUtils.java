@@ -63,7 +63,7 @@ public class PhotoUtils {
             BitmapFactory.decodeStream(is, null, options);
             is.close();
             // The new size we want to scale to
-            final int REQUIRED_WIDTH = 300;
+            final int REQUIRED_WIDTH = 480;
             // Find the correct scale value. It should be the power of 2.
             int width_tmp = options.outWidth, height_tmp = options.outHeight;
             int scale = 1;

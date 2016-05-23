@@ -69,27 +69,32 @@ public class XLKIntentService extends IntentService {
                 final Album album = (Album) intent.getSerializableExtra("AlbumPresenter_album");
                 final String[] albumPresenter_albumBeans = intent.getStringArrayExtra("AlbumPresenter_AlbumBeans");
 
-                BmobNetUtils.updateFileBatch(getApplicationContext(), albumPresenter_albumBeans, new UploadBatchListener() {
-                    @Override
-                    public void onSuccess(List<BmobFile> files, List<String> urls) {
-                        if (urls.size() == albumPresenter_albumBeans.length) {
-                            //实现图片的上传功能。
-                            album.setPhotos(files);
-                            album.setPhotosUrl(urls);
-                            handleActionUploadAlbum(album);
+                if (albumPresenter_albumBeans.length > 0) {
+                    BmobNetUtils.updateFileBatch(getApplicationContext(), albumPresenter_albumBeans, new UploadBatchListener() {
+                        @Override
+                        public void onSuccess(List<BmobFile> files, List<String> urls) {
+                            if (urls.size() == albumPresenter_albumBeans.length) {
+                                //实现图片的上传功能。
+                                album.setPhotos(files);
+                                album.setPhotosUrl(urls);
+                                handleActionUploadAlbum(album);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onProgress(int curIndex, int curPercent, int total, int totalPercent) {
+                        @Override
+                        public void onProgress(int curIndex, int curPercent, int total, int totalPercent) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError(int statuscode, String errormsg) {
-                        EventBus.getDefault().post(new Event(statuscode, errormsg, false));
-                    }
-                });
+                        @Override
+                        public void onError(int statuscode, String errormsg) {
+                            EventBus.getDefault().post(new Event(statuscode, errormsg, false));
+                        }
+                    });
+                } else {
+                    handleActionUploadAlbum(album);
+                }
+
             }
         }
     }

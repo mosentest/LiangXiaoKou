@@ -16,6 +16,14 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+
 import org.liangxiaokou.app.ToolBarActivity;
 import org.liangxiaokou.bean.Album;
 import org.liangxiaokou.bean.User;
@@ -23,6 +31,7 @@ import org.liangxiaokou.config.Constants;
 import org.liangxiaokou.enum_.ExpressionManEnum;
 import org.liangxiaokou.enum_.ExpressionWomanEnum;
 import org.liangxiaokou.module.R;
+import org.liangxiaokou.util.BaiduLBSutils;
 import org.liangxiaokou.util.DateUtils;
 import org.liangxiaokou.util.PhotoUtils;
 import org.liangxiaokou.util.VolleyLog;
@@ -37,14 +46,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-public class AlbumActivity extends ToolBarActivity implements IAlbumView {
+public class AlbumActivity extends ToolBarActivity implements IAlbumView, BDLocationListener {
 
     private EditText mEditContent;
     private GridView mGridView;
     private GridViewAdapter gridViewAdapter;
     private NormalListDialog photoDialog;//拍照类型
-
+    private LocationClient locationClient;
     private static long position;//标识当前是那一张图片
+    private String address = "";//存储地址
 
     private AlbumPresenter albumPresenter = new AlbumPresenter(this);
 
@@ -53,6 +63,7 @@ public class AlbumActivity extends ToolBarActivity implements IAlbumView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
         showActionBarBack(true);
+        locationClient = BaiduLBSutils.locationStart(getApplicationContext(), this);
     }
 
 
@@ -212,7 +223,7 @@ public class AlbumActivity extends ToolBarActivity implements IAlbumView {
 
     @Override
     public void PreOnDestroy() {
-
+        BaiduLBSutils.locationStop(locationClient);
     }
 
     @Override
@@ -254,28 +265,27 @@ public class AlbumActivity extends ToolBarActivity implements IAlbumView {
     public Album getAlbum() {
         User currentUser = User.getCurrentUser(getApplicationContext(), User.class);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        //取得随机数
-        Random random = new Random();
-        int result = random.nextInt(5);
+//        //取得随机数
+//        Random random = new Random();
+//        int result = random.nextInt(5);
         Album album = new Album();
         album.setUsername(currentUser.getNick());
         album.setLoveDateObjectId(currentUser.getLoveDateObjectId());
         album.setContent(mEditContent.getText().toString().trim());
         album.setDate(format.format(new Date()));
         album.setType(currentUser.getSex());
-        //可以后期修改由定位sdk来获取
-        album.setAddress("东莞");
-        if (currentUser.getSex() == Constants.man) {
-            ExpressionManEnum[] values = ExpressionManEnum.values();
-            ExpressionManEnum value = values[result];
-            album.setResImg(value.getResImg());
-            album.setResColor(value.getResColor());
-        } else {
-            ExpressionWomanEnum[] values = ExpressionWomanEnum.values();
-            ExpressionWomanEnum value = values[result];
-            album.setResImg(value.getResImg());
-            album.setResColor(value.getResColor());
-        }
+        album.setAddress(address);
+//        if (currentUser.getSex() == Constants.man) {
+//            ExpressionManEnum[] values = ExpressionManEnum.values();
+//            ExpressionManEnum value = values[result];
+//            album.setResImg(value.getResImg());
+//            album.setResColor(value.getResColor());
+//        } else {
+//            ExpressionWomanEnum[] values = ExpressionWomanEnum.values();
+//            ExpressionWomanEnum value = values[result];
+//            album.setResImg(value.getResImg());
+//            album.setResColor(value.getResColor());
+//        }
         return album;
     }
 
@@ -285,7 +295,7 @@ public class AlbumActivity extends ToolBarActivity implements IAlbumView {
         List<AlbumBean> data = gridViewAdapter.getData();
         //获取真实的数据
         List<AlbumBean> tempData = new ArrayList<>();
-        for (int i = 0; i < data.size() - 1; i++) {
+        for (int i = 0; i < data.size(); i++) {
             if (!data.get(i).isPick()) {
                 tempData.add(data.get(i));
             }
@@ -296,5 +306,27 @@ public class AlbumActivity extends ToolBarActivity implements IAlbumView {
             filePath[i] = tempData.get(i).getFilePath();
         }
         return filePath;
+    }
+
+    @Override
+    public void onReceiveLocation(BDLocation bdLocation) {
+        if (bdLocation != null) {
+            BaiduLBSutils.getInstance(new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude()), new OnGetGeoCoderResultListener() {
+                @Override
+                public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+                }
+
+                @Override
+                public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+                    if (reverseGeoCodeResult != null) {
+                        ReverseGeoCodeResult.AddressComponent addressDetail = reverseGeoCodeResult.getAddressDetail();
+                        address = addressDetail.district + addressDetail.street + addressDetail.streetNumber;
+                    } else {
+                        address = "";
+                    }
+                }
+            });
+        }
+
     }
 }
