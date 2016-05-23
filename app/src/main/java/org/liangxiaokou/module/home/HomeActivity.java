@@ -42,6 +42,7 @@ import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.BmobUpdateListener;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
 
 /**
@@ -307,7 +308,7 @@ public class HomeActivity extends GeneralActivity implements
                 break;
             case R.id.nav_menu_update:
                 mDrawerLayout.closeDrawers();
-                ThirdUtils.updateInit(this, true, true, this);
+                BmobUpdateAgent.forceUpdate(this);
                 break;
         }
         return false;
