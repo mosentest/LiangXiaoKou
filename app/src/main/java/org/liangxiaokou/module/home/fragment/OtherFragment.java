@@ -419,7 +419,11 @@ public class OtherFragment extends GeneralFragment implements IOtherView {
 
     @Override
     public String getTableNameObjectId() {
-        return User.getCurrentUser(getActivity(), User.class).getLoveDateObjectId();
+        User currentUser = User.getCurrentUser(getActivity(), User.class);
+        if (currentUser != null) {
+            return currentUser.getLoveDateObjectId();
+        }
+        return null;
     }
 
     @Override

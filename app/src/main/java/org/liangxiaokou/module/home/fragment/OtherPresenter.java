@@ -1,6 +1,7 @@
 package org.liangxiaokou.module.home.fragment;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.json.JSONObject;
 import org.liangxiaokou.bean.Friend;
@@ -78,6 +79,7 @@ public class OtherPresenter {
 
     /**
      * 监听表
+     *
      * @param context
      */
     public void toListenerTable(final Context context) {
@@ -101,6 +103,8 @@ public class OtherPresenter {
      * 取消监听
      */
     public void unListenerTable() {
-        BmobRealTimeDataUtils.getInstance().unsubRowUpdate(otherView.getTableName(), otherView.getTableNameObjectId());
+        if (TextUtils.isEmpty(otherView.getTableNameObjectId())) {
+            BmobRealTimeDataUtils.getInstance().unsubRowUpdate(otherView.getTableName(), otherView.getTableNameObjectId());
+        }
     }
 }

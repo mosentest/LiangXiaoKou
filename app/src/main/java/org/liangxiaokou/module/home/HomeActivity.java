@@ -54,8 +54,7 @@ public class HomeActivity extends GeneralActivity implements
         ViewPager.OnPageChangeListener,
         View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener,
-        SearchView.OnQueryTextListener,
-        BmobUpdateListener {
+        SearchView.OnQueryTextListener{
 
     private final static String TAG = "HomeActivity";
     private DrawerLayout mDrawerLayout;
@@ -77,7 +76,7 @@ public class HomeActivity extends GeneralActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ThirdUtils.updateInit(this, true, false, this);
+        ThirdUtils.updateInit(this, true);
         //http://blog.csdn.net/shineflowers/article/details/40426361，
         // http://blog.csdn.net/javensun/article/details/7334230
 //        Intent broadcastIntent = new Intent();
@@ -324,16 +323,6 @@ public class HomeActivity extends GeneralActivity implements
         return false;
     }
 
-    /**
-     *
-     *
-     * @param updateStatus
-     * @param updateInfo
-     */
-    @Override
-    public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
-
-    }
 
     private long mkeyTime;
 

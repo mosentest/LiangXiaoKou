@@ -6,6 +6,7 @@ import android.content.Context;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.listener.BmobUpdateListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
+import cn.bmob.v3.update.UpdateResponse;
 
 /**
  * Created by moziqi on 2015/12/18 0018.
@@ -33,18 +34,20 @@ public class ThirdUtils {
      *
      * @param mContext
      * @param onlyWifi
-     * @param checkConfig
-     * @param updateListener
      */
     public static void updateInit(Context mContext,
-                                  boolean onlyWifi,
-                                  boolean checkConfig,
-                                  BmobUpdateListener updateListener) {
+                                  boolean onlyWifi) {
         BmobUpdateAgent.update(mContext);
         BmobUpdateAgent.setUpdateOnlyWifi(onlyWifi);
-        if (checkConfig) {
-            BmobUpdateAgent.setUpdateListener(updateListener);
-        }
+        BmobUpdateAgent.setUpdateListener(new BmobUpdateListener() {
+            @Override
+            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
+
+            }
+        });
+//        if (checkConfig) {
+//            BmobUpdateAgent.setUpdateListener(updateListener);
+//        }
     }
 
     public static void statisticsInActivityResume(Context mContext) {
