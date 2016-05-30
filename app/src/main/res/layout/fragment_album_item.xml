@@ -114,10 +114,11 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
-                android:background="@drawable/image_view_border"
+
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
+            <!--android:background="@drawable/image_view_border"-->
 
             <org.liangxiaokou.widget.view.TouchImageView
                 android:id="@+id/iv_album_two"
@@ -125,7 +126,6 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
-                android:background="@drawable/image_view_border"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
@@ -136,7 +136,6 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
-                android:background="@drawable/image_view_border"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
@@ -147,7 +146,6 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/x1"
                 android:layout_weight="1"
-                android:background="@drawable/image_view_border"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />

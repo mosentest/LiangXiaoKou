@@ -133,6 +133,7 @@ public class ChatActivity extends ToolBarActivity implements OnOperationListener
 
     @Override
     public void initView() {
+        getWindow().setBackgroundDrawable(null);
         messageListview = (ListView) findViewById(R.id.messageListview);
         messageInputToolBox = (MessageInputToolBox) findViewById(R.id.messageInputToolBox);
         //设置处理显示listview

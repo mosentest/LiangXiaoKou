@@ -58,6 +58,7 @@ public class LoginActivity extends ToolBarActivity implements ILoginView {
 
     @Override
     public void initView() {
+        getWindow().setBackgroundDrawable(null);
         mTextInputUsername = (TextInputLayout) findViewById(R.id.textInput_username);
         mTextInputPassword = (TextInputLayout) findViewById(R.id.textInput_password);
         mTvForgetPassword = (TextView) findViewById(R.id.tv_forget_password);

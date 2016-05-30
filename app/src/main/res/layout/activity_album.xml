@@ -22,7 +22,7 @@
             android:id="@+id/edit_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@null"
             android:enabled="true"
             android:gravity="top"
             android:hint="请输入此时刻的心情..."

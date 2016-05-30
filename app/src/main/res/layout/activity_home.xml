@@ -5,7 +5,6 @@
     android:id="@+id/id_drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical">
 
     <!-- 第一个位置 -->
@@ -99,7 +98,6 @@
             android:id="@+id/id_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         <!--
             这是一个浮动按钮。由于FloatingActionButton是重写ImageView的，

@@ -85,6 +85,7 @@ public class PersonActivity extends ToolBarActivity {
 
     @Override
     public void initView() {
+        getWindow().setBackgroundDrawable(null);
         mRlHeader = (RelativeLayout) findViewById(R.id.rl_header);
         mIvHeader = (CircleImageView) findViewById(R.id.iv_header);
         mRlNick = (RelativeLayout) findViewById(R.id.rl_nick);

@@ -86,6 +86,7 @@ public class SetLoveDateActivity extends ToolBarActivity implements TextWatcher,
 
     @Override
     public void initView() {
+        getWindow().setBackgroundDrawable(null);
         textInputDate = (TextInputLayout) findViewById(R.id.textInput_date);
         EditText editTextDate = textInputDate.getEditText();
         editTextDate.setFocusable(false);

@@ -170,6 +170,7 @@ public class HomeActivity extends GeneralActivity implements
 
     @Override
     public void initView() {
+        getWindow().setBackgroundDrawable(null);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerlayout);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.id_coordinatorlayout);
         mAppBarLayout = (AppBarLayout) findViewById(R.id.id_appbarlayout);

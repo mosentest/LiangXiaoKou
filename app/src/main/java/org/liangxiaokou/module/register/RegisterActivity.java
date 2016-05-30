@@ -112,6 +112,7 @@ public class RegisterActivity extends ToolBarActivity implements IRegisterView {
 
     @Override
     public void initView() {
+        getWindow().setBackgroundDrawable(null);
         mLlRoot = (LinearLayout) findViewById(R.id.ll_root);
         mSvRoot = (ScrollView) findViewById(R.id.sv_root);
         mTextInputUsername = (TextInputLayout) findViewById(R.id.textInput_username);
